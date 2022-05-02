@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/afroz1198/stack-underflow-mern-gql#readme",
   "devDependencies": {
-    "concurrently": "^6.0.0",
-    "husky": "^5.1.3",
-    "prettier": "^2.2.1"
+    "concurrently": "6.0.0",
+    "husky": "5.1.3",
+    "prettier": "2.2.1"
   },
   "husky": {
     "hooks": {
