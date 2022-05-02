@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.4.16",
+    "@apollo/client": "3.4.16",
     "@hookform/resolvers": "^1.0.1",
     "@tailwindcss/typography": "^0.4.0",
     "@testing-library/jest-dom": "^5.11.5",
