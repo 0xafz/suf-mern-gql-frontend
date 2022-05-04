@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/graphql-iso-date": "^3.4.0",
-    "@types/isomorphic-fetch": "^0.0.35",
+    "@types/isomorphic-fetch": "0.0.36",
     "@types/jest": "^27.0.2",
     "@types/jsonwebtoken": "^8.5.5",
     "@types/mongoose-unique-validator": "^1.0.5",
