@@ -13,7 +13,7 @@ const SortAnsBar = ({ sortBy, setSortBy }: SortAnsBarProps) => {
   }
 
   return (
-    <ButtonGroup tw="mr-10">
+    <ButtonGroup>
       <Button
         variant={sortBy === 'VOTES' ? 'contained' : 'outlined'}
         onClick={handleSortChange}
