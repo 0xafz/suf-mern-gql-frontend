@@ -9,8 +9,9 @@ import { formatDateAgo, getErrorMsg } from '../utils/helperFuncs'
 
 import tw from 'twin.macro'
 import { Question, useFetchQuestionLazyQuery } from '../generated/graphql'
+import { ButtonLikeLink } from '~~/components/my-mui/Misc'
 
-const Container = tw.div`p-2 w-full`
+const Container = tw.div`p-3 w-full`
 const Header = tw.div``
 
 const QuestionPage = () => {
@@ -57,13 +58,9 @@ const QuestionPage = () => {
           </h1>
           {user ? (
             <div tw="p-0 m-0 ml-2 align-baseline  order[-1] self-end sm:(order-none self-auto) ">
-              <Link
-                to="/ask"
-                onClick={() => clearEdit()}
-                tw="no-underline px-4 py-2 bg-blue-600  text-white text-xs rounded-sm leading-none whitespace-nowrap inline-block"
-              >
+              <ButtonLikeLink to="/ask" onClick={() => clearEdit()}>
                 Ask Question
-              </Link>
+              </ButtonLikeLink>
             </div>
           ) : (
             <AuthFormOnButton buttonType="ask" />

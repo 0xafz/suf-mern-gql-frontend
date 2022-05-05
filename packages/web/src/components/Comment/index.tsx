@@ -78,7 +78,7 @@ const Comment = ({
             }
           />
           <div>
-            <LightButton type="submit" style={{ marginRight: 9 }}>
+            <LightButton type="submit" tw="mr-4">
               Update Comment
             </LightButton>
             <LightButton onClick={() => setEditOpen(false)}>Cancel</LightButton>

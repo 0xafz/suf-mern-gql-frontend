@@ -19,7 +19,7 @@ const DialogBackDrop = styled.div(({ isMounted }: { isMounted?: boolean }) => [
 
 const DialogChildrenContainer = styled.div(
   ({ maxWidth }: { maxWidth?: boolean }) => [
-    tw`relative max-height[calc(100% - 2rem)] rounded-sm overflow-y-auto flex flex-col max-w-2xl bg-white color[rgba(0, 0, 0, .87)] m-8 py-2 px-6`,
+    tw`relative max-height[calc(100% - 2rem)] rounded-sm overflow-y-auto flex flex-col max-w-2xl bg-white color[rgba(0, 0, 0, .87)] m-4 md:m-8 py-2 px-2 md:px-6`,
     maxWidth && `max-width: ${maxWidth};`,
   ]
 )

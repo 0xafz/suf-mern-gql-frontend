@@ -90,17 +90,13 @@ const AnswerForm = ({ quesId, tags }: Props) => {
             }
           />
           <div>
-            <Button
-              style={{ marginTop: '0.8em' }}
-              type="submit"
-              disabled={loading}
-            >
+            <Button tw="mt-3" type="submit" disabled={loading}>
               Post Your Answer
             </Button>
           </div>
         </form>
       )}
-      <div tw="mt-4 text-sm sm:text-base">
+      <div tw="mt-4 text-sm sm:text-base leading-6">
         Browse other questions tagged &nbsp;
         {tags.map((t) => (
           <Tag key={t} label={t} to={`/tags/${t}`} tw="mr-1" />

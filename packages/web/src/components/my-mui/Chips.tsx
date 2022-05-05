@@ -1,5 +1,7 @@
 import tw from 'twin.macro'
 import { ComponentProps } from 'react'
+import IconButton from './IconButton'
+import { FaTimes } from 'react-icons/fa'
 
 export interface ChipWithCloseProps extends ComponentProps<'span'> {
   label: string
@@ -18,13 +20,9 @@ export const ChipWithClose = (props: ChipWithCloseProps) => {
       {...rest}
     >
       {label}
-      <button
-        type="button"
-        onClick={onDelete}
-        tw="ml-1 font-bold bg-transparent text-xs text-purple-800"
-      >
-        &#x2716;
-      </button>
+      <IconButton tag="button" onClick={onDelete}>
+        <FaTimes />
+      </IconButton>
     </span>
   )
 }

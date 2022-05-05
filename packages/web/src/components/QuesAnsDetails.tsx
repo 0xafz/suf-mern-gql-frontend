@@ -146,7 +146,7 @@ function QuesAnsDetails({
               rows={4}
             />
             <div tw="">
-              <LightButton style={{ marginRight: 9 }} type="submit">
+              <LightButton type="submit" tw="mr-4">
                 Update Answer
               </LightButton>
               <LightButton onClick={() => setEditAnsOpen(false)}>
@@ -170,10 +170,10 @@ function QuesAnsDetails({
         )}
         <div tw="flex flex-row flex-wrap justify-between my-5">
           {!editAnsOpen && (
-            <div tw="inline-block">
+            <div tw="inline-block mr-2">
               {user && user._id === author._id && (
                 <LightButton
-                  tw="m-1 p-0"
+                  tw="mr-1"
                   onClick={isAnswer ? openEditInput : editQuesAns}
                 >
                   Edit

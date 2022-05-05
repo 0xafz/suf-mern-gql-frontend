@@ -38,10 +38,13 @@ const DeleteDialog = ({ handleDelete, bodyType }: DeleteDialogProps) => {
             </p>
           </DialogContent>
           <DialogActions>
-            <LightButton onClick={handleModalClose} tw="mr-1">
+            <LightButton onClick={handleModalClose} tw="mr-1 py-2 px-4">
               Cancel
             </LightButton>
-            <LightButton onClick={handleDeleteClick} color="primary">
+            <LightButton
+              onClick={handleDeleteClick}
+              tw="bg-red-700 text-white py-2 px-4"
+            >
               Delete
             </LightButton>
           </DialogActions>

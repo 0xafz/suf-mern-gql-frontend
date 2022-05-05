@@ -1,12 +1,13 @@
 import { useEffect, useReducer } from 'react'
+import { MutationEditQuestionArgs } from '~~/generated/graphql'
 import createCtx from '../utils/createCtx'
 import storage from '../utils/localStorage'
 
 interface IAppContext {
-  editValues: any
+  editingQuestion: MutationEditQuestionArgs
   notification: any
   darkMode: boolean
-  setEditValues: (values: any) => void
+  setEditingQuestion: (values: any) => void
   clearEdit: () => void
   notify: (
     message: string,
@@ -26,12 +27,12 @@ const stateReducer = (state: any, action: any) => {
     case 'SET_EDIT':
       return {
         ...state,
-        editValues: action.payload,
+        editingQuestion: action.payload,
       }
     case 'CLEAR_EDIT':
       return {
         ...state,
-        editValues: null,
+        editingQuestion: null,
       }
     case 'SET_NOTIFICATION':
       return {
@@ -55,7 +56,7 @@ const stateReducer = (state: any, action: any) => {
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(stateReducer, {
-    editValues: null,
+    editingQuestion: null,
     notification: null,
     darkMode: false,
   })
@@ -70,7 +71,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const setEditValues: IAppContext['setEditValues'] = (valuesObj) => {
+  const setEditingQuestion: IAppContext['setEditingQuestion'] = (valuesObj) => {
     dispatch({
       type: 'SET_EDIT',
       payload: valuesObj,
@@ -121,10 +122,10 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AppCtxProvider
       value={{
-        editValues: state.editValues,
+        editingQuestion: state.editingQuestion,
         notification: state.notification,
         darkMode: state.darkMode,
-        setEditValues,
+        setEditingQuestion,
         clearEdit,
         notify,
         clearNotif,

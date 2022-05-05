@@ -16,14 +16,17 @@ const Avatar = (props: AvatarProps) => {
   return (
     <Link
       to={to}
-      css={[tw`w-10 h-10 rounded-sm mr-2`, styles && styles.avatarRoot]}
+      css={[
+        tw`min-w-[1rem] min-h-[1rem] rounded-md mr-2`,
+        styles && styles.avatarRoot,
+      ]}
       {...rest}
     >
       <img
         src={src}
         alt={alt}
         css={[
-          tw`text-transparent w-full h-full object-cover text-center `,
+          tw`text-transparent w-full h-full object-cover text-center rounded-[inherit]`,
           styles && styles.img,
         ]}
       ></img>

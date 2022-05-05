@@ -33,7 +33,7 @@ const QuesPageContent = ({ question, ...rest }: QuesPageContentProps) => {
     author,
   } = question
 
-  const { setEditValues, notify } = useAppContext()
+  const { setEditingQuestion, notify } = useAppContext()
   const navigate = useNavigate()
 
   const [submitVote] = useSubmitQuesVoteMutation({
@@ -82,7 +82,7 @@ const QuesPageContent = ({ question, ...rest }: QuesPageContentProps) => {
   }
 
   const editQues = () => {
-    setEditValues({ quesId, title, body, tags })
+    setEditingQuestion({ quesId, title, body, tags })
     navigate('/ask')
   }
 

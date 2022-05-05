@@ -22,7 +22,7 @@ const AllUsersPage = () => {
   const [filterInput, setFilterInput] = useState('')
 
   return (
-    <div tw="p-2 w-full">
+    <div tw="p-3 w-full">
       <h2 tw="text-xl my-2 text-purple-900 font-normal">Users</h2>
       <TextField
         tag="input"
