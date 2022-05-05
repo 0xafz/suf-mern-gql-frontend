@@ -58,7 +58,7 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
       variables: { username, password },
       update: (_, { data }) => {
         setUser(data?.login)
-        notify(`Welcome, ${data?.login.username}! You're logged in.`)
+        notify(`Welcome, ${data?.login.username}!`)
         reset()
         closeModal()
       },

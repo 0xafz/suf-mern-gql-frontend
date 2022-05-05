@@ -81,7 +81,7 @@ const CommentSection = ({
         user &&
         !inputOpen && (
           <LightButton onClick={() => setInputOpen(true)}>
-            add a comment
+            Add a comment
           </LightButton>
         )
       )}
@@ -98,6 +98,7 @@ const CommentSection = ({
             helperText={
               'commentBody' in errors ? errors?.commentBody?.message : ''
             }
+            tw="text-sm"
           />
           <div>
             <LightButton type="submit" style={{ marginRight: 9 }}>

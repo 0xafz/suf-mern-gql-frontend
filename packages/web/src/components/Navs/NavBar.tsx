@@ -16,7 +16,7 @@ const AppBar = styled.div(() => [
   tw`w-full flex flex-col flex-shrink-0 z-index[1100] box-border sticky top-0 left-auto right-0 color[inherit] border-solid border-t-4 border-t-pink-500 shadow-sm border-b-[1px] border-b-gray-500 bg-white`,
 ])
 const ToolBar = styled.div(() => [
-  tw`flex items-center relative px-0 md:px-6 min-height[48px] `,
+  tw`flex items-center relative px-2 md:px-6 min-height[48px] `,
 ])
 const Container = styled.div(() => [
   tw`w-full flex items-center mx-auto xl:max-width[1280px]`,
@@ -70,7 +70,7 @@ const NavBar = () => {
                   stack<strong>underflow</strong>
                 </IconButton>
               </MdScreenTopLeft>
-              <SearchBar tw="hidden sm:block " />
+              <SearchBar tw="hidden sm:block" />
             </div>
             <SmScreenTopRight>
               <IconButton

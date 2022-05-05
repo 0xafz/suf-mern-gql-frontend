@@ -243,7 +243,7 @@ const AnswerList = ({
       )}
       <div>
         {answerList.map((a) => (
-          <div key={a!._id} tw="mb-3">
+          <div key={a!._id} tw="mb-3 border-b-[1px] border-[lightgray]">
             <QuesAnsDetails
               quesAns={a!}
               voteQuesAns={(voteType: VoteType) =>

@@ -1,3 +1,4 @@
+import 'twin.macro'
 import { AnsSortBy } from '../../types'
 import { VButton as Button, ButtonGroup } from '../my-mui/Misc'
 
@@ -12,7 +13,7 @@ const SortAnsBar = ({ sortBy, setSortBy }: SortAnsBarProps) => {
   }
 
   return (
-    <ButtonGroup>
+    <ButtonGroup tw="mr-10">
       <Button
         variant={sortBy === 'VOTES' ? 'contained' : 'outlined'}
         onClick={handleSortChange}

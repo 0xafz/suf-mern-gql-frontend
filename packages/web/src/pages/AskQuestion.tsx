@@ -11,7 +11,7 @@ import { getErrorMsg } from '../utils/helperFuncs'
 import TextField from '~~/components/my-mui/TextField'
 import { ChipWithClose } from '~~/components/my-mui/Chips'
 import Autocomplete from '~~/components/my-mui/AutoComplete'
-import { Button } from '../components/my-mui/Misc'
+import { Button, Link } from '../components/my-mui/Misc'
 import {
   useAddQuestionMutation,
   useUpdateQuestionMutation,
@@ -34,9 +34,9 @@ const validationSchema = yup.object({
 
 const AskQuestionPage = () => {
   const navigate = useNavigate()
-  const { editValues, clearEdit, notify } = useAppContext()
+  const { editingQuestion, clearEdit, notify } = useAppContext()
   const [tagInput, setTagInput] = useState('')
-  const [tags, setTags] = useState(editValues ? editValues.tags : [])
+  const [tags, setTags] = useState(editingQuestion ? editingQuestion.tags : [])
   const [errorMsg, setErrorMsg] = useState('')
   const {
     register,
@@ -45,8 +45,8 @@ const AskQuestionPage = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: editValues ? editValues.title : '',
-      body: editValues ? editValues.body : '',
+      title: editingQuestion ? editingQuestion.title : '',
+      body: editingQuestion ? editingQuestion.body : '',
     },
     mode: 'onChange',
     resolver: yupResolver(validationSchema),
@@ -82,15 +82,15 @@ const AskQuestionPage = () => {
     if (tags.length === 0) return setErrorMsg('Atleast one tag must be added.')
 
     updateQuestion({
-      variables: { quesId: editValues.quesId, title, body, tags },
+      variables: { quesId: editingQuestion.quesId, title, body, tags },
       update: (_, { data }) => {
         navigate(`/questions/${data?.editQuestion._id}`)
         clearEdit()
-        notify('Question edited!')
+        notify('Edit successful!')
       },
     })
   }
-  const handleInputChange = (value: string) => {
+  const handleACInputChange = (value: string) => {
     const newInputValue = value.toLowerCase().trim()
 
     if (!/^[a-zA-Z0-9-]*$/.test(value)) {
@@ -102,31 +102,44 @@ const AskQuestionPage = () => {
 
     setTagInput(newInputValue)
   }
-  const handleChange = (value: string) => {
-    if (tags.length >= 5) {
-      setTagInput('')
-      return setErrorMsg('Max 5 tags can be added! Not more than that.')
+  const handleACChange = (value: string[]) => {
+    if (value.length < tags.length) {
+      setTags(value)
+      return
     }
-    if (tags.includes(value)) {
+    if (value.length > 5) {
+      setTagInput('')
+      setErrorMsg('Max 5 tags can be added! Not more than that.')
+      console.log('error')
+      return
+    }
+    if (tags.includes(tagInput)) {
       return setErrorMsg(
         "Duplicate tag found! You can't add the same tag twice."
       )
     }
+    console.log('set')
     setTags(value)
   }
   return (
     <div tw="w-full my-6 mx-3">
+      <Link to={`/questions/${editingQuestion.quesId}`} tw="text-purple-800">
+        {' '}
+        &lt; Back
+      </Link>
       <h1 tw="text-purple-900 text-xl">
-        {editValues ? 'Edit Your Question' : 'Ask A Question'}
+        {editingQuestion ? 'Edit Your Question' : 'Ask A Question'}
       </h1>
       <form
         tw="mt-4 text-purple-800"
         onSubmit={
-          editValues ? handleSubmit(editQuestion) : handleSubmit(postQuestion)
+          editingQuestion
+            ? handleSubmit(editQuestion)
+            : handleSubmit(postQuestion)
         }
       >
         <div tw="mb-4">
-          <p tw=" text-xs mb-2">
+          <p tw=" text-xs md:text-sm mb-2">
             Be specific and imagine you’re asking a question to another person
           </p>
           <TextField
@@ -138,11 +151,11 @@ const AskQuestionPage = () => {
             type="text"
             label="Title"
             error={'title' in errors}
-            helperText={'title' in errors ? errors.title.message : ''}
+            helperText={'title' in errors ? errors.title?.message : ''}
           />
         </div>
         <div tw="mb-4">
-          <p tw="text-xs mb-2">
+          <p tw="text-xs md:text-sm mb-2">
             Include all the information someone would need to answer your
             question
           </p>
@@ -155,21 +168,21 @@ const AskQuestionPage = () => {
             placeholder="Enter atleast 30 characters"
             label="Body"
             error={'body' in errors}
-            helperText={'body' in errors ? errors.body.message : ''}
+            helperText={'body' in errors ? errors.body?.message : ''}
           />
         </div>
         <div tw="mb-4">
-          <p tw="text-xs mb-2">
+          <p tw="text-xs md:text-sm mb-2">
             Add up to 5 tags to describe what your question is about
           </p>
           <Autocomplete
             value={tags}
             inputValue={tagInput}
             onInputChange={(_, value) => {
-              handleInputChange(value)
+              handleACInputChange(value)
             }}
             onChange={(_, value) => {
-              handleChange(value)
+              handleACChange(value)
             }}
             renderInput={(params) => (
               <TextField
@@ -179,8 +192,8 @@ const AskQuestionPage = () => {
                 fullWidth
               />
             )}
-            renderTags={(value, getTagProps) =>
-              value.map((option: string, index: number) => (
+            renderTags={(_, getTagProps) =>
+              tags.map((option: string, index: number) => (
                 <ChipWithClose
                   label={option}
                   color="primary"
@@ -196,7 +209,7 @@ const AskQuestionPage = () => {
           tw="bg-purple-700 hover:bg-purple-800 text-sm sm:text-base"
           disabled={addQuesLoading || editQuesLoading}
         >
-          {editValues ? 'Update Your Question' : 'Post Your Question'}
+          {editingQuestion ? 'Update Your Question' : 'Post Your Question'}
         </Button>
         <ErrorMessage
           errorMsg={errorMsg}

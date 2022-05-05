@@ -56,7 +56,7 @@ const AuthFormOnButton = ({ closeMenu, buttonType }: AuthFormOnButtonProps) => {
     if (buttonType === 'ask') {
       return (
         <Button
-          tw="bg-purple-600 hover:bg-purple-700 text-sm"
+          tw="bg-purple-600 hover:bg-purple-700 text-sm md:text-base"
           onClick={handleLoginModal}
         >
           Ask Question

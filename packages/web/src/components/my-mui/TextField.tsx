@@ -3,17 +3,21 @@ import tw, { css } from 'twin.macro' // eslint-disable-line no-unused-vars
 import { TCustomStyleClasses } from './types'
 
 const inputBorderStyles = [
-  tw` text-left absolute inset-0 m-0 py-0 px-2 pointer-events-none overflow-hidden min-w-0 rounded-md border-width[1px] border-gray-400 border-solid`,
+  tw` text-left absolute inset-0 m-0 py-0 px-2 pointer-events-none overflow-hidden min-w-0 rounded-sm md:rounded-md border-width[1px] border-gray-400 border-solid`,
 ]
 const inputStyles = css`
-  ${tw`w-full border-none outline-none select-none font[inherit] color[currentColor]`}
+  ${tw`w-full leading-9 border-none outline-none select-none font[inherit] color[currentColor]`}
   &:focus ~ fieldset {
     ${tw`border-2 border-purple-600`}
+  }
+  &::placeholder {
+    font-size: 1em;
+    color: gray;
   }
 `
 
 const inputRootStyles = css`
-  ${tw`px-1 py-2 relative inline-flex font[inherit]`}
+  ${tw`p-2 relative inline-flex font[inherit]`}
   &:hover > fieldset {
     ${tw`border-purple-600`}
   }
@@ -99,7 +103,7 @@ const TextField = React.forwardRef<HTMLElement, TextFieldProps<any>>(
               type="text"
               ref={ref as RefObject<HTMLInputElement>}
               {...rest}
-              css={[inputStyles, styles && styles.input]}
+              css={[inputStyles, tw`leading-9`, styles && styles.input]}
             />
           )}
           <fieldset
