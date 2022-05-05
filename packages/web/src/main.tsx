@@ -13,7 +13,7 @@ import ToastNotification from './components/ToastNotification'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
-      <Router>
+      <Router basename="/suf-mern-gql-frontend/">
         <AuthProvider>
           <AppProvider>
             <GlobalStyles />

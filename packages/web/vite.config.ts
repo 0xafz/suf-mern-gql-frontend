@@ -10,9 +10,6 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
 
   return {
-    build: {
-      sourcemap: 'inline',
-    },
     plugins: [
       react({
         babel: {
@@ -21,6 +18,7 @@ export default defineConfig(({ mode }) => {
       }),
       svgr(),
     ],
+    base: '/suf-mern-gql-frontend/',
     resolve: {
       alias: {
         '~~/': join(__dirname, 'src/'),
