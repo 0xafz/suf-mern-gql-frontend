@@ -1,6 +1,8 @@
-# Stack Underflow | SOF Clone | MERN-GraphQL
+# Stack Underflow | SOF Clone | Frontend
 
-**Update 1:** This project is a fork from [amand33p](https://github.com/amand33p). I have been making some efforts to replace `material-ui` with `twin.macro` just to learn react, CSS and make reusable components myself. It's been a great journey so far and I learned a lot from `material-ui`, they did solid work with their lib and also used a tonne of `useRef` 😅 to opt-out of react default rendering behaviour.
+> Here's [backend repo](https://github.com/zkindest/suf-mern-gql-backend)
+
+**Update 1:** This project is a fork from [amand33p](https://github.com/amand33p). I have been making some efforts to replace `material-ui` with `twin.macro` just to learn react, CSS and make reusable components. It's hard to get it all correct (flexibility,ease of use, performance)
 
 **Update 2:** Migrated Server codebase to **Typescript** using `type-graphql`, `typegoose`.
 
@@ -9,6 +11,8 @@
 **Update 4: (27/10/2021)** Automated Graphql Testing using `jest`, `ts-jest`, `isomorphic-fetch`.
 
 **Update 5: (29/10/2021)** Replaced constant growing arrays with mongoose virtuals.
+
+**Update 6: 03/05/2022** Make code clean and refactors, and use Poly repos.
 
 ## Future
 
@@ -19,42 +23,18 @@
 
 ## Usage
 
-#### Env variable:
-
-Create a .env file in server directory and add the following:
-
-```
-MONGODB_URI = "Your Mongo URI"
-PORT = 4000
-SECRET = "Your JWT secret"
-
-```
-
 #### Client:
 
-Open client/src/backendUrl.js & change "backend" variable to `"http://localhost:4000"`
+Open `.packages/app/src/constants` & change `backendUrl` variable to `"http://localhost:4000"`
 
 ```
-cd client
-npm install
-npm start
-```
-
-#### Server:
-
-Note: Make sure that you have installed 'nodemon' as global package.
-
-```
-cd server
-npm install
-npm run dev
+pnpm install
+pnpm run web dev
 ```
 
 Fullstack [Stack Overflow](https://stackoverflow.com/) clone (QnA site) made with MERN + GraphQL
 
 ## Built using
-
-#### Front-end
 
 - [ReactJS](https://reactjs.org/) - Frontend framework
 - [Apollo Client](https://www.apollographql.com/docs/react/) - State management library to manage both local and remote data with GraphQL
@@ -64,19 +44,6 @@ Fullstack [Stack Overflow](https://stackoverflow.com/) clone (QnA site) made wit
 - ~~[Material-UI w/ lots of CSS customisations](https://material-ui.com/)~~ now using [twin.macro](https://github.com/ben-rogerson/twin.macro)- CSS-in-JS library
 - [Yup](https://github.com/jquense/yup) - For form validation
 - [date-fns](https://date-fns.org/) - For manipulating & formatting of dates
-
-#### Back-end
-
-- [Node.js](https://nodejs.org/en/) - Runtime environment for JS
-- [Apollo Server](https://www.apollographql.com/docs/apollo-server/) - To build a self-documenting GraphQL API server
-- [Type-graphql](https://typegraphql.com/docs/introduction.html) - For defining the Graphql schema using classes and decorators and additional features like dependency injection, validation and auth guards to embrace code reusability
-- [MongoDB](https://www.mongodb.com/) - Database to store document-based data
-- [Mongoose](https://mongoosejs.com/) - MongoDB object modeling for Node.js
-- [Typegoose](https://typegoose.github.io/typegoose/) - Define Mongoose models using TypeScript classes
-- [JSON Web Token](https://jwt.io/) - A standard to secure/authenticate HTTP requests
-- [Bcrypt.js](https://www.npmjs.com/package/bcryptjs) - For hashing passwords
-- [Mongoose Unique Validator](https://www.npmjs.com/package/mongoose-unique-validator) - Plugin for better error handling of unique fields within Mongoose schema.
-- [Dotenv](https://www.npmjs.com/package/dotenv) - To load environment variables from a .env file
 
 ## Features
 
