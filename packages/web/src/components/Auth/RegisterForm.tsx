@@ -183,9 +183,9 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
         <Button
           type="submit"
           disabled={loading}
-          tw="w-full bg-blue-500 hover:bg-blue-700 flex items-center justify-center py-3"
+          tw="flex items-center justify-center w-full py-3"
         >
-          <SvgIcon tw="font-size[1.2em]" aria-hidden="true">
+          <SvgIcon tw="font-size[1.5em]" aria-hidden="true">
             <PersonAddIcon />
           </SvgIcon>
           &nbsp;
