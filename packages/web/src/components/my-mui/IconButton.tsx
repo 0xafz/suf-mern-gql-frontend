@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom'
 import { TCustomStyleClasses } from './types'
 
 const iconButtonStyles = css`
-  ${tw`padding[9px] bg-transparent border-none text-decoration[none] user-select[none] flex items-center justify-center vertical-align[middle] border-radius[50%] cursor-pointer outline-none transition-colors `}
+  ${tw`flex items-center justify-center vertical-align[middle] bg-transparent user-select[none] cursor-pointer transition-colors  border-none  border-radius[50%] padding[9px]  text-decoration[none] outline-offset[4px] hover:bg-black-25 focus:bg-black-75`}
 `
 type IconButtonProps<T extends 'button' | 'a'> = {
   tag: T
   styles?: TCustomStyleClasses
+  'aria-label': string
 } & ComponentProps<T>
 
 declare function IconButtonFn<Tag extends 'a' | 'button'>(

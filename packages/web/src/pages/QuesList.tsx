@@ -107,7 +107,7 @@ const QuesListPage = ({
   return (
     <QuestionListContainer>
       <QuestionListHeader>
-        <h2 tw="text-lg sm:text-xl font-normal text-purple-900 m-0">
+        <h2 tw="text-lg sm:text-xl font-normal  m-0">
           {tagFilterActive
             ? `Questions tagged [${tagName}]`
             : searchFilterActive
@@ -116,9 +116,7 @@ const QuesListPage = ({
         </h2>
         {user ? (
           <RouterLink to="/ask" onClick={() => clearEdit()}>
-            <Button tw="bg-purple-700 hover:bg-purple-800 text-sm sm:text-base">
-              Ask Question
-            </Button>
+            <Button>Ask Question</Button>
           </RouterLink>
         ) : (
           <AuthFormOnButton buttonType="ask" />
@@ -138,7 +136,7 @@ const QuesListPage = ({
               <QuesCard key={q?._id} question={q as Question} />
             ))
           ) : (
-            <h3 tw="text-center text-purple-900 mt-10">
+            <h3 tw="text-center  mt-10">
               {tagFilterActive
                 ? `There are no questions tagged "${tagName}".`
                 : searchFilterActive

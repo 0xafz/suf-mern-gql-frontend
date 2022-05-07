@@ -7,7 +7,7 @@ import Tag, { Tags } from '../Tag'
 
 const Grid = tw.div`m-0 w-1/3 mt-4 rounded-sm hidden md:block`
 
-const Heading = tw.h3`text-purple-900 text-center mb-4`
+const Heading = tw.h3` text-center mb-4`
 
 const RightSidePanel = () => {
   const { notify } = useAppContext()
@@ -22,7 +22,7 @@ const RightSidePanel = () => {
     <Grid>
       {
         <>
-          <div tw="hidden md:block min-height[45vh] p-2 bg-purple-100 rounded-md border-purple-600">
+          <div tw="hidden md:block min-height[45vh] p-2  rounded-md ">
             <Heading>Top Tags</Heading>
             {loading && <LoadingSpinner size="medium" />}
             {!loading && data && (

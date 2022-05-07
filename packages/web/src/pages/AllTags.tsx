@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { MdSearch as SearchIcon } from 'react-icons/md'
 import tw, { styled } from 'twin.macro'
+import { Container } from '~~/components/Layout'
 import InputAdornment from '~~/components/my-mui/InputAdornment'
 import Tag from '~~/components/my-mui/Tag'
 import TextField from '~~/components/my-mui/TextField'
@@ -26,13 +27,12 @@ const AllTagsPage = () => {
   const [filterInput, setFilterInput] = useState('')
 
   return (
-    <div tw="p-3 mt-2 w-full">
-      <h2 tw="text-xl text-purple-900  font-normal my-2">Tags</h2>
+    <Container>
+      <h2 tw="text-xl   font-normal my-2">Tags</h2>
       <p tw="leading-5 text-gray-700 mb-4">
         A tag is a keyword or label that categorizes your question with other,
-        similar questions. Using <br />
-        the right tags makes it easier for others to find and answer your
-        question.
+        similar questions. Using the right tags makes it easier for others to
+        find and answer your question.
       </p>
       <TextField
         tag="input"
@@ -44,7 +44,7 @@ const AllTagsPage = () => {
         tw="leading-3"
         InputProps={{
           startAdornment: (
-            <InputAdornment tw="text-purple-600 font-size[1.5em]">
+            <InputAdornment tw="text-gray-500 font-size[1.5em]">
               <SearchIcon />
             </InputAdornment>
           ),
@@ -65,7 +65,7 @@ const AllTagsPage = () => {
                   href={`/tags/${t.tagName}`}
                 />
                 <div tw="mt-2">
-                  <span tw="text-xs text-blue-800">{t.count} question(s)</span>
+                  <span tw="text-xs ">{t.count} question(s)</span>
                 </div>
               </TagContainer>
             ))}
@@ -76,7 +76,7 @@ const AllTagsPage = () => {
           <LoadingSpinner />
         </div>
       )}
-    </div>
+    </Container>
   )
 }
 

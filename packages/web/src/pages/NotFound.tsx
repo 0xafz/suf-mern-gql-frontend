@@ -5,9 +5,9 @@ import { SvgIcon } from '../components/my-mui/Misc'
 
 const NotFoundPage = () => {
   return (
-    <div tw="w-full mt-4 text-purple-900">
+    <div tw="w-full mt-4 ">
       <div tw="text-center margin-top[15%]">
-        <SvgIcon tw="font-size[6em] mb-3 text-purple-700">
+        <SvgIcon tw="font-size[6em] mb-3 text-blue-600" aria-hidden="true">
           <Error404 />
         </SvgIcon>
         <h2 tw="font-normal mb-0">Page Not Found</h2>

@@ -8,6 +8,7 @@ import { LightButton } from '../my-mui/Misc'
 import 'twin.macro'
 import { Author, Question } from '../../generated/graphql'
 import TextField from '../my-mui/TextField'
+import Divider from '../my-mui/Divider'
 
 const validationSchema = yup.object({
   commentBody: yup.string().min(15, 'Must be at least 15 characters'),
@@ -61,7 +62,7 @@ const CommentSection = ({
 
   return (
     <div>
-      {comments.length !== 0 && <div tw="height[1px] bg-gray-400" />}
+      {comments.length !== 0 && <Divider tw="border-[hsl(210,8%,90%)]" />}
       {visibleComments.map((c) => (
         <div key={c?._id} tw="border-bottom[1px solid rgba(0,0,0,.08)]">
           <Comment

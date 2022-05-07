@@ -46,13 +46,13 @@ const QuesCard = ({ question }: QuesCardProps) => {
       <QuestionContainer>
         <Question>
           <Link
-            tw="no-underline text-blue-600 font-normal hover:text-blue-800"
+            tw="no-underline text-blue-600 font-normal hover:text-blue-800 text-lg"
             to={`/questions/${_id}`}
           >
             {title}
           </Link>
         </Question>
-        <p tw="m-0 pb-1 text-xs">{body}</p>
+        <p tw="m-0 pb-1 text-sm">{body}</p>
         <div tw="flex flex-wrap float-left">
           {tags.map((t) => (
             <Tag

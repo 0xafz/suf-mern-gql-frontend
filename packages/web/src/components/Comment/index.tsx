@@ -44,7 +44,7 @@ const Comment = ({
         <div>
           <p tw="text-xs break-all inline mr-2">
             {comment.body} –{' '}
-            <Link tw="" to={`/user/${comment.author.username}`}>
+            <Link to={`/user/${comment.author.username}`}>
               {comment.author.username}
             </Link>
             <span>{` ${formatDayTime(comment.createdAt)} `}</span>
@@ -54,7 +54,7 @@ const Comment = ({
           </p>
           {user && user._id === comment.author._id && (
             <LightButton tw="mr-1" onClick={() => setEditOpen(true)}>
-              edit
+              Edit
             </LightButton>
           )}
           {user && user._id === comment.author._id && (

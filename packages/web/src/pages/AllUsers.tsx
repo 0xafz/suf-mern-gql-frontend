@@ -10,6 +10,7 @@ import InputAdornment from '~~/components/my-mui/InputAdornment'
 import Avatar from '~~/components/my-mui/Avatar'
 import TextField from '~~/components/my-mui/TextField'
 import { useFetchAllUsersQuery } from '../generated/graphql'
+import { Container } from '~~/components/Layout'
 
 const AllUsersPage = () => {
   const { notify } = useAppContext()
@@ -22,8 +23,8 @@ const AllUsersPage = () => {
   const [filterInput, setFilterInput] = useState('')
 
   return (
-    <div tw="p-3 w-full">
-      <h2 tw="text-xl my-2 text-purple-900 font-normal">Users</h2>
+    <Container>
+      <h2 tw="text-xl my-2  font-normal">Users</h2>
       <TextField
         tag="input"
         value={filterInput}
@@ -31,9 +32,10 @@ const AllUsersPage = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setFilterInput(e.target.value)
         }
+        tw="leading-3"
         InputProps={{
           startAdornment: (
-            <InputAdornment tw="text-purple-600 font-size[1.5em]">
+            <InputAdornment tw="text-gray-500 font-size[1.5em]">
               <SearchIcon />
             </InputAdornment>
           ),
@@ -51,6 +53,7 @@ const AllUsersPage = () => {
                   src={`https://secure.gravatar.com/avatar/${u._id}?s=164&d=identicon`}
                   alt={u.username}
                   to={`/user/${u.username}`}
+                  tw="w-10 h-10"
                 />
                 <div>
                   <Link to={`/user/${u.username}`}>
@@ -69,7 +72,7 @@ const AllUsersPage = () => {
           <LoadingSpinner />
         </div>
       )}
-    </div>
+    </Container>
   )
 }
 

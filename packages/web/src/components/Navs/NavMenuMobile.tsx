@@ -15,6 +15,7 @@ import 'twin.macro'
 const MobileNavMenu = () => {
   const { pathname } = useLocation()
   const [anchorEl, setAnchorEl] = useState<HTMLElement | undefined>(undefined)
+  const isMenuOpen = Boolean(anchorEl)
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -26,7 +27,12 @@ const MobileNavMenu = () => {
 
   return (
     <div>
-      <IconButton tag="button" tw="font-size[1.5em]" onClick={handleOpenMenu}>
+      <IconButton
+        tag="button"
+        tw="font-size[1.5em]"
+        aria-label={isMenuOpen ? 'close main menu' : 'open main menu'}
+        onClick={handleOpenMenu}
+      >
         {!anchorEl ? <MenuIcon /> : <CloseIcon />}
       </IconButton>
 
@@ -34,7 +40,7 @@ const MobileNavMenu = () => {
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        open={Boolean(anchorEl)}
+        open={isMenuOpen}
         onClose={handleCloseMenu}
       >
         <MenuItem

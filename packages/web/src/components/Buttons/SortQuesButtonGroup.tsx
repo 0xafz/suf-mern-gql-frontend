@@ -1,6 +1,6 @@
 import 'twin.macro'
 import React from 'react'
-import { VButton as Button, ButtonGroup } from '../my-mui/Misc'
+import { ButtonGroupItem, ButtonGroup } from '../my-mui/Misc'
 
 interface SortQuesBarProps {
   sortBy: 'HOT' | 'VOTES' | 'VIEWS' | 'NEWEST' | 'OLDEST'
@@ -15,36 +15,27 @@ const SortQuesBar = ({ sortBy, setSortBy }: SortQuesBarProps) => {
   return (
     <div tw="flex justify-end my-4 text-sm sm:text-base">
       <ButtonGroup>
-        <Button
-          variant={sortBy === 'HOT' ? 'contained' : 'outlined'}
-          onClick={handleSortChange}
-        >
+        <ButtonGroupItem active={sortBy === 'HOT'} onClick={handleSortChange}>
           Hot
-        </Button>
-        <Button
-          variant={sortBy === 'VOTES' ? 'contained' : 'outlined'}
-          onClick={handleSortChange}
-        >
+        </ButtonGroupItem>
+        <ButtonGroupItem active={sortBy === 'VOTES'} onClick={handleSortChange}>
           Votes
-        </Button>
-        <Button
-          variant={sortBy === 'VIEWS' ? 'contained' : 'outlined'}
-          onClick={handleSortChange}
-        >
+        </ButtonGroupItem>
+        <ButtonGroupItem active={sortBy === 'VIEWS'} onClick={handleSortChange}>
           Views
-        </Button>
-        <Button
-          variant={sortBy === 'NEWEST' ? 'contained' : 'outlined'}
+        </ButtonGroupItem>
+        <ButtonGroupItem
+          active={sortBy === 'NEWEST'}
           onClick={handleSortChange}
         >
           Newest
-        </Button>
-        <Button
-          variant={sortBy === 'OLDEST' ? 'contained' : 'outlined'}
+        </ButtonGroupItem>
+        <ButtonGroupItem
+          active={sortBy === 'OLDEST'}
           onClick={handleSortChange}
         >
           Oldest
-        </Button>
+        </ButtonGroupItem>
       </ButtonGroup>
     </div>
   )

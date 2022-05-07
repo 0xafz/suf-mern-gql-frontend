@@ -21,6 +21,7 @@ interface MobileUserMenuProps {
 
 const MobileUserMenu = ({ user, logoutUser }: MobileUserMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | undefined>(undefined)
+  const isMenuOpen = Boolean(anchorEl)
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -37,7 +38,12 @@ const MobileUserMenu = ({ user, logoutUser }: MobileUserMenuProps) => {
 
   return (
     <div>
-      <IconButton tag="button" onClick={handleOpenMenu} tw="font-size[1.5em]">
+      <IconButton
+        tag="button"
+        onClick={handleOpenMenu}
+        tw="font-size[1.5em]"
+        aria-label={isMenuOpen ? 'hide User settings' : 'show User settings'}
+      >
         {user ? (
           <Avatar
             to={`/user/${user.username}`}
@@ -58,7 +64,7 @@ const MobileUserMenu = ({ user, logoutUser }: MobileUserMenuProps) => {
           vertical: 'top',
           horizontal: 'right',
         }}
-        open={Boolean(anchorEl)}
+        open={isMenuOpen}
         onClose={handleCloseMenu}
       >
         {user ? (
@@ -68,13 +74,13 @@ const MobileUserMenu = ({ user, logoutUser }: MobileUserMenuProps) => {
               href={`/user/${user.username}`}
               onClick={handleCloseMenu}
             >
-              <SvgIcon tw="mr-2">
+              <SvgIcon tw="mr-2" aria-hidden="true">
                 <AccountCircleIcon />
               </SvgIcon>
               My Profile
             </MenuItem>
             <MenuItem tag="div" onClick={handleLogoutClick}>
-              <SvgIcon tw="mr-2">
+              <SvgIcon tw="mr-2" aria-hidden="true">
                 <PowerIcon />
               </SvgIcon>
               Logout: {user.username}

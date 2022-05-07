@@ -10,17 +10,17 @@ import Divider from '~~/components/my-mui/Divider'
 import { useFetchUserLazyQuery, User } from '../generated/graphql'
 
 const UserInfo = styled.div`
-  ${tw`flex justify-between color[inherit] items-center`}
+  ${tw`flex gap-10 color[inherit] items-center`}
 `
 const UserActivity = styled.div`
   ${tw`mt-4`}
 `
 
 const UserAvatar = styled.div`
-  ${tw`bg-purple-200 bg-opacity-50 h-56 w-48 flex flex-col justify-center items-center rounded-sm mx-auto`}
+  ${tw`bg-blue-200 bg-opacity-50 h-56 w-48 flex flex-col justify-center items-center rounded-md mx-auto`}
 `
 const UserCard = styled.div`
-  ${tw`w-full my-4 ml-2 mx-1 sm:ml-2 flex flex-row flex-wrap text-sm md:text-base`}
+  ${tw`w-full my-4 ml-2 mx-1 sm:ml-2 text-sm md:text-base`}
 `
 const UserPage = () => {
   const { notify } = useAppContext()
@@ -68,20 +68,20 @@ const UserPage = () => {
   return (
     <UserCard>
       <UserAvatar>
-        <RouterLink tw="" to={`/user/${username}`}>
+        <RouterLink to={`/user/${username}`}>
           <img
             src={`https://secure.gravatar.com/avatar/${_id}?s=164&d=identicon`}
             alt={username}
           />
         </RouterLink>
-        <p tw="text-purple-900 text-xl my-2">
+        <p tw=" text-xl my-2">
           {rep} <span tw="text-sm">REPUTATION</span>
         </p>
       </UserAvatar>
-      <div tw="text-purple-900 flex-1 mt-2 md:ml-2">
+      <div tw=" flex-1 p-2 md:p-4">
         <UserInfo>
           <div>
-            <h1 tw="text-2xl text-purple-800 ">{userName}</h1>
+            <h1 tw="text-2xl text-blue-800 ">{userName}</h1>
             <span tw="color[inherit]">
               member for {formatDateAgo(createdAt)}
             </span>
@@ -99,31 +99,31 @@ const UserPage = () => {
         </UserInfo>
         <UserActivity>
           <div tw="mb-5">
-            <h3 tw="margin[.5rem .1rem] font-bold">Last Asked Questions</h3>
+            <h3 tw=" font-bold">Last Asked Questions</h3>
             <Divider />
             {recentQuestions.length !== 0 ? (
               recentQuestions.map((q) => (
                 <div key={q?._id}>
                   <RecentQuestions creedo={q!} />
-                  <Divider />
+                  <Divider tw="border-[hsl(210,8%,90%)]" />
                 </div>
               ))
             ) : (
-              <p>No questions asked yet.</p>
+              <p tw="text-center">No questions asked yet.</p>
             )}
           </div>
           <div>
-            <h3 tw="margin[.5rem .1rem] font-bold">Last Answered Questions</h3>
+            <h3 tw="font-bold">Last Answered Questions</h3>
             <Divider />
             {recentAnswers.length !== 0 ? (
               recentAnswers.map((q) => (
                 <div key={q?._id}>
                   <RecentQuestions creedo={q!} />
-                  <Divider />
+                  <Divider tw="border-[hsl(210,8%,90%)]" />
                 </div>
               ))
             ) : (
-              <p>No questions answered yet.</p>
+              <p tw="text-center">No questions answered yet.</p>
             )}
           </div>
         </UserActivity>

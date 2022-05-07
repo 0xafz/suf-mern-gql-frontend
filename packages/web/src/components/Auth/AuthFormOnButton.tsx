@@ -56,7 +56,7 @@ const AuthFormOnButton = ({ closeMenu, buttonType }: AuthFormOnButtonProps) => {
     if (buttonType === 'ask') {
       return (
         <Button
-          tw="bg-purple-600 hover:bg-purple-700 text-sm md:text-base"
+          tw="bg-blue-500 hover:bg-blue-700 text-sm md:text-base"
           onClick={handleLoginModal}
         >
           Ask Question
@@ -70,16 +70,20 @@ const AuthFormOnButton = ({ closeMenu, buttonType }: AuthFormOnButtonProps) => {
       )
     } else if (buttonType === 'upvote') {
       return (
-        <IconButton tag="button" onClick={handleLoginModal}>
-          <SvgIcon tw="text-gray-400">
+        <IconButton tag="button" onClick={handleLoginModal} aria-label="upvote">
+          <SvgIcon tw="text-gray-400" aria-hidden="true">
             <UpvoteIcon />
           </SvgIcon>
         </IconButton>
       )
     } else if (buttonType === 'downvote') {
       return (
-        <IconButton tag="button" onClick={handleLoginModal}>
-          <SvgIcon tw="text-gray-400">
+        <IconButton
+          tag="button"
+          onClick={handleLoginModal}
+          aria-label="downvote"
+        >
+          <SvgIcon tw="text-gray-400" aria-hidden="true">
             <DownvoteIcon />
           </SvgIcon>
         </IconButton>
@@ -88,11 +92,11 @@ const AuthFormOnButton = ({ closeMenu, buttonType }: AuthFormOnButtonProps) => {
       return (
         <div>
           <MenuItem tag="div" onClick={handleLoginModal}>
-            <ExitToAppIcon tw="mr-2 font-size[1.2em]" />
+            <ExitToAppIcon tw="mr-2 font-size[1.2em]" aria-hidden="true" />
             Log In
           </MenuItem>
           <MenuItem tag="div" onClick={handleSignupModal}>
-            <PersonAddIcon tw="mr-2 font-size[1.2em]" />
+            <PersonAddIcon tw="mr-2 font-size[1.2em]" aria-hidden="true" />
             Sign Up
           </MenuItem>
         </div>

@@ -1,6 +1,5 @@
-import 'twin.macro'
 import { AnsSortBy } from '../../types'
-import { VButton as Button, ButtonGroup } from '../my-mui/Misc'
+import { ButtonGroupItem, ButtonGroup } from '../my-mui/Misc'
 
 interface SortAnsBarProps {
   sortBy: AnsSortBy
@@ -14,24 +13,15 @@ const SortAnsBar = ({ sortBy, setSortBy }: SortAnsBarProps) => {
 
   return (
     <ButtonGroup>
-      <Button
-        variant={sortBy === 'VOTES' ? 'contained' : 'outlined'}
-        onClick={handleSortChange}
-      >
+      <ButtonGroupItem active={sortBy === 'VOTES'} onClick={handleSortChange}>
         Votes
-      </Button>
-      <Button
-        variant={sortBy === 'NEWEST' ? 'contained' : 'outlined'}
-        onClick={handleSortChange}
-      >
+      </ButtonGroupItem>
+      <ButtonGroupItem active={sortBy === 'NEWEST'} onClick={handleSortChange}>
         Newest
-      </Button>
-      <Button
-        variant={sortBy === 'OLDEST' ? 'contained' : 'outlined'}
-        onClick={handleSortChange}
-      >
+      </ButtonGroupItem>
+      <ButtonGroupItem active={sortBy === 'OLDEST'} onClick={handleSortChange}>
         Oldest
-      </Button>
+      </ButtonGroupItem>
     </ButtonGroup>
   )
 }

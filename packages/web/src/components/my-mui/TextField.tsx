@@ -1,5 +1,5 @@
 import React, { RefObject, ComponentProps } from 'react'
-import tw, { css } from 'twin.macro' // eslint-disable-line no-unused-vars
+import tw, { css, theme } from 'twin.macro' // eslint-disable-line no-unused-vars
 import { TCustomStyleClasses } from './types'
 
 const inputBorderStyles = [
@@ -8,25 +8,25 @@ const inputBorderStyles = [
 const inputStyles = css`
   ${tw`w-full leading-9 border-none outline-none select-none font[inherit] color[currentColor]`}
   &:focus ~ fieldset {
-    ${tw`border-2 border-purple-600`}
+    ${tw`border-2 border-blue-600`}
   }
   &::placeholder {
     font-size: 1em;
-    color: gray;
+    ${tw`text-gray-500`}
   }
 `
 
 const inputRootStyles = css`
   ${tw`p-2 relative inline-flex font[inherit]`}
   &:hover > fieldset {
-    ${tw`border-purple-600`}
+    ${tw`border-blue-600`}
   }
 `
 const fieldRootStyles = css`
   ${tw`p-0 align-top min-w-0 border-0 inline-flex flex-col relative`}
 `
 const inputLabelStyles = css`
-  ${tw`block font[inherit] p-0 text-black text-opacity-[.5] transform-origin[left top] whitespace-nowrap transition-default overflow-ellipsis z-index[1] transform translate-x-3 translate-y-2  scale-100 absolute top-0 left-0 overflow-hidden`}
+  ${tw`block font[inherit] p-0 text-black-900 text-opacity-[.5] transform-origin[left top] whitespace-nowrap transition-default overflow-ellipsis z-index[1] transform translate-x-3 translate-y-2  scale-100 absolute top-0 left-0 overflow-hidden`}
 `
 const inputLabelActiveStyles = css`
   ${tw`translate-y-[-.4em] scale-75 color[inherit]`}

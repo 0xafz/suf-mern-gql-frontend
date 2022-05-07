@@ -3,8 +3,14 @@ import DownvoteIcon from '../../svg/downvote.svg?component'
 
 import { SvgIcon } from '../my-mui/Misc'
 import Checkbox from '../my-mui/Checkbox'
-import 'twin.macro' // eslint-disable-line no-unused-vars
+import { styled } from 'twin.macro' // eslint-disable-line no-unused-vars
 import { VoteType } from '~~/generated/graphql'
+
+export const StyledSvgIcon = styled(SvgIcon)`
+  width: 3rem;
+  height: 3rem;
+  padding: 0.5rem;
+`
 
 interface UpVoteButtonProps {
   checked: boolean
@@ -13,16 +19,17 @@ interface UpVoteButtonProps {
 export const UpvoteButton = ({ checked, handleUpvote }: UpVoteButtonProps) => {
   return (
     <Checkbox
+      aria-label="upvote"
       checked={checked}
       icon={
-        <SvgIcon tw="text-gray-400 font-size[32px]">
+        <StyledSvgIcon tw="text-gray-400 ">
           <UpvoteIcon />
-        </SvgIcon>
+        </StyledSvgIcon>
       }
       checkedIcon={
-        <SvgIcon tw="text-green-600 font-size[32px]">
+        <StyledSvgIcon tw="text-green-600 ">
           <UpvoteIcon />
-        </SvgIcon>
+        </StyledSvgIcon>
       }
       onClick={() => handleUpvote(VoteType.Upvote)}
     />
@@ -40,16 +47,17 @@ export const DownvoteButton = ({
 }: DownVoteButtonProps) => {
   return (
     <Checkbox
+      aria-label="downvote"
       checked={checked}
       icon={
-        <SvgIcon tw="text-gray-400 font-size[32px]">
+        <StyledSvgIcon tw="text-gray-400 ">
           <DownvoteIcon />
-        </SvgIcon>
+        </StyledSvgIcon>
       }
       checkedIcon={
-        <SvgIcon tw="text-green-600 font-size[32px]">
+        <StyledSvgIcon tw="text-green-600 ">
           <DownvoteIcon />
-        </SvgIcon>
+        </StyledSvgIcon>
       }
       onClick={() => handleDownvote(VoteType.Downvote)}
     />

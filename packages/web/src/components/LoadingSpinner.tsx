@@ -2,7 +2,7 @@ import tw from 'twin.macro' // eslint-disable-line no-unused-vars
 import { AiOutlineLoading3Quarters as LoadingIcon } from 'react-icons/ai'
 import { ComponentProps } from 'react'
 
-const loaderStyles = tw`w-10 h-10 inline-block animate-spin text-center text-purple-700`
+const loaderStyles = tw`w-10 h-10 inline-block animate-spin text-center text-blue-500`
 
 interface LoadingSpinnerProps extends ComponentProps<'span'> {
   size?: 'small' | 'medium' | 'large' | 'x-large'

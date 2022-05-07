@@ -16,6 +16,7 @@ import {
   useAddQuestionMutation,
   useUpdateQuestionMutation,
 } from '../generated/graphql'
+import { Container } from '~~/components/Layout'
 
 interface BaseQuestionArgs {
   title: string
@@ -25,11 +26,11 @@ const validationSchema = yup.object({
   title: yup
     .string()
     .required('Required')
-    .min(15, 'Must be at least 15 characters'),
+    .min(50, 'Must be at least 50 characters'),
   body: yup
     .string()
     .required('Required')
-    .min(30, 'Must be at least 30 characters'),
+    .min(100, 'Must be at least 100 characters'),
 })
 
 const AskQuestionPage = () => {
@@ -110,7 +111,6 @@ const AskQuestionPage = () => {
     if (value.length > 5) {
       setTagInput('')
       setErrorMsg('Max 5 tags can be added! Not more than that.')
-      console.log('error')
       return
     }
     if (tags.includes(tagInput)) {
@@ -118,20 +118,19 @@ const AskQuestionPage = () => {
         "Duplicate tag found! You can't add the same tag twice."
       )
     }
-    console.log('set')
     setTags(value)
   }
   return (
-    <div tw="w-full my-6 mx-3">
-      <Link to={`/questions/${editingQuestion.quesId}`} tw="text-purple-800">
+    <Container>
+      <Link to={editQuesLoading ? `/questions/${editingQuestion.quesId}` : '/'}>
         {' '}
         &lt; Back
       </Link>
-      <h1 tw="text-purple-900 text-xl">
-        {editingQuestion ? 'Edit Your Question' : 'Ask A Question'}
+      <h1 tw="text-xl">
+        {editingQuestion ? 'Edit Your Question' : 'Ask a public question'}
       </h1>
       <form
-        tw="mt-4 text-purple-800"
+        tw="mt-4 "
         onSubmit={
           editingQuestion
             ? handleSubmit(editQuestion)
@@ -147,7 +146,7 @@ const AskQuestionPage = () => {
             required
             fullWidth
             {...register('title')}
-            placeholder="Enter atleast 15 characters"
+            placeholder="Enter atleast 50 characters"
             type="text"
             label="Title"
             error={'title' in errors}
@@ -165,7 +164,7 @@ const AskQuestionPage = () => {
             rows={5}
             fullWidth
             {...register('body')}
-            placeholder="Enter atleast 30 characters"
+            placeholder="Enter atleast 100 characters"
             label="Body"
             error={'body' in errors}
             helperText={'body' in errors ? errors.body?.message : ''}
@@ -206,7 +205,7 @@ const AskQuestionPage = () => {
         </div>
         <Button
           type="submit"
-          tw="bg-purple-700 hover:bg-purple-800 text-sm sm:text-base"
+          tw="text-sm sm:text-base"
           disabled={addQuesLoading || editQuesLoading}
         >
           {editingQuestion ? 'Update Your Question' : 'Post Your Question'}
@@ -216,7 +215,7 @@ const AskQuestionPage = () => {
           clearErrorMsg={() => setErrorMsg('')}
         />
       </form>
-    </div>
+    </Container>
   )
 }
 
