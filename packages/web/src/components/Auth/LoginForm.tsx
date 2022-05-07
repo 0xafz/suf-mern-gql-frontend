@@ -122,7 +122,7 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
           />
         </div>
         <Button
-          tw="w-full bg-blue-700 hover:bg-blue-700 text-base"
+          tw="flex justify-center items-center w-full  text-base"
           type="submit"
           disabled={loading}
         >

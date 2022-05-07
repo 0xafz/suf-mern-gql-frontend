@@ -17,7 +17,7 @@ const RecentQuestions = ({ creedo }: { creedo: RecentActivity }) => {
           {creedo.title}
         </Link>
       </div>
-      <span tw="text-xs">{formatDateAgo(creedo.createdAt)} ago</span>
+      <span tw="text-xs md:text-sm">{formatDateAgo(creedo.createdAt)} ago</span>
     </div>
   )
 }
