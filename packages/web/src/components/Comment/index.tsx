@@ -22,6 +22,7 @@ const Comment = ({
   deleteComment,
 }: CommentProps) => {
   const [editOpen, setEditOpen] = useState(false)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [editedCommentBody, setEditedCommentBody] = useState(comment.body)
 
   useEffect(() => {
@@ -32,6 +33,10 @@ const Comment = ({
     setEditOpen(false)
   }
 
+  const handleDeleteComment = () => {
+    deleteComment()
+    setDeleteModalOpen(false)
+  }
   const handleCommentEdit = (e: React.FormEvent) => {
     e.preventDefault()
     editComment(editedCommentBody, comment._id, quesAnsId)
@@ -53,15 +58,20 @@ const Comment = ({
             </span>
           </p>
           {user && user._id === comment.author._id && (
-            <LightButton tw="mr-1" onClick={() => setEditOpen(true)}>
-              Edit
-            </LightButton>
-          )}
-          {user && user._id === comment.author._id && (
-            <DeleteDialog
-              bodyType="comment"
-              handleDelete={() => deleteComment(comment._id, quesAnsId)}
-            />
+            <>
+              <LightButton tw="mr-1" onClick={() => setEditOpen(true)}>
+                Edit
+              </LightButton>
+              <LightButton onClick={() => setDeleteModalOpen(true)}>
+                Delete
+              </LightButton>
+              <DeleteDialog
+                open={deleteModalOpen}
+                bodyType="comment"
+                onConfirm={() => handleDeleteComment()}
+                onClose={() => setDeleteModalOpen(false)}
+              />
+            </>
           )}
         </div>
       ) : (

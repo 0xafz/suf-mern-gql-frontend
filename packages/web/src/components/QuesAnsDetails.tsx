@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useState, useEffect, ChangeEvent } from 'react'
 import { UpvoteButton, DownvoteButton } from './Buttons/Vote'
 import { useAuthContext } from '../context/auth'
-import PostedByUser from './PostedByUser'
+import { PostedBy } from './PostedBy'
 import CommentSection from './Comment/Comments'
 import AcceptAnswerButton from './Buttons/AcceptAnswer'
 import DeleteDialog from './Dialogs/DeleteDialog'
@@ -61,6 +61,7 @@ function QuesAnsDetails({
 
   const { user } = useAuthContext()
   const [editAnsOpen, setEditAnsOpen] = useState(false)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [editedAnswerBody, setEditedAnswerBody] = useState(body)
 
   const {
@@ -93,6 +94,10 @@ function QuesAnsDetails({
     reset()
     editQuesAns(editedAnswerBody, id)
     closeEditInput()
+  }
+  const handleDeleteConfirm = () => {
+    deleteQuesAns()
+    setDeleteModalOpen(false)
   }
 
   return (
@@ -172,28 +177,31 @@ function QuesAnsDetails({
           {!editAnsOpen && (
             <div tw="inline-block mr-2">
               {user && user._id === author._id && (
-                <LightButton
-                  tw="mr-1"
-                  onClick={isAnswer ? openEditInput : editQuesAns}
-                >
-                  Edit
-                </LightButton>
-              )}
-              {user && (user._id === author._id || user.role === 'ADMIN') && (
-                <DeleteDialog
-                  bodyType={isAnswer ? 'answer' : 'question'}
-                  handleDelete={deleteQuesAns}
-                />
+                <>
+                  <LightButton
+                    tw="mr-1"
+                    onClick={isAnswer ? openEditInput : editQuesAns}
+                  >
+                    Edit
+                  </LightButton>
+                  <LightButton>Delete</LightButton>
+
+                  <DeleteDialog
+                    open={deleteModalOpen}
+                    bodyType={isAnswer ? 'answer' : 'question'}
+                    onConfirm={handleDeleteConfirm}
+                    onClose={() => setDeleteModalOpen(false)}
+                  />
+                </>
               )}
             </div>
           )}
-          <PostedByUser
+          <PostedBy
             username={author.username}
             userId={author._id}
             createdAt={createdAt}
             updatedAt={updatedAt}
-            filledVariant={true}
-            isAnswer={isAnswer}
+            postType={isAnswer ? 'answered' : 'asked'}
           />
         </div>
         <CommentSection

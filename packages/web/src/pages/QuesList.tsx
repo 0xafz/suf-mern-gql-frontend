@@ -3,7 +3,7 @@ import { useParams, Link as RouterLink } from 'react-router-dom'
 import { useAppContext } from '../context/state'
 import { useAuthContext } from '../context/auth'
 import SortQuesBar from '../components/Buttons/SortQuesButtonGroup'
-import QuesCard from '../components/Question/Card'
+import QuestionCard from '../components/Question/QuestionCard'
 import AuthFormOnButton from '../components/Auth/AuthFormOnButton'
 import LoadMoreButton from '../components/Buttons/LoadMore'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -133,7 +133,7 @@ const QuesListPage = ({
         {quesData &&
           (quesData.questions.length !== 0 ? (
             quesData.questions.map((q) => (
-              <QuesCard key={q?._id} question={q as Question} />
+              <QuestionCard key={q?._id} question={q as Question} />
             ))
           ) : (
             <h3 tw="text-center  mt-10">

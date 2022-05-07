@@ -4,34 +4,30 @@ import { formatDateAgo, formatDayTime } from '../utils/helperFuncs'
 import Avatar from './my-mui/Avatar'
 import { Link } from './my-mui/Misc'
 
-const AvatarDetails = tw.div`text-xs md:text-sm flex-grow-[0] break-all`
+const Details = tw.div`text-xs md:text-sm flex-grow-[0] break-all`
 
-interface ByUserProps {
+interface PostedByProps {
   username: string
   userId: string
-  isAnswer?: boolean
-  filledVariant?: boolean
+  postType?: 'asked' | 'answered'
   createdAt?: Scalars['DateTime']
   updatedAt?: Scalars['DateTime']
 }
-const ByUser = ({
+export const PostedBy = ({
   username,
   userId,
+  postType = 'asked',
   createdAt,
   updatedAt,
-  filledVariant,
-  isAnswer,
-}: ByUserProps) => {
+}: PostedByProps) => {
   return (
     <div tw="float-right max-w-[175px] md:max-w-[200px] ">
       <div tw="break-words text-gray-600 text-xs ">
-        {filledVariant
-          ? `${isAnswer ? 'answered' : 'asked'} ${formatDayTime(createdAt)}`
-          : `asked ${formatDateAgo(createdAt)} ago`}
+        {`${postType} ${formatDateAgo(createdAt)} ago`}
       </div>
-      {filledVariant && createdAt !== updatedAt && (
+      {updatedAt && createdAt !== updatedAt && (
         <div tw="text-gray-600 text-xs ">
-          {`updated ${formatDayTime(updatedAt)}`}
+          {`updated ${formatDateAgo(updatedAt)} ago`}
           <br />
         </div>
       )}
@@ -42,14 +38,35 @@ const ByUser = ({
           to={`/user/${username}`}
           tw="w-10 "
         />
-        <AvatarDetails>
+        <Details>
           <Link to={`/user/${username}`}>
             <span>{username}</span>
           </Link>
-        </AvatarDetails>
+        </Details>
       </div>
     </div>
   )
 }
 
-export default ByUser
+export const MiniPostedBy = ({
+  username,
+  userId,
+  postType = 'asked',
+  createdAt,
+}: PostedByProps) => {
+  return (
+    <div tw="float-right flex items-center text-sm">
+      <Avatar
+        src={`https://secure.gravatar.com/avatar/${userId}?s=164&d=identicon`}
+        alt={username}
+        to={`/user/${username}`}
+        tw="w-4"
+      />
+      <Link to={`/user/${username}`}>
+        <span>{username}</span>
+      </Link>
+      &nbsp;
+      {`${postType} ${formatDateAgo(createdAt)} ago`}
+    </div>
+  )
+}
