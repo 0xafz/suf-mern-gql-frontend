@@ -11,6 +11,7 @@ import { MdSearch as SearchIcon } from 'react-icons/md'
 
 import tw, { styled } from 'twin.macro' // eslint-disable-line no-unused-vars
 import IconButton from '../my-mui/IconButton'
+import { Link } from 'react-router-dom'
 
 const AppBar = styled.div(() => [
   tw`w-full flex flex-col flex-shrink-0 z-index[1100] box-border sticky top-0 left-auto right-0 color[inherit] border-solid border-t-4 border-t-pink-500 shadow-sm border-b-[1px] border-b-gray-500 bg-white`,
@@ -55,12 +56,12 @@ const NavBar = () => {
             <div tw="flex flex-grow-default items-center">
               <SmScreenTopLeft>
                 <NavMenuMobile />
-                <IconButton tag="a" href="/" tw="px-2 mb-1">
+                <Link to="/" tw="px-2 mb-1">
                   <img src={SofLogo} width="25px" alt="sof-logo" />
-                </IconButton>
+                </Link>
               </SmScreenTopLeft>
               <MdScreenTopLeft>
-                <IconButton tag="a" href="/" tw="mr-1 flex items-center">
+                <Link to="/" tw="mr-1 flex items-center">
                   <img
                     src={SofLogo}
                     width="28px"
@@ -68,7 +69,7 @@ const NavBar = () => {
                     style={{ marginRight: '5px' }}
                   />
                   stack<strong>underflow</strong>
-                </IconButton>
+                </Link>
               </MdScreenTopLeft>
               <SearchBar tw="hidden sm:block" />
             </div>
@@ -77,6 +78,7 @@ const NavBar = () => {
                 tag="button"
                 onClick={() => setSearchOpen((prevState) => !prevState)}
                 tw="font-size[1.5em]"
+                aria-label="search"
               >
                 <SearchIcon />
               </IconButton>

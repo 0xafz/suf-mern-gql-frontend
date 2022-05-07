@@ -4,7 +4,7 @@ import { ComponentProps } from 'react'
 
 const Container = tw.span`inline-flex items-center h-auto `
 
-const TagWord = tw.span`inline-flex items-center h-auto rounded-sm bg-blue-200 bg-opacity-75 `
+const TagWord = tw.span`inline-flex items-center h-auto rounded-md bg-blue-200 bg-opacity-75 `
 
 interface TagProps extends ComponentProps<'span'> {
   to: string
@@ -16,13 +16,13 @@ const Tag = ({ to, children, label, count, ...rest }: TagProps) => (
     <TagWord>
       <Link
         to={to}
-        tw=" text-blue-700 no-underline text-xs padding[.1rem .5rem] outline-color[darkorange]"
+        tw=" text-blue-600 no-underline text-xs padding[.2rem .5rem] outline-color[darkorange]"
       >
         {label}
       </Link>
     </TagWord>
     {count && (
-      <div tw="text-xs text-blue-600 inline">&nbsp; {` × ${count}`}</div>
+      <span tw="text-sm text-gray-600 inline">&nbsp; {` × ${count}`}</span>
     )}
   </Container>
 )
@@ -34,7 +34,7 @@ type TagsProps = {
 export const Tags = styled.div((props: TagsProps) => [
   `
 	span + span {
-    ${props.col && props.col ? `margin-top: .2em` : `margin-left: .2em`}
+    ${props.col && props.col ? `margin-top: .5em` : `margin-left: .2em`}
 	}
 `,
   tw`flex flex-wrap`,

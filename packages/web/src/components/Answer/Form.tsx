@@ -73,7 +73,7 @@ const AnswerForm = ({ quesId, tags }: Props) => {
 
   return (
     <div>
-      {user && <h3 tw="text-purple-900">Your Answer</h3>}
+      {user && <h3 tw="mt-5 mb-4 font-normal text-lg">Your Answer</h3>}
       {user && (
         <form onSubmit={handleSubmit(postAnswer)}>
           <TextField
@@ -89,14 +89,12 @@ const AnswerForm = ({ quesId, tags }: Props) => {
               'answerBody' in errors ? errors?.answerBody?.message : ''
             }
           />
-          <div>
-            <Button tw="mt-3" type="submit" disabled={loading}>
-              Post Your Answer
-            </Button>
-          </div>
+          <Button tw="mt-10 block" type="submit" disabled={loading}>
+            {loading ? 'processing...' : 'Post Your Answer'}
+          </Button>
         </form>
       )}
-      <div tw="mt-4 text-sm sm:text-base leading-6">
+      <div tw="mt-8 text-sm sm:text-base leading-6">
         Browse other questions tagged &nbsp;
         {tags.map((t) => (
           <Tag key={t} label={t} to={`/tags/${t}`} tw="mr-1" />

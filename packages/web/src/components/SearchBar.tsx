@@ -36,7 +36,7 @@ const SearchBar = ({ setSearchOpen, ...rest }: SearchBarProps) => {
         <TextField
           tag="input"
           type="search"
-          placeholder="Search for questions…"
+          placeholder="Search…"
           value={searchInput}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setSearchInput(e.target.value)
@@ -47,7 +47,7 @@ const SearchBar = ({ setSearchOpen, ...rest }: SearchBarProps) => {
           fullWidth
           InputProps={{
             startAdornment: (
-              <InputAdornment tw="font-size[1.5em] text-gray-600">
+              <InputAdornment tw="font-size[1.5em] text-gray-500">
                 <SearchIcon />
               </InputAdornment>
             ),
@@ -55,6 +55,7 @@ const SearchBar = ({ setSearchOpen, ...rest }: SearchBarProps) => {
               searchInput || setSearchOpen ? (
                 <InputAdornment>
                   <IconButton
+                    aria-label="Cancel search"
                     tag="button"
                     tw="p-0 font-size[1.5em]"
                     onClick={clearSearch}
@@ -64,6 +65,7 @@ const SearchBar = ({ setSearchOpen, ...rest }: SearchBarProps) => {
                 </InputAdornment>
               ) : null,
           }}
+          tw="leading-3"
         />
       </form>
     </div>

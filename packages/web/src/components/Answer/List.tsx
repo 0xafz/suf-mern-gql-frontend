@@ -19,6 +19,7 @@ import { getErrorMsg } from '../../utils/helperFuncs'
 import sortAnswers from '../../utils/sortAnswers'
 import QuesAnsDetails from '../QuesAnsDetails'
 import SortAnsBar from '../Buttons/SortAnsButtonGroup'
+import Divider from '../my-mui/Divider'
 
 interface AnswerListProps {
   quesId: string
@@ -235,15 +236,15 @@ const AnswerList = ({
     <div tw="mt-10">
       {answerList.length !== 0 && (
         <div tw="flex justify-between items-center flex-wrap">
-          <h2 tw="text-purple-900 font-normal text-xl">
+          <h2 tw="font-normal text-xl">
             {answerList.length} {answerList.length === 1 ? 'Answer' : 'Answers'}
           </h2>
           <SortAnsBar sortBy={sortBy} setSortBy={setSortBy} />
         </div>
       )}
       <div>
-        {answerList.map((a) => (
-          <div key={a!._id} tw="mb-3 border-b-[1px] border-[lightgray]">
+        {answerList.map((a, i) => (
+          <div key={a!._id}>
             <QuesAnsDetails
               quesAns={a!}
               voteQuesAns={(voteType: VoteType) =>
@@ -259,6 +260,9 @@ const AnswerList = ({
               acceptedAnswer={acceptedAnswer}
               quesAuthor={quesAuthor}
             />
+            {i >= 0 && i < answerList.length && (
+              <Divider tw="my-4 border-[hsl(210,8%,90%)]" />
+            )}
           </div>
         ))}
       </div>

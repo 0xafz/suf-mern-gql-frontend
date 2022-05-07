@@ -1,6 +1,5 @@
 import { ComponentProps } from 'react'
 import { useNavigate } from 'react-router-dom'
-import 'twin.macro' //eslint-disable-line no-unused-vars
 import { useAppContext } from '~~/context/state'
 import {
   FetchQuestionDocument,
@@ -160,7 +159,7 @@ const QuesPageContent = ({ question, ...rest }: QuesPageContentProps) => {
   }
 
   return (
-    <div tw="border-top[1px solid lightgray]" {...rest}>
+    <div {...rest}>
       <QuesAnsDetails
         quesAns={question}
         voteQuesAns={(voteType: VoteType) =>

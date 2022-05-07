@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useAppContext } from '../context/state'
 import { useAuthContext } from '../context/auth'
 import QuesPageContent from '../components/Question/Content'
@@ -10,9 +10,10 @@ import { formatDateAgo, getErrorMsg } from '../utils/helperFuncs'
 import tw from 'twin.macro'
 import { Question, useFetchQuestionLazyQuery } from '../generated/graphql'
 import { ButtonLikeLink } from '~~/components/my-mui/Misc'
+import Divider from '~~/components/my-mui/Divider'
+import { Container } from '~~/components/Layout'
 
-const Container = tw.div`p-3 w-full`
-const Header = tw.div``
+const QuestionHeader = tw.div``
 
 const QuestionPage = () => {
   const { clearEdit, notify } = useAppContext()
@@ -51,22 +52,22 @@ const QuestionPage = () => {
 
   return (
     <Container>
-      <Header>
+      <QuestionHeader>
         <div tw="flex sm:(justify-between items-center) flex-nowrap flex-col sm:flex-row ">
           <h1 tw="m-0 mb-1 font-normal text-2xl word-wrap[break-word]">
             {title}
           </h1>
-          {user ? (
-            <div tw="p-0 m-0 ml-2 align-baseline  order[-1] self-end sm:(order-none self-auto) ">
+          <div tw="p-0 m-0 ml-2 align-baseline  order[-1] self-end sm:(order-none self-auto) ">
+            {user ? (
               <ButtonLikeLink to="/ask" onClick={() => clearEdit()}>
                 Ask Question
               </ButtonLikeLink>
-            </div>
-          ) : (
-            <AuthFormOnButton buttonType="ask" />
-          )}
+            ) : (
+              <AuthFormOnButton buttonType="ask" />
+            )}
+          </div>
         </div>
-        <div tw="pb-2 text-xs mb-2 ">
+        <div tw="text-xs">
           <span>
             Asked <strong>{formatDateAgo(createdAt)} ago</strong>
           </span>
@@ -79,7 +80,8 @@ const QuestionPage = () => {
             Viewed <strong>{views} times</strong>
           </span>
         </div>
-      </Header>
+      </QuestionHeader>
+      <Divider tw="my-4 border-[hsl(210,8%,90%)]" />
       <QuesPageContent question={question} />
     </Container>
   )

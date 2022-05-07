@@ -5,15 +5,15 @@ import { Link } from '../my-mui/Misc'
 import { RecentActivity } from '../../generated/graphql'
 
 const PointsBox = styled.div(() => [
-  tw`inline-flex px-2 py-1 border-width[1px] border-solid border-purple-900 line-height[1.2em]`,
+  tw`inline-flex px-2 py-1 border-width[1px] border-solid border-blue-900 rounded-md line-height[1.2em]`,
 ])
 
 const RecentQuestions = ({ creedo }: { creedo: RecentActivity }) => {
   return (
-    <div tw="flex justify-between text-purple-900 p-1 items-center">
+    <div tw="flex justify-between  px-1 py-3 items-center">
       <div tw="flex items-center flex-basis[80%] flex-grow-0 flex-shrink-0">
         <PointsBox>{creedo.points}</PointsBox>
-        <Link to={`/questions/${creedo._id}`} tw="font-normal ml-2 sm:ml-1">
+        <Link to={`/questions/${creedo._id}`} tw="font-normal ml-2">
           {creedo.title}
         </Link>
       </div>

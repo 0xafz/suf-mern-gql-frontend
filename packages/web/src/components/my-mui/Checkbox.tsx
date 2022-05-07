@@ -5,6 +5,7 @@ interface CheckboxProps extends ComponentProps<'button'> {
   checkedIcon: ReactNode
   checked: boolean
   icon: ReactNode
+  'aria-label': string
 }
 const Checkbox = ({
   checkedIcon,
@@ -16,7 +17,7 @@ const Checkbox = ({
   return (
     <button
       css={[
-        tw`padding[9px] bg-transparent border-none text-decoration[none] user-select[none] items-center justify-center vertical-align[middle] border-radius[50%] hover:bg-gray-200  focus:bg-gray-200 cursor-pointer outline-none transition-colors `,
+        tw`items-center justify-center vertical-align[middle]   transition-colors user-select[none] cursor-pointer bg-transparent border-none text-decoration[none] border-radius[50%]  outline-nonepadding[9px] hover:bg-gray-200  focus:bg-gray-200`,
       ]}
       onClick={onClick}
       {...otherProps}

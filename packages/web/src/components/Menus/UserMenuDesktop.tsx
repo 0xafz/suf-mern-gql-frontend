@@ -48,8 +48,8 @@ const UserMenuDesktop = ({ user, logoutUser }: UserMenuDesktopProps) => {
                 avatarRoot: tw`width[1.5em] height[1.5em]`,
               }}
             />
-            <span tw="text-purple-900">{user.username}</span>
-            <SvgIcon>
+            <span>{user.username}</span>
+            <SvgIcon aria-hidden="true">
               <ArrowDownIcon />
             </SvgIcon>
           </EmptyLink>
@@ -71,13 +71,13 @@ const UserMenuDesktop = ({ user, logoutUser }: UserMenuDesktopProps) => {
               href={`/user/${user.username}`}
               onClick={handleCloseMenu}
             >
-              <SvgIcon tw="mr-2">
+              <SvgIcon tw="mr-2" aria-hidden="true">
                 <AccountCircleIcon />
               </SvgIcon>
               My Profile
             </MenuItem>
             <MenuItem tag="div" onClick={handleLogoutClick}>
-              <SvgIcon tw="mr-2">
+              <SvgIcon tw="mr-2" aria-hidden="true">
                 <PowerIcon />
               </SvgIcon>
               Logout

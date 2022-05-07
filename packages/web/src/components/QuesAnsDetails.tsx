@@ -106,7 +106,7 @@ function QuesAnsDetails({
         ) : (
           <AuthFormOnButton buttonType="upvote" />
         )}
-        <span tw="">{points}</span>
+        <span>{points}</span>
         {user ? (
           <DownvoteButton
             checked={voted === VoteType.Downvote}
@@ -124,7 +124,7 @@ function QuesAnsDetails({
       </div>
       <div tw="px-3 pt-2 w-full">
         {!editAnsOpen ? (
-          <p tw="m-0 pb-1 text-sm text-gray-800">{body}</p>
+          <p tw="m-0 pb-1 text-base text-gray-800">{body}</p>
         ) : (
           <form onSubmit={handleSubmit(handleAnswerEdit)}>
             <TextField
@@ -145,7 +145,7 @@ function QuesAnsDetails({
               placeholder="Enter at least 30 characters"
               rows={4}
             />
-            <div tw="">
+            <div>
               <LightButton type="submit" tw="mr-4">
                 Update Answer
               </LightButton>
@@ -168,7 +168,7 @@ function QuesAnsDetails({
             ))}
           </div>
         )}
-        <div tw="flex flex-row flex-wrap justify-between my-5">
+        <div tw="flex flex-row flex-wrap justify-between gap-2 my-5">
           {!editAnsOpen && (
             <div tw="inline-block mr-2">
               {user && user._id === author._id && (

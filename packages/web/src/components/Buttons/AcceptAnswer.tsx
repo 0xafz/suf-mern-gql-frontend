@@ -1,8 +1,8 @@
 import AcceptedIcon from '~~/svg/accepted.svg?component'
 
-import { SvgIcon } from '../my-mui/Misc'
 import Checkbox from '../my-mui/Checkbox'
 import 'twin.macro'
+import { StyledSvgIcon } from './Vote'
 
 interface Props {
   checked: boolean
@@ -12,16 +12,17 @@ interface Props {
 const AcceptAnswerButton = ({ checked, handleAcceptAns }: Props) => {
   return (
     <Checkbox
+      aria-label={checked ? 'Un accept the answer' : 'Accept the answer'}
       checked={checked}
       icon={
-        <SvgIcon tw="text-gray-400 ">
+        <StyledSvgIcon tw="text-gray-400 " aria-hidden="true">
           <AcceptedIcon />
-        </SvgIcon>
+        </StyledSvgIcon>
       }
       checkedIcon={
-        <SvgIcon tw="text-green-600 ">
+        <StyledSvgIcon tw="text-green-600 " aria-hidden="true">
           <AcceptedIcon />
-        </SvgIcon>
+        </StyledSvgIcon>
       }
       onClick={handleAcceptAns}
     />

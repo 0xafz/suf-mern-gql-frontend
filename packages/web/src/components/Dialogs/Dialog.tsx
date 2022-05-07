@@ -13,7 +13,7 @@ import tw, { styled } from 'twin.macro'
 import useModal from '~~/hooks/useModal'
 
 const DialogBackDrop = styled.div(({ isMounted }: { isMounted?: boolean }) => [
-  tw`fixed flex justify-center items-center inset-0 bg-black bg-opacity-50 z-index[-1] -webkit-tap-highlight-color[transparent] opacity-0 transition-opacity`,
+  tw`fixed flex justify-center items-center inset-0 bg-black-900 bg-opacity-50 z-index[-1] -webkit-tap-highlight-color[transparent] opacity-0 transition-opacity`,
   isMounted && tw`opacity-100 transition-opacity`,
 ])
 
@@ -102,7 +102,7 @@ export const DialogTitle = ({
       {onClose ? (
         <IconButton
           tag="button"
-          aria-label="close"
+          aria-label="close dialog"
           tw="absolute right[8px] top[8px] font-size[1.5em]"
           styles={{
             iconButton: styles && styles.closeBtn,

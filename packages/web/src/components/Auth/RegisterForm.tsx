@@ -105,7 +105,7 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
             helperText={'username' in errors ? errors.username?.message : ''}
             InputProps={{
               startAdornment: (
-                <InputAdornment tw="font-size[1.5em] text-purple-700">
+                <InputAdornment tw="font-size[1.5em] text-blue-600">
                   <PersonIcon />
                 </InputAdornment>
               ),
@@ -125,19 +125,20 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
             InputProps={{
               endAdornment: (
                 <IconButton
+                  aria-label={showPass ? 'hide password' : 'show password'}
                   tag="button"
                   onClick={() => setShowPass((prevState) => !prevState)}
-                  tw="p-0 font-size[1.5em] text-purple-700"
+                  tw="p-0 font-size[1.5em] text-blue-600"
                 >
                   {showPass ? (
-                    <VisibilityOffIcon color="secondary" />
+                    <VisibilityOffIcon color="primary" />
                   ) : (
-                    <VisibilityIcon color="secondary" />
+                    <VisibilityIcon color="primary" />
                   )}
                 </IconButton>
               ),
               startAdornment: (
-                <InputAdornment tw="font-size[1.5em] text-purple-700">
+                <InputAdornment tw="font-size[1.5em] text-blue-600">
                   <LockIcon />
                 </InputAdornment>
               ),
@@ -159,19 +160,20 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
             InputProps={{
               endAdornment: (
                 <IconButton
+                  aria-label={showConfPass ? 'hide password' : 'show password'}
                   onClick={() => setShowConfPass((prevState) => !prevState)}
                   tag="button"
-                  tw="p-0 font-size[1.5em] text-purple-700"
+                  tw="p-0 font-size[1.5em] text-blue-600"
                 >
                   {showConfPass ? (
-                    <VisibilityOffIcon color="secondary" />
+                    <VisibilityOffIcon color="primary" />
                   ) : (
-                    <VisibilityIcon color="secondary" />
+                    <VisibilityIcon color="primary" />
                   )}
                 </IconButton>
               ),
               startAdornment: (
-                <InputAdornment tw="font-size[1.5em] text-purple-700">
+                <InputAdornment tw="font-size[1.5em] text-blue-600">
                   <EnhancedEncryptionIcon color="primary" />
                 </InputAdornment>
               ),
@@ -181,12 +183,13 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
         <Button
           type="submit"
           disabled={loading}
-          tw="w-full bg-purple-600 hover:bg-purple-700 flex items-center justify-center"
+          tw="w-full bg-blue-500 hover:bg-blue-700 flex items-center justify-center py-3"
         >
-          <SvgIcon tw="font-size[1.2em]">
+          <SvgIcon tw="font-size[1.2em]" aria-hidden="true">
             <PersonAddIcon />
           </SvgIcon>
-          &nbsp; Sign Up
+          &nbsp;
+          {loading ? 'loading...' : 'Sign Up'}
         </Button>
       </form>
       <p tw="text-center my-3">

@@ -12,7 +12,7 @@ const LoadMoreButton = ({ handleLoadPosts, loading }: LoadMoreButtonProps) => {
   return (
     <div tw="flex justify-center my-3">
       <Button
-        tw="flex items-center justify-center px-6 py-2 w-1/2 bg-white text-blue-600 border[1px solid lightgray] hover:(bg-blue-600 text-white)"
+        tw="flex items-center justify-center px-6 py-2 w-1/2 bg-white text-blue-600 border[1px solid lightgray] hover:(bg-blue-500 text-white)"
         onClick={handleLoadPosts}
         disabled={loading}
       >

@@ -81,7 +81,7 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
             helperText={'username' in errors ? errors?.username?.message : ''}
             InputProps={{
               startAdornment: (
-                <InputAdornment tw="font-size[1.5em] text-purple-700">
+                <InputAdornment tw="font-size[1.5em] text-blue-600">
                   <PersonIcon color="primary" />
                 </InputAdornment>
               ),
@@ -101,19 +101,20 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
             InputProps={{
               endAdornment: (
                 <IconButton
+                  aria-label={showPass ? 'hide password' : 'show password'}
                   tag="button"
                   onClick={() => setShowPass((prevState) => !prevState)}
-                  tw="p-0 font-size[1.5em] text-purple-700"
+                  tw="p-0 font-size[1.5em] text-blue-600"
                 >
                   {showPass ? (
-                    <VisibilityOffIcon color="secondary" />
+                    <VisibilityOffIcon color="primary" />
                   ) : (
-                    <VisibilityIcon color="secondary" />
+                    <VisibilityIcon color="primary" />
                   )}
                 </IconButton>
               ),
               startAdornment: (
-                <InputAdornment tw="font-size[1.5em] text-purple-700">
+                <InputAdornment tw="font-size[1.5em] text-blue-600">
                   <LockIcon />
                 </InputAdornment>
               ),
@@ -121,14 +122,15 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
           />
         </div>
         <Button
-          tw="w-full bg-purple-700 hover:bg-purple-800 text-base"
+          tw="w-full bg-blue-700 hover:bg-blue-700 text-base"
           type="submit"
           disabled={loading}
         >
-          <SvgIcon>
+          <SvgIcon aria-hidden="true">
             <ExitToAppIcon />
           </SvgIcon>
-          &nbsp;Log In
+          &nbsp;
+          {loading ? 'loading...' : 'Login'}
         </Button>
       </form>
       <p tw="text-center my-3">

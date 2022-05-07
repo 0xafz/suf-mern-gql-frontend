@@ -33,7 +33,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     bgStyles = tw`bg-red-600`
   } else if (severity === 'info') {
     icon = <InfoIcon />
-    bgStyles = tw`bg-blue-600`
+    bgStyles = tw`bg-blue-500`
   } else if (severity === 'warning') {
     icon = <WarningIcon />
     bgStyles = tw`bg-orange-600`
@@ -74,6 +74,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
       </div>
       {onClose ? (
         <IconButton
+          aria-label="close alert"
           tag="button"
           css={[
             tw`font-size[1.2em] color[inherit]`,
