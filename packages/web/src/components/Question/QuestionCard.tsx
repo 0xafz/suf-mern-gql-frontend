@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import PostedByUser from '../PostedByUser'
+import { MiniPostedBy } from '../PostedBy'
 import tw from 'twin.macro' //eslint-disable-line no-unused-vars
 import { Question as IQuestion } from '../../generated/graphql'
 
@@ -17,7 +17,7 @@ interface QuesCardProps {
   question: IQuestion
 }
 
-const QuesCard = ({ question }: QuesCardProps) => {
+const QuestionCard = ({ question }: QuesCardProps) => {
   const {
     _id,
     title,
@@ -65,7 +65,7 @@ const QuesCard = ({ question }: QuesCardProps) => {
             </Tag>
           ))}
         </div>
-        <PostedByUser
+        <MiniPostedBy
           username={author.username}
           userId={author._id}
           createdAt={createdAt}
@@ -75,4 +75,4 @@ const QuesCard = ({ question }: QuesCardProps) => {
   )
 }
 
-export default QuesCard
+export default QuestionCard

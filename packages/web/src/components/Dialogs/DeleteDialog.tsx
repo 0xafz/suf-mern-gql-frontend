@@ -1,34 +1,26 @@
-import { useState } from 'react'
 import { Dialog, DialogTitle, DialogContent, DialogActions } from './Dialog'
 import 'twin.macro'
 import { LightButton } from '../my-mui/Misc'
 
 interface DeleteDialogProps {
-  handleDelete: (...args: any) => void
+  open: boolean
+  onConfirm: (...args: any) => void
+  onClose: () => void
   bodyType: string
+  loading?: boolean
 }
 
-const DeleteDialog = ({ handleDelete, bodyType }: DeleteDialogProps) => {
-  const [modalOpen, setModalOpen] = useState(false)
-
-  const handleModalOpen = () => {
-    setModalOpen(true)
-  }
-
-  const handleModalClose = () => {
-    setModalOpen(false)
-  }
-
-  const handleDeleteClick = () => {
-    handleDelete()
-    handleModalClose()
-  }
-
+const DeleteDialog = ({
+  open,
+  onConfirm,
+  onClose,
+  bodyType,
+  loading,
+}: DeleteDialogProps) => {
   return (
-    <div style={{ display: 'inline' }}>
-      <LightButton onClick={handleModalOpen}>Delete</LightButton>
-      {modalOpen && (
-        <Dialog onClose={handleModalClose}>
+    <>
+      {open && (
+        <Dialog onClose={onClose}>
           <DialogTitle>Confirm Delete</DialogTitle>
           <DialogContent>
             <p>
@@ -38,19 +30,24 @@ const DeleteDialog = ({ handleDelete, bodyType }: DeleteDialogProps) => {
             </p>
           </DialogContent>
           <DialogActions>
-            <LightButton onClick={handleModalClose} tw="mr-1 py-2 px-4">
+            <LightButton
+              onClick={onClose}
+              tw="mr-1 py-2 px-4"
+              disabled={loading}
+            >
               Cancel
             </LightButton>
             <LightButton
-              onClick={handleDeleteClick}
+              onClick={onConfirm}
               tw="bg-red-700 text-white py-2 px-4"
+              disabled={loading}
             >
               Delete
             </LightButton>
           </DialogActions>
         </Dialog>
       )}
-    </div>
+    </>
   )
 }
 
