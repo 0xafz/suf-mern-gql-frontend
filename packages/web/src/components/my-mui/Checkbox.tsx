@@ -17,7 +17,7 @@ const Checkbox = ({
   return (
     <button
       css={[
-        tw`items-center justify-center vertical-align[middle]   transition-colors user-select[none] cursor-pointer bg-transparent border-none text-decoration[none] border-radius[50%]  outline-nonepadding[9px] hover:bg-gray-200  focus:bg-gray-200`,
+        tw`items-center justify-center vertical-align[middle] transition-colors user-select[none] cursor-pointer bg-transparent border-none text-decoration[none] border-radius[50%]  outline-nonepadding[9px] hover:bg-gray-200  focus:bg-gray-200`,
       ]}
       onClick={onClick}
       {...otherProps}
