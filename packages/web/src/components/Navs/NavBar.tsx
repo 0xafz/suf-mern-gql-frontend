@@ -57,7 +57,12 @@ const NavBar = () => {
               <SmScreenTopLeft>
                 <NavMenuMobile />
                 <Link to="/" tw="px-2 mb-1">
-                  <img src={SofLogo} width="25px" alt="sof-logo" />
+                  <img
+                    src={SofLogo}
+                    width="25px"
+                    height="25px"
+                    alt="sof-logo"
+                  />
                 </Link>
               </SmScreenTopLeft>
               <MdScreenTopLeft>
@@ -65,6 +70,7 @@ const NavBar = () => {
                   <img
                     src={SofLogo}
                     width="28px"
+                    height="28px"
                     alt="sof-logo"
                     style={{ marginRight: '5px' }}
                   />

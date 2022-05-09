@@ -22,11 +22,11 @@ export const PostedBy = ({
 }: PostedByProps) => {
   return (
     <div tw="float-right ml-auto max-w-[175px] md:max-w-[200px] ">
-      <div tw="break-words text-gray-600 text-xs ">
+      <div tw="break-words text-gray-700 text-xs ">
         {`${postType} ${formatDateAgo(createdAt)} ago`}
       </div>
       {updatedAt && createdAt !== updatedAt && (
-        <div tw="text-gray-600 text-xs ">
+        <div tw="text-gray-700 text-xs ">
           {`updated ${formatDateAgo(updatedAt)} ago`}
           <br />
         </div>
@@ -66,7 +66,9 @@ export const MiniPostedBy = ({
         <span>{username}</span>
       </Link>
       &nbsp;
-      {`${postType} ${formatDateAgo(createdAt)} ago`}
+      <span tw="text-gray-700">
+        {`${postType} ${formatDateAgo(createdAt)} ago`}
+      </span>
     </div>
   )
 }
