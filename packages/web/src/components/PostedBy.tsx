@@ -1,6 +1,6 @@
 import tw from 'twin.macro' //eslint-disable-line no-unused-vars
 import { Scalars } from '../generated/graphql'
-import { formatDateAgo, formatDayTime } from '../utils/helperFuncs'
+import { formatDateAgo } from '../utils/helperFuncs'
 import Avatar from './my-mui/Avatar'
 import { Link } from './my-mui/Misc'
 
