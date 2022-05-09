@@ -3,13 +3,11 @@ import DownvoteIcon from '../../svg/downvote.svg?component'
 
 import { SvgIcon } from '../my-mui/Misc'
 import Checkbox from '../my-mui/Checkbox'
-import { styled } from 'twin.macro' // eslint-disable-line no-unused-vars
+import tw, { styled } from 'twin.macro' // eslint-disable-line no-unused-vars
 
-export const StyledSvgIcon = styled(SvgIcon)`
-  width: 3rem;
-  height: 3rem;
-  padding: 0.5rem;
-`
+export const StyledSvgIcon = styled(SvgIcon)(() => [
+  tw`w-8 h-8 p-1 md:p-2 md:w-12 md:h-12`,
+])
 
 interface UpVoteButtonProps {
   checked: boolean

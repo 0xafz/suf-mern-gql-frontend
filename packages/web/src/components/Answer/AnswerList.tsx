@@ -28,13 +28,13 @@ const AnswerList = ({
     <div tw="mt-10">
       {answerList.length !== 0 && (
         <div tw="flex justify-between items-center flex-wrap">
-          <h2 tw="font-normal text-xl">
+          <h2 tw="font-normal text-xl mb-4">
             {answerList.length} {answerList.length === 1 ? 'Answer' : 'Answers'}
           </h2>
           <SortAnsBar sortBy={sortBy} setSortBy={setSortBy} />
         </div>
       )}
-      <div>
+      <div tw="mt-4">
         {answerList.map((answer, i) => (
           <div key={answer?._id}>
             <AnswerDetails
