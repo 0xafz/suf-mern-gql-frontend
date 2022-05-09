@@ -23,27 +23,25 @@
 
 ## Usage
 
-#### Client:
+#### web:
 
-Open `.packages/app/src/constants` & change `backendUrl` variable to `"http://localhost:4000"`
+Open `.packages/web/src/constants` & change `backendUrl` variable to `"http://localhost:4000"`
 
 ```
 pnpm install
 pnpm run web dev
 ```
 
-Fullstack [Stack Overflow](https://stackoverflow.com/) clone (QnA site) made with MERN + GraphQL
-
 ## Built using
 
 - [ReactJS](https://reactjs.org/) - Frontend framework
+- [date-fns](https://date-fns.org/) - For manipulating & formatting of dates
 - [Apollo Client](https://www.apollographql.com/docs/react/) - State management library to manage both local and remote data with GraphQL
 - [Context API w/ hooks](https://reactjs.org/docs/context.html) - For state of user, toast notifs, theme etc.
 - [React Router](https://reactrouter.com/) - For general routing & navigation
 - [React Hook Form](https://react-hook-form.com/) - For flexible forms
 - ~~[Material-UI w/ lots of CSS customisations](https://material-ui.com/)~~ now using [twin.macro](https://github.com/ben-rogerson/twin.macro)- CSS-in-JS library
 - [Yup](https://github.com/jquense/yup) - For form validation
-- [date-fns](https://date-fns.org/) - For manipulating & formatting of dates
 
 ## Features
 
