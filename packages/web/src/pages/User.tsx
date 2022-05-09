@@ -109,7 +109,7 @@ const UserPage = () => {
                 </div>
               ))
             ) : (
-              <p tw="text-center">No questions asked yet.</p>
+              <p tw="my-2 text-center">No questions asked yet.</p>
             )}
           </div>
           <div>
@@ -123,7 +123,7 @@ const UserPage = () => {
                 </div>
               ))
             ) : (
-              <p tw="text-center">No questions answered yet.</p>
+              <p tw="my-2 text-center">No questions answered yet.</p>
             )}
           </div>
         </UserActivity>

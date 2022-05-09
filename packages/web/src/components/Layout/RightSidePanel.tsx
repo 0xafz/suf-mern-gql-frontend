@@ -3,7 +3,7 @@ import { useAppContext } from '~~/context/state'
 import { useFetchAllTagsQuery } from '~~/generated/graphql'
 import { getErrorMsg } from '~~/utils/helperFuncs'
 import LoadingSpinner from '../LoadingSpinner'
-import Tag, { Tags } from '../Tag'
+import { TagWithCount, Tags } from '../Tags'
 
 const Grid = tw.div`m-0 w-1/3 mt-4 rounded-sm hidden md:block`
 
@@ -26,14 +26,14 @@ const RightSidePanel = () => {
         {!loading && data && (
           <Tags col>
             {data.getAllTags.slice(0, 10).map((t) => (
-              <Tag
+              <TagWithCount
                 label={
                   t.tagName.length > 13
                     ? t.tagName.slice(0, 13) + '...'
                     : t.tagName
                 }
                 key={t.tagName}
-                to={`/tags/${t.tagName}`}
+                href={`/tags/${t.tagName}`}
                 count={t.count}
               />
             ))}

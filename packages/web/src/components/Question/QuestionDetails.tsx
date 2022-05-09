@@ -118,10 +118,9 @@ function QuestionDetails({ data }: QuestionDetailsProps) {
         <ul tw="flex flex-wrap">
           {tags &&
             tags.map((t) => (
-              <li>
+              <li key={t}>
                 <Tag
                   tag="a"
-                  key={t}
                   label={t}
                   href={`/tags/${t}`}
                   styles={{ link: tw`margin[0 .25em .25em]` }}

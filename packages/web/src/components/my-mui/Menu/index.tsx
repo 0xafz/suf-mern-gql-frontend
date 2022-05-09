@@ -15,7 +15,7 @@ const MenuBackDrop = styled.div(() => [
 ])
 
 const MenuChildrenContainer = styled.div(({ open }: { open: boolean }) => [
-  tw`absolute rounded-sm overflow-x-hidden overflow-y-auto outline-none shadow-default bg-white text-gray-900 opacity-0 transition-default invisible transform scale-x-75 scale-y-50 border-[1px] border-gray-300`,
+  tw`absolute rounded-sm overflow-x-hidden overflow-y-auto outline-none shadow-default bg-white text-gray-900 opacity-0 transition-opacity delay-75 invisible transform scale-x-75 scale-y-50 border-[1px] border-gray-300`,
   open && tw`visible transform-none opacity-100`,
 ])
 
