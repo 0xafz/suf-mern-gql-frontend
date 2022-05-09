@@ -115,19 +115,20 @@ function QuestionDetails({ data }: QuestionDetailsProps) {
       </div>
       <div tw="px-3 pt-2 w-full">
         <p tw="m-0 pb-1 text-base text-gray-800">{body}</p>
-        {tags && (
-          <div tw="flex flex-wrap">
-            {tags.map((t) => (
-              <Tag
-                tag="a"
-                key={t}
-                label={t}
-                href={`/tags/${t}`}
-                styles={{ link: tw`margin[0 .25em .25em]` }}
-              />
+        <ul tw="flex flex-wrap">
+          {tags &&
+            tags.map((t) => (
+              <li>
+                <Tag
+                  tag="a"
+                  key={t}
+                  label={t}
+                  href={`/tags/${t}`}
+                  styles={{ link: tw`margin[0 .25em .25em]` }}
+                />
+              </li>
             ))}
-          </div>
-        )}
+        </ul>
         <div tw="flex flex-row flex-wrap justify-between gap-2 my-5">
           {user && user._id === author._id && (
             <div tw="inline-block mr-2">
