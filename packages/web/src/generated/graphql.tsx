@@ -22,7 +22,7 @@ export type Answer = {
   _id: Scalars['ID'];
   author: Author;
   body: Scalars['String'];
-  comments: Array<Maybe<Comment>>;
+  comments: Array<Comment>;
   points: Scalars['Int'];
   voted?: Maybe<VoteType>;
   createdAt: Scalars['DateTime'];
@@ -51,6 +51,11 @@ export type Comment = {
   updatedAt: Scalars['DateTime'];
 };
 
+export enum CommentParentType {
+  Question = 'Question',
+  Answer = 'Answer'
+}
+
 export type LoggedUser = {
   __typename?: 'LoggedUser';
   _id: Scalars['ID'];
@@ -61,42 +66,20 @@ export type LoggedUser = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addAnsComment: Array<Comment>;
-  deleteAnsComment: Scalars['ID'];
-  editAnsComment: Array<Comment>;
   postAnswer: Array<Answer>;
   deleteAnswer: Scalars['ID'];
   editAnswer: Array<Answer>;
   voteAnswer: Answer;
   acceptAnswer: Question;
-  addQuesComment: Array<Comment>;
-  deleteQuesComment: Scalars['ID'];
-  editQuesComment: Array<Comment>;
+  addComment: Comment;
+  deleteComment: Scalars['ID'];
+  editComment: Comment;
   postQuestion: Question;
   deleteQuestion: Scalars['ID'];
   editQuestion: Question;
   voteQuestion: Question;
   register: LoggedUser;
   login: LoggedUser;
-};
-
-
-export type MutationAddAnsCommentArgs = {
-  body: Scalars['String'];
-  ansId: Scalars['ID'];
-};
-
-
-export type MutationDeleteAnsCommentArgs = {
-  commentId: Scalars['ID'];
-  ansId: Scalars['ID'];
-};
-
-
-export type MutationEditAnsCommentArgs = {
-  body: Scalars['String'];
-  commentId: Scalars['ID'];
-  ansId: Scalars['ID'];
 };
 
 
@@ -132,22 +115,21 @@ export type MutationAcceptAnswerArgs = {
 };
 
 
-export type MutationAddQuesCommentArgs = {
+export type MutationAddCommentArgs = {
   body: Scalars['String'];
-  quesId: Scalars['ID'];
+  parentId: Scalars['ID'];
+  parentType: CommentParentType;
 };
 
 
-export type MutationDeleteQuesCommentArgs = {
+export type MutationDeleteCommentArgs = {
   commentId: Scalars['ID'];
-  quesId: Scalars['ID'];
 };
 
 
-export type MutationEditQuesCommentArgs = {
+export type MutationEditCommentArgs = {
   body: Scalars['String'];
   commentId: Scalars['ID'];
-  quesId: Scalars['ID'];
 };
 
 
@@ -237,8 +219,8 @@ export type Question = {
   title: Scalars['String'];
   body: Scalars['String'];
   tags: Array<Scalars['String']>;
-  comments: Array<Maybe<Comment>>;
-  answers: Array<Maybe<Answer>>;
+  comments: Array<Comment>;
+  answers: Array<Answer>;
   answerCount: Scalars['Int'];
   points: Scalars['Int'];
   views: Scalars['Int'];
@@ -288,12 +270,12 @@ export type User = {
   _id: Scalars['ID'];
   username: Scalars['String'];
   role: RoleType;
-  questions: Array<Maybe<Question>>;
-  answers: Array<Maybe<Answer>>;
+  questions: Array<Question>;
+  answers: Array<Answer>;
   createdAt: Scalars['DateTime'];
   rep: Scalars['Int'];
-  recentQuestions: Array<Maybe<RecentActivity>>;
-  recentAnswers: Array<Maybe<RecentActivity>>;
+  recentQuestions: Array<RecentActivity>;
+  recentAnswers: Array<RecentActivity>;
   totalQuestions: Scalars['Int'];
   totalAnswers: Scalars['Int'];
 };
@@ -305,9 +287,9 @@ export enum VoteType {
 
 export type AuthorDetailsFragment = { __typename?: 'Author', _id: string, username: string };
 
-export type AnswerDetailsFragment = { __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } } | null> };
+export type AnswerDetailsFragment = { __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }> };
 
-export type QuestionDetailsFragment = { __typename?: 'Question', _id: string, title: string, body: string, tags: Array<string>, points: number, views: number, acceptedAnswer?: string | null, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } } | null>, answers: Array<{ __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } } | null> } | null> };
+export type QuestionDetailsFragment = { __typename?: 'Question', _id: string, title: string, body: string, tags: Array<string>, points: number, views: number, acceptedAnswer?: string | null, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }>, answers: Array<{ __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }> }> };
 
 export type PostQuestionDetailsFragment = { __typename?: 'Question', _id: string, title: string, body: string, tags: Array<string>, points: number, views: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } };
 
@@ -348,7 +330,7 @@ export type UpdateQuestionMutationVariables = Exact<{
 }>;
 
 
-export type UpdateQuestionMutation = { __typename?: 'Mutation', editQuestion: { __typename?: 'Question', _id: string, title: string, body: string, tags: Array<string>, points: number, views: number, acceptedAnswer?: string | null, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } } | null>, answers: Array<{ __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } } | null> } | null> } };
+export type UpdateQuestionMutation = { __typename?: 'Mutation', editQuestion: { __typename?: 'Question', _id: string, title: string, body: string, tags: Array<string>, points: number, views: number, acceptedAnswer?: string | null, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }>, answers: Array<{ __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }> }> } };
 
 export type RemoveQuestionMutationVariables = Exact<{
   quesId: Scalars['ID'];
@@ -365,30 +347,29 @@ export type SubmitQuesVoteMutationVariables = Exact<{
 
 export type SubmitQuesVoteMutation = { __typename?: 'Mutation', voteQuestion: { __typename?: 'Question', _id: string, voted?: VoteType | null, points: number } };
 
-export type PostQuesCommentMutationVariables = Exact<{
-  quesId: Scalars['ID'];
+export type AddCommentMutationVariables = Exact<{
+  parentId: Scalars['ID'];
+  parentType: CommentParentType;
   body: Scalars['String'];
 }>;
 
 
-export type PostQuesCommentMutation = { __typename?: 'Mutation', addQuesComment: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }> };
+export type AddCommentMutation = { __typename?: 'Mutation', addComment: { __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } } };
 
-export type UpdateQuesCommentMutationVariables = Exact<{
-  quesId: Scalars['ID'];
+export type EditCommentMutationVariables = Exact<{
   commentId: Scalars['ID'];
   body: Scalars['String'];
 }>;
 
 
-export type UpdateQuesCommentMutation = { __typename?: 'Mutation', editQuesComment: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }> };
+export type EditCommentMutation = { __typename?: 'Mutation', editComment: { __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } } };
 
-export type RemoveQuesCommentMutationVariables = Exact<{
-  quesId: Scalars['ID'];
+export type DeleteCommentMutationVariables = Exact<{
   commentId: Scalars['ID'];
 }>;
 
 
-export type RemoveQuesCommentMutation = { __typename?: 'Mutation', deleteQuesComment: string };
+export type DeleteCommentMutation = { __typename?: 'Mutation', deleteComment: string };
 
 export type AddAnswerMutationVariables = Exact<{
   quesId: Scalars['ID'];
@@ -396,7 +377,7 @@ export type AddAnswerMutationVariables = Exact<{
 }>;
 
 
-export type AddAnswerMutation = { __typename?: 'Mutation', postAnswer: Array<{ __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } } | null> }> };
+export type AddAnswerMutation = { __typename?: 'Mutation', postAnswer: Array<{ __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }> }> };
 
 export type UpdateAnswerMutationVariables = Exact<{
   quesId: Scalars['ID'];
@@ -405,7 +386,7 @@ export type UpdateAnswerMutationVariables = Exact<{
 }>;
 
 
-export type UpdateAnswerMutation = { __typename?: 'Mutation', editAnswer: Array<{ __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } } | null> }> };
+export type UpdateAnswerMutation = { __typename?: 'Mutation', editAnswer: Array<{ __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }> }> };
 
 export type RemoveAnswerMutationVariables = Exact<{
   quesId: Scalars['ID'];
@@ -432,31 +413,6 @@ export type SubmitAcceptAnsMutationVariables = Exact<{
 
 export type SubmitAcceptAnsMutation = { __typename?: 'Mutation', acceptAnswer: { __typename?: 'Question', _id: string, acceptedAnswer?: string | null } };
 
-export type PostAnsCommentMutationVariables = Exact<{
-  ansId: Scalars['ID'];
-  body: Scalars['String'];
-}>;
-
-
-export type PostAnsCommentMutation = { __typename?: 'Mutation', addAnsComment: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }> };
-
-export type UpdateAnsCommentMutationVariables = Exact<{
-  ansId: Scalars['ID'];
-  commentId: Scalars['ID'];
-  body: Scalars['String'];
-}>;
-
-
-export type UpdateAnsCommentMutation = { __typename?: 'Mutation', editAnsComment: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }> };
-
-export type RemoveAnsCommentMutationVariables = Exact<{
-  ansId: Scalars['ID'];
-  commentId: Scalars['ID'];
-}>;
-
-
-export type RemoveAnsCommentMutation = { __typename?: 'Mutation', deleteAnsComment: string };
-
 export type FetchQuestionsQueryVariables = Exact<{
   sortBy: SortByType;
   page: Scalars['Int'];
@@ -473,14 +429,14 @@ export type FetchQuestionQueryVariables = Exact<{
 }>;
 
 
-export type FetchQuestionQuery = { __typename?: 'Query', viewQuestion: { __typename?: 'Question', _id: string, title: string, body: string, tags: Array<string>, points: number, views: number, createdAt: any, updatedAt: any, acceptedAnswer?: string | null, voted?: VoteType | null, author: { __typename?: 'Author', _id: string, username: string }, answers: Array<{ __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } } | null> } | null>, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } } | null> } };
+export type FetchQuestionQuery = { __typename?: 'Query', viewQuestion: { __typename?: 'Question', _id: string, title: string, body: string, tags: Array<string>, points: number, views: number, createdAt: any, updatedAt: any, acceptedAnswer?: string | null, voted?: VoteType | null, author: { __typename?: 'Author', _id: string, username: string }, answers: Array<{ __typename?: 'Answer', _id: string, body: string, points: number, voted?: VoteType | null, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string }, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }> }>, comments: Array<{ __typename?: 'Comment', _id: string, body: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', _id: string, username: string } }> } };
 
 export type FetchUserQueryVariables = Exact<{
   username: Scalars['String'];
 }>;
 
 
-export type FetchUserQuery = { __typename?: 'Query', getUser: { __typename?: 'User', _id: string, username: string, role: RoleType, createdAt: any, rep: number, totalQuestions: number, totalAnswers: number, recentQuestions: Array<{ __typename?: 'RecentActivity', _id: string, title: string, points: number, createdAt: any } | null>, recentAnswers: Array<{ __typename?: 'RecentActivity', _id: string, title: string, points: number, createdAt: any } | null> } };
+export type FetchUserQuery = { __typename?: 'Query', getUser: { __typename?: 'User', _id: string, username: string, role: RoleType, createdAt: any, rep: number, totalQuestions: number, totalAnswers: number, recentQuestions: Array<{ __typename?: 'RecentActivity', _id: string, title: string, points: number, createdAt: any }>, recentAnswers: Array<{ __typename?: 'RecentActivity', _id: string, title: string, points: number, createdAt: any }> } };
 
 export type FetchAllTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -781,107 +737,106 @@ export function useSubmitQuesVoteMutation(baseOptions?: Apollo.MutationHookOptio
 export type SubmitQuesVoteMutationHookResult = ReturnType<typeof useSubmitQuesVoteMutation>;
 export type SubmitQuesVoteMutationResult = Apollo.MutationResult<SubmitQuesVoteMutation>;
 export type SubmitQuesVoteMutationOptions = Apollo.BaseMutationOptions<SubmitQuesVoteMutation, SubmitQuesVoteMutationVariables>;
-export const PostQuesCommentDocument = gql`
-    mutation postQuesComment($quesId: ID!, $body: String!) {
-  addQuesComment(quesId: $quesId, body: $body) {
+export const AddCommentDocument = gql`
+    mutation addComment($parentId: ID!, $parentType: CommentParentType!, $body: String!) {
+  addComment(parentId: $parentId, body: $body, parentType: $parentType) {
     ...CommentDetails
   }
 }
     ${CommentDetailsFragmentDoc}`;
-export type PostQuesCommentMutationFn = Apollo.MutationFunction<PostQuesCommentMutation, PostQuesCommentMutationVariables>;
+export type AddCommentMutationFn = Apollo.MutationFunction<AddCommentMutation, AddCommentMutationVariables>;
 
 /**
- * __usePostQuesCommentMutation__
+ * __useAddCommentMutation__
  *
- * To run a mutation, you first call `usePostQuesCommentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `usePostQuesCommentMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAddCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCommentMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [postQuesCommentMutation, { data, loading, error }] = usePostQuesCommentMutation({
+ * const [addCommentMutation, { data, loading, error }] = useAddCommentMutation({
  *   variables: {
- *      quesId: // value for 'quesId'
+ *      parentId: // value for 'parentId'
+ *      parentType: // value for 'parentType'
  *      body: // value for 'body'
  *   },
  * });
  */
-export function usePostQuesCommentMutation(baseOptions?: Apollo.MutationHookOptions<PostQuesCommentMutation, PostQuesCommentMutationVariables>) {
+export function useAddCommentMutation(baseOptions?: Apollo.MutationHookOptions<AddCommentMutation, AddCommentMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<PostQuesCommentMutation, PostQuesCommentMutationVariables>(PostQuesCommentDocument, options);
+        return Apollo.useMutation<AddCommentMutation, AddCommentMutationVariables>(AddCommentDocument, options);
       }
-export type PostQuesCommentMutationHookResult = ReturnType<typeof usePostQuesCommentMutation>;
-export type PostQuesCommentMutationResult = Apollo.MutationResult<PostQuesCommentMutation>;
-export type PostQuesCommentMutationOptions = Apollo.BaseMutationOptions<PostQuesCommentMutation, PostQuesCommentMutationVariables>;
-export const UpdateQuesCommentDocument = gql`
-    mutation updateQuesComment($quesId: ID!, $commentId: ID!, $body: String!) {
-  editQuesComment(quesId: $quesId, commentId: $commentId, body: $body) {
+export type AddCommentMutationHookResult = ReturnType<typeof useAddCommentMutation>;
+export type AddCommentMutationResult = Apollo.MutationResult<AddCommentMutation>;
+export type AddCommentMutationOptions = Apollo.BaseMutationOptions<AddCommentMutation, AddCommentMutationVariables>;
+export const EditCommentDocument = gql`
+    mutation editComment($commentId: ID!, $body: String!) {
+  editComment(commentId: $commentId, body: $body) {
     ...CommentDetails
   }
 }
     ${CommentDetailsFragmentDoc}`;
-export type UpdateQuesCommentMutationFn = Apollo.MutationFunction<UpdateQuesCommentMutation, UpdateQuesCommentMutationVariables>;
+export type EditCommentMutationFn = Apollo.MutationFunction<EditCommentMutation, EditCommentMutationVariables>;
 
 /**
- * __useUpdateQuesCommentMutation__
+ * __useEditCommentMutation__
  *
- * To run a mutation, you first call `useUpdateQuesCommentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateQuesCommentMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useEditCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditCommentMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateQuesCommentMutation, { data, loading, error }] = useUpdateQuesCommentMutation({
+ * const [editCommentMutation, { data, loading, error }] = useEditCommentMutation({
  *   variables: {
- *      quesId: // value for 'quesId'
  *      commentId: // value for 'commentId'
  *      body: // value for 'body'
  *   },
  * });
  */
-export function useUpdateQuesCommentMutation(baseOptions?: Apollo.MutationHookOptions<UpdateQuesCommentMutation, UpdateQuesCommentMutationVariables>) {
+export function useEditCommentMutation(baseOptions?: Apollo.MutationHookOptions<EditCommentMutation, EditCommentMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateQuesCommentMutation, UpdateQuesCommentMutationVariables>(UpdateQuesCommentDocument, options);
+        return Apollo.useMutation<EditCommentMutation, EditCommentMutationVariables>(EditCommentDocument, options);
       }
-export type UpdateQuesCommentMutationHookResult = ReturnType<typeof useUpdateQuesCommentMutation>;
-export type UpdateQuesCommentMutationResult = Apollo.MutationResult<UpdateQuesCommentMutation>;
-export type UpdateQuesCommentMutationOptions = Apollo.BaseMutationOptions<UpdateQuesCommentMutation, UpdateQuesCommentMutationVariables>;
-export const RemoveQuesCommentDocument = gql`
-    mutation removeQuesComment($quesId: ID!, $commentId: ID!) {
-  deleteQuesComment(quesId: $quesId, commentId: $commentId)
+export type EditCommentMutationHookResult = ReturnType<typeof useEditCommentMutation>;
+export type EditCommentMutationResult = Apollo.MutationResult<EditCommentMutation>;
+export type EditCommentMutationOptions = Apollo.BaseMutationOptions<EditCommentMutation, EditCommentMutationVariables>;
+export const DeleteCommentDocument = gql`
+    mutation deleteComment($commentId: ID!) {
+  deleteComment(commentId: $commentId)
 }
     `;
-export type RemoveQuesCommentMutationFn = Apollo.MutationFunction<RemoveQuesCommentMutation, RemoveQuesCommentMutationVariables>;
+export type DeleteCommentMutationFn = Apollo.MutationFunction<DeleteCommentMutation, DeleteCommentMutationVariables>;
 
 /**
- * __useRemoveQuesCommentMutation__
+ * __useDeleteCommentMutation__
  *
- * To run a mutation, you first call `useRemoveQuesCommentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveQuesCommentMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useDeleteCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCommentMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [removeQuesCommentMutation, { data, loading, error }] = useRemoveQuesCommentMutation({
+ * const [deleteCommentMutation, { data, loading, error }] = useDeleteCommentMutation({
  *   variables: {
- *      quesId: // value for 'quesId'
  *      commentId: // value for 'commentId'
  *   },
  * });
  */
-export function useRemoveQuesCommentMutation(baseOptions?: Apollo.MutationHookOptions<RemoveQuesCommentMutation, RemoveQuesCommentMutationVariables>) {
+export function useDeleteCommentMutation(baseOptions?: Apollo.MutationHookOptions<DeleteCommentMutation, DeleteCommentMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveQuesCommentMutation, RemoveQuesCommentMutationVariables>(RemoveQuesCommentDocument, options);
+        return Apollo.useMutation<DeleteCommentMutation, DeleteCommentMutationVariables>(DeleteCommentDocument, options);
       }
-export type RemoveQuesCommentMutationHookResult = ReturnType<typeof useRemoveQuesCommentMutation>;
-export type RemoveQuesCommentMutationResult = Apollo.MutationResult<RemoveQuesCommentMutation>;
-export type RemoveQuesCommentMutationOptions = Apollo.BaseMutationOptions<RemoveQuesCommentMutation, RemoveQuesCommentMutationVariables>;
+export type DeleteCommentMutationHookResult = ReturnType<typeof useDeleteCommentMutation>;
+export type DeleteCommentMutationResult = Apollo.MutationResult<DeleteCommentMutation>;
+export type DeleteCommentMutationOptions = Apollo.BaseMutationOptions<DeleteCommentMutation, DeleteCommentMutationVariables>;
 export const AddAnswerDocument = gql`
     mutation addAnswer($quesId: ID!, $body: String!) {
   postAnswer(quesId: $quesId, body: $body) {
@@ -1055,107 +1010,6 @@ export function useSubmitAcceptAnsMutation(baseOptions?: Apollo.MutationHookOpti
 export type SubmitAcceptAnsMutationHookResult = ReturnType<typeof useSubmitAcceptAnsMutation>;
 export type SubmitAcceptAnsMutationResult = Apollo.MutationResult<SubmitAcceptAnsMutation>;
 export type SubmitAcceptAnsMutationOptions = Apollo.BaseMutationOptions<SubmitAcceptAnsMutation, SubmitAcceptAnsMutationVariables>;
-export const PostAnsCommentDocument = gql`
-    mutation postAnsComment($ansId: ID!, $body: String!) {
-  addAnsComment(ansId: $ansId, body: $body) {
-    ...CommentDetails
-  }
-}
-    ${CommentDetailsFragmentDoc}`;
-export type PostAnsCommentMutationFn = Apollo.MutationFunction<PostAnsCommentMutation, PostAnsCommentMutationVariables>;
-
-/**
- * __usePostAnsCommentMutation__
- *
- * To run a mutation, you first call `usePostAnsCommentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `usePostAnsCommentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [postAnsCommentMutation, { data, loading, error }] = usePostAnsCommentMutation({
- *   variables: {
- *      ansId: // value for 'ansId'
- *      body: // value for 'body'
- *   },
- * });
- */
-export function usePostAnsCommentMutation(baseOptions?: Apollo.MutationHookOptions<PostAnsCommentMutation, PostAnsCommentMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<PostAnsCommentMutation, PostAnsCommentMutationVariables>(PostAnsCommentDocument, options);
-      }
-export type PostAnsCommentMutationHookResult = ReturnType<typeof usePostAnsCommentMutation>;
-export type PostAnsCommentMutationResult = Apollo.MutationResult<PostAnsCommentMutation>;
-export type PostAnsCommentMutationOptions = Apollo.BaseMutationOptions<PostAnsCommentMutation, PostAnsCommentMutationVariables>;
-export const UpdateAnsCommentDocument = gql`
-    mutation updateAnsComment($ansId: ID!, $commentId: ID!, $body: String!) {
-  editAnsComment(ansId: $ansId, commentId: $commentId, body: $body) {
-    ...CommentDetails
-  }
-}
-    ${CommentDetailsFragmentDoc}`;
-export type UpdateAnsCommentMutationFn = Apollo.MutationFunction<UpdateAnsCommentMutation, UpdateAnsCommentMutationVariables>;
-
-/**
- * __useUpdateAnsCommentMutation__
- *
- * To run a mutation, you first call `useUpdateAnsCommentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateAnsCommentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateAnsCommentMutation, { data, loading, error }] = useUpdateAnsCommentMutation({
- *   variables: {
- *      ansId: // value for 'ansId'
- *      commentId: // value for 'commentId'
- *      body: // value for 'body'
- *   },
- * });
- */
-export function useUpdateAnsCommentMutation(baseOptions?: Apollo.MutationHookOptions<UpdateAnsCommentMutation, UpdateAnsCommentMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateAnsCommentMutation, UpdateAnsCommentMutationVariables>(UpdateAnsCommentDocument, options);
-      }
-export type UpdateAnsCommentMutationHookResult = ReturnType<typeof useUpdateAnsCommentMutation>;
-export type UpdateAnsCommentMutationResult = Apollo.MutationResult<UpdateAnsCommentMutation>;
-export type UpdateAnsCommentMutationOptions = Apollo.BaseMutationOptions<UpdateAnsCommentMutation, UpdateAnsCommentMutationVariables>;
-export const RemoveAnsCommentDocument = gql`
-    mutation removeAnsComment($ansId: ID!, $commentId: ID!) {
-  deleteAnsComment(ansId: $ansId, commentId: $commentId)
-}
-    `;
-export type RemoveAnsCommentMutationFn = Apollo.MutationFunction<RemoveAnsCommentMutation, RemoveAnsCommentMutationVariables>;
-
-/**
- * __useRemoveAnsCommentMutation__
- *
- * To run a mutation, you first call `useRemoveAnsCommentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveAnsCommentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [removeAnsCommentMutation, { data, loading, error }] = useRemoveAnsCommentMutation({
- *   variables: {
- *      ansId: // value for 'ansId'
- *      commentId: // value for 'commentId'
- *   },
- * });
- */
-export function useRemoveAnsCommentMutation(baseOptions?: Apollo.MutationHookOptions<RemoveAnsCommentMutation, RemoveAnsCommentMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveAnsCommentMutation, RemoveAnsCommentMutationVariables>(RemoveAnsCommentDocument, options);
-      }
-export type RemoveAnsCommentMutationHookResult = ReturnType<typeof useRemoveAnsCommentMutation>;
-export type RemoveAnsCommentMutationResult = Apollo.MutationResult<RemoveAnsCommentMutation>;
-export type RemoveAnsCommentMutationOptions = Apollo.BaseMutationOptions<RemoveAnsCommentMutation, RemoveAnsCommentMutationVariables>;
 export const FetchQuestionsDocument = gql`
     query fetchQuestions($sortBy: SortByType!, $page: Int!, $limit: Int!, $filterByTag: String, $filterBySearch: String) {
   getQuestions(

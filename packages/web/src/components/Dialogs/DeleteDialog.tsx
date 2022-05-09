@@ -1,20 +1,21 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions } from './Dialog'
 import 'twin.macro'
 import { LightButton } from '../my-mui/Misc'
+import { ReactNode } from 'react'
 
 interface DeleteDialogProps {
   open: boolean
   onConfirm: (...args: any) => void
   onClose: () => void
-  bodyType: string
   loading?: boolean
+  children: ReactNode
 }
 
 const DeleteDialog = ({
   open,
   onConfirm,
   onClose,
-  bodyType,
+  children,
   loading,
 }: DeleteDialogProps) => {
   return (
@@ -22,13 +23,7 @@ const DeleteDialog = ({
       {open && (
         <Dialog onClose={onClose}>
           <DialogTitle>Confirm Delete</DialogTitle>
-          <DialogContent>
-            <p>
-              {`Are you sure you want to delete your ${
-                bodyType ? bodyType : 'question'
-              }?`}
-            </p>
-          </DialogContent>
+          <DialogContent>{children}</DialogContent>
           <DialogActions>
             <LightButton
               onClick={onClose}

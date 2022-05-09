@@ -39,20 +39,20 @@ mutation submitQuesVote($quesId: ID!, $voteType: VoteType!) {
   }
 }
 
-mutation postQuesComment($quesId: ID!, $body: String!) {
-  addQuesComment(quesId: $quesId, body: $body) {
+mutation addComment($parentId: ID!,$parentType: CommentParentType!, $body: String!) {
+  addComment(parentId: $parentId, body: $body, parentType: $parentType) {
     ...CommentDetails
   }
 }
 
-mutation updateQuesComment($quesId: ID!, $commentId: ID!, $body: String!) {
-  editQuesComment(quesId: $quesId, commentId: $commentId, body: $body) {
+mutation editComment($commentId: ID!, $body: String!) {
+  editComment(commentId: $commentId, body: $body) {
     ...CommentDetails
   }
 }
 
-mutation removeQuesComment($quesId: ID!, $commentId: ID!) {
-  deleteQuesComment(quesId: $quesId, commentId: $commentId)
+mutation deleteComment($commentId: ID!) {
+  deleteComment(commentId: $commentId)
 }
 
 mutation addAnswer($quesId: ID!, $body: String!) {
@@ -80,25 +80,4 @@ mutation submitAcceptAns($quesId: ID!, $ansId: ID!) {
     _id
     acceptedAnswer
   }
-}
-mutation postAnsComment($ansId: ID!, $body: String!) {
-  addAnsComment(ansId: $ansId, body: $body) {
-    ...CommentDetails
-  }
-}
-mutation updateAnsComment(
-  $ansId: ID!
-  $commentId: ID!
-  $body: String!
-) {
-  editAnsComment(
-    ansId: $ansId
-    commentId: $commentId
-    body: $body
-  ) {
-    ...CommentDetails
-  }
-}
-mutation removeAnsComment($ansId: ID!, $commentId: ID!) {
-  deleteAnsComment(ansId: $ansId, commentId: $commentId)
 }
