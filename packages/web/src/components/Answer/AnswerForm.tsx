@@ -9,7 +9,7 @@ import { getErrorMsg } from '~~/utils/helperFuncs'
 import 'twin.macro'
 import { Button, Link } from '../my-mui/Misc'
 import TextField from '../my-mui/TextField'
-import Tag from '../Tag'
+import Tag from '../my-mui/Tag'
 import {
   FetchQuestionDocument,
   FetchQuestionQuery,
@@ -101,7 +101,7 @@ const AnswerForm = ({ quesId, tags }: Props) => {
       <div tw="mt-8 text-sm sm:text-base leading-6">
         Browse other questions tagged &nbsp;
         {tags.map((t) => (
-          <Tag key={t} label={t} to={`/tags/${t}`} tw="mr-1" />
+          <Tag tag="a" key={t} label={t} href={`/tags/${t}`} tw="mr-1" />
         ))}
         &nbsp; or &nbsp;
         {user ? (

@@ -40,7 +40,7 @@ const Comment = ({ comment, user, onDelete, onEdit }: CommentProps) => {
     <div tw="my-1">
       {!editOpen ? (
         <div>
-          <p tw="text-xs break-all inline mr-2">
+          <p tw="text-xs md:text-sm break-all inline mr-2">
             {comment.body} –{' '}
             <Link to={`/user/${comment.author.username}`}>
               {comment.author.username}

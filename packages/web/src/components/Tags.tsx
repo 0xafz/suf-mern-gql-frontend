@@ -1,26 +1,25 @@
 import tw, { styled } from 'twin.macro' //eslint-disable-line no-unused-vars
-import { Link } from 'react-router-dom'
 import { ComponentProps } from 'react'
+import Tag from './my-mui/Tag'
 
 const Container = tw.span`inline-flex items-center h-auto `
 
-const TagWord = tw.span`inline-flex items-center h-auto rounded-md bg-blue-200 bg-opacity-75 `
-
 interface TagProps extends ComponentProps<'span'> {
-  to: string
+  href: string
   label?: string
   count?: number
 }
-const Tag = ({ to, children, label, count, ...rest }: TagProps) => (
+export const TagWithCount = ({
+  href,
+  children,
+  label,
+  count,
+  ...rest
+}: TagProps) => (
   <Container {...rest}>
-    <TagWord>
-      <Link
-        to={to}
-        tw=" text-blue-600 no-underline text-xs padding[.2rem .5rem] outline-color[darkorange]"
-      >
-        {label}
-      </Link>
-    </TagWord>
+    <Tag tag="a" href={href}>
+      {label}
+    </Tag>
     {count && (
       <span tw="text-sm text-gray-600 inline">&nbsp; {` × ${count}`}</span>
     )}
@@ -41,4 +40,3 @@ export const Tags = styled.div((props: TagsProps) => [
   props.col ? tw`flex-col` : tw`flex-row`,
   props.floatLeft && tw`float-left`,
 ])
-export default Tag
