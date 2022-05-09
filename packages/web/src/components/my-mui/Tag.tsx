@@ -15,7 +15,7 @@ type TagProps<T extends 'span' | 'a'> = OwnTagProps<T> & ComponentProps<T>
 
 declare function TagFn<T extends 'span' | 'a'>(props: TagProps<T>): JSX.Element
 
-const tagStyles = tw`inline-flex items-center bg-blue-200 bg-opacity-75 rounded-md text-blue-700 no-underline text-xs md:text-sm padding[.2em .5em] outline-color[darkblue] hover:bg-opacity-100`
+const tagStyles = tw`inline-flex items-center bg-blue-200 bg-opacity-75 rounded-md text-blue-700 no-underline text-xxs md:text-xs padding[.2em .5em] outline-color[darkblue] hover:bg-opacity-100`
 
 const Tag = React.forwardRef<HTMLElement, TagProps<any>>(function Tag(
   props,

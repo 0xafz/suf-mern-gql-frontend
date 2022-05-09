@@ -240,9 +240,11 @@ module.exports = {
       ],
     },
     fontSize: {
-      xs: '0.75rem',
-      sm: '0.875rem',
-      base: '1rem',
+      xxs: '0.75rem', // 12px
+      xs: '.8125rem', // 13px
+      xsm: '0.875rem', // 14px
+      sm: '.9375rem', // 15px
+      base: '1rem', // 16px
       lg: '1.125rem',
       xl: '1.25rem',
       '2xl': '1.5rem',
