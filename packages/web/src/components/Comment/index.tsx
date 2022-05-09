@@ -10,17 +10,10 @@ import { Author, Comment as IComment } from '~~/generated/graphql'
 interface CommentProps {
   comment: IComment
   user: Author
-  quesAnsId: string
-  editComment: (...args: any) => void
-  deleteComment: (...args: any) => void
+  onDelete: (commentId: string) => void
+  onEdit: (editedCommentBody: string, commentId: string) => void
 }
-const Comment = ({
-  comment,
-  user,
-  quesAnsId,
-  editComment,
-  deleteComment,
-}: CommentProps) => {
+const Comment = ({ comment, user, onDelete, onEdit }: CommentProps) => {
   const [editOpen, setEditOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [editedCommentBody, setEditedCommentBody] = useState(comment.body)
@@ -29,18 +22,18 @@ const Comment = ({
     setEditedCommentBody(comment.body)
   }, [comment])
 
-  const closeInput = () => {
-    setEditOpen(false)
-  }
-
   const handleDeleteComment = () => {
-    deleteComment()
+    onDelete(comment._id)
     setDeleteModalOpen(false)
   }
   const handleCommentEdit = (e: React.FormEvent) => {
+    // prevent default form post submit actions
     e.preventDefault()
-    editComment(editedCommentBody, comment._id, quesAnsId)
-    closeInput()
+
+    onEdit(editedCommentBody, comment._id)
+
+    // close form
+    setEditOpen(false)
   }
 
   return (
@@ -67,10 +60,11 @@ const Comment = ({
               </LightButton>
               <DeleteDialog
                 open={deleteModalOpen}
-                bodyType="comment"
                 onConfirm={() => handleDeleteComment()}
                 onClose={() => setDeleteModalOpen(false)}
-              />
+              >
+                <p>Are you sure you want to delete this comment?</p>
+              </DeleteDialog>
             </>
           )}
         </div>
@@ -83,9 +77,7 @@ const Comment = ({
             fullWidth
             placeholder="Enter at least 15 characters"
             rows={2}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              setEditedCommentBody(e.target.value)
-            }
+            onChange={(e: any) => setEditedCommentBody(e.target.value)}
           />
           <div>
             <LightButton type="submit" tw="mr-4">

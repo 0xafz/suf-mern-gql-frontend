@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
+import * as React from 'react'
 import { useParams } from 'react-router-dom'
 import { useAppContext } from '../context/state'
 import { useAuthContext } from '../context/auth'
-import QuesPageContent from '../components/Question/Content'
 import AuthFormOnButton from '../components/Auth/AuthFormOnButton'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { formatDateAgo, getErrorMsg } from '../utils/helperFuncs'
@@ -12,6 +11,7 @@ import { Question, useFetchQuestionLazyQuery } from '../generated/graphql'
 import { ButtonLikeLink } from '~~/components/my-mui/Misc'
 import Divider from '~~/components/my-mui/Divider'
 import { Container } from '~~/components/Layout'
+import QuestionPageContent from '../components/Question/QuestionPageContent'
 
 const QuestionHeader = tw.div``
 
@@ -19,7 +19,7 @@ const QuestionPage = () => {
   const { clearEdit, notify } = useAppContext()
   const { user } = useAuthContext()
   const { quesId } = useParams<{ quesId: string }>()
-  const [question, setQuestion] = useState<Question | null>(null)
+  const [question, setQuestion] = React.useState<Question | null>(null)
 
   const [fetchQuestion, { data, loading }] = useFetchQuestionLazyQuery({
     onError: (err) => {
@@ -27,14 +27,14 @@ const QuestionPage = () => {
     },
   })
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (quesId) {
       fetchQuestion({ variables: { quesId } })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quesId])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (data) {
       setQuestion(data.viewQuestion as Question)
     }
@@ -82,7 +82,7 @@ const QuestionPage = () => {
         </div>
       </QuestionHeader>
       <Divider tw="my-4 border-[hsl(210,8%,90%)]" />
-      <QuesPageContent question={question} />
+      <QuestionPageContent data={question} />
     </Container>
   )
 }

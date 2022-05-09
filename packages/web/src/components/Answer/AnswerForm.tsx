@@ -15,6 +15,7 @@ import {
   FetchQuestionQuery,
   useAddAnswerMutation,
 } from '../../generated/graphql'
+import * as React from 'react'
 
 const validationSchema = yup.object({
   answerBody: yup.string().min(30, 'Must be at least 30 characters'),
@@ -43,33 +44,36 @@ const AnswerForm = ({ quesId, tags }: Props) => {
     },
   })
 
-  const postAnswer = ({ answerBody }: { answerBody: string }) => {
-    addAnswer({
-      variables: { quesId, body: answerBody },
-      update: (proxy, { data }) => {
-        // reset form state
-        reset()
+  const postAnswer = React.useCallback(
+    ({ answerBody }: { answerBody: string }) => {
+      addAnswer({
+        variables: { quesId, body: answerBody },
+        update: (proxy, { data }) => {
+          // reset form state
+          reset()
 
-        const dataInCache = proxy.readQuery<FetchQuestionQuery>({
-          query: FetchQuestionDocument,
-          variables: { quesId },
-        })
+          const dataInCache = proxy.readQuery<FetchQuestionQuery>({
+            query: FetchQuestionDocument,
+            variables: { quesId },
+          })
 
-        const updatedData = {
-          ...dataInCache?.viewQuestion,
-          answers: data?.postAnswer,
-        }
+          const updatedData = {
+            ...dataInCache?.viewQuestion,
+            answers: data?.postAnswer,
+          }
 
-        proxy.writeQuery({
-          query: FetchQuestionDocument,
-          variables: { quesId },
-          data: { viewQuestion: updatedData },
-        })
+          proxy.writeQuery({
+            query: FetchQuestionDocument,
+            variables: { quesId },
+            data: { viewQuestion: updatedData },
+          })
 
-        notify('Answer submitted!')
-      },
-    })
-  }
+          notify('Answer submitted!')
+        },
+      })
+    },
+    []
+  )
 
   return (
     <div>

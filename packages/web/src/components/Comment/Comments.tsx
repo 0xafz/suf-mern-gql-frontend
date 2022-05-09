@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import Comment from '.'
 import * as yup from 'yup'
@@ -6,33 +6,43 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { LightButton } from '../my-mui/Misc'
 import 'twin.macro'
-import { Author, Question } from '../../generated/graphql'
+import {
+  Author,
+  CommentParentType,
+  FetchQuestionDocument,
+  FetchQuestionQuery,
+  Question,
+  useAddCommentMutation,
+  useDeleteCommentMutation,
+  useEditCommentMutation,
+} from '../../generated/graphql'
 import TextField from '../my-mui/TextField'
 import Divider from '../my-mui/Divider'
+import { useAppContext } from '~~/context/state'
+import { getErrorMsg } from '~~/utils/helperFuncs'
 
 const validationSchema = yup.object({
   commentBody: yup.string().min(15, 'Must be at least 15 characters'),
 })
 
 interface CommentSectionProps {
-  quesAnsId: string
+  parentId: string
+  quesId: string
+  parentType: CommentParentType
   user: Author
   comments: Question['comments']
-  addComment: (...args: any) => void
-  editComment: (...args: any) => void
-  deleteComment: (...args: any) => void
 }
 
 const CommentSection = ({
   user,
   comments,
-  addComment,
-  editComment,
-  deleteComment,
-  quesAnsId,
+  parentId,
+  quesId,
+  parentType,
 }: CommentSectionProps) => {
-  const [isCollapsed, setIsCollapsed] = useState(true)
-  const [inputOpen, setInputOpen] = useState(false)
+  const [isCollapsed, setIsCollapsed] = React.useState(true)
+  const [inputOpen, setInputOpen] = React.useState(false)
+  const { notify } = useAppContext()
   const {
     register,
     handleSubmit,
@@ -43,21 +53,138 @@ const CommentSection = ({
     resolver: yupResolver(validationSchema),
   })
 
-  const closeInput = () => {
-    setInputOpen(false)
-  }
+  const [_addComment] = useAddCommentMutation({
+    onError: (err) => {
+      notify(getErrorMsg(err), 'error')
+    },
+  })
+  const [_editComment] = useEditCommentMutation({
+    onError: (err) => {
+      notify(getErrorMsg(err), 'error')
+    },
+  })
 
-  const showComments = () => {
+  const [_deleteComment] = useDeleteCommentMutation({
+    onError: (err) => {
+      notify(getErrorMsg(err), 'error')
+    },
+  })
+  const addComment = React.useCallback((commentBody: string) => {
+    _addComment({
+      variables: { parentId, parentType, body: commentBody },
+      update: (proxy, { data }) => {
+        const dataInCache = proxy.readQuery<FetchQuestionQuery>({
+          query: FetchQuestionDocument,
+          variables: { quesId },
+        })
+
+        let updatedData
+        if (parentType === CommentParentType.Question) {
+          updatedData = {
+            ...dataInCache?.viewQuestion,
+            comments: [
+              ...(dataInCache?.viewQuestion?.comments ?? []),
+              data?.addComment,
+            ],
+          }
+        } else if (parentType === CommentParentType.Answer) {
+          const targetAnswer = dataInCache?.viewQuestion.answers.find(
+            (a) => a?._id === parentId
+          )
+          const updatedComments = [
+            ...(targetAnswer?.comments ?? []),
+            data?.addComment,
+          ]
+
+          const updatedAnswers = dataInCache?.viewQuestion.answers.map((a) =>
+            a?._id === parentId ? { ...a, comments: updatedComments } : a
+          )
+          updatedData = {
+            ...dataInCache?.viewQuestion,
+            answers: updatedAnswers,
+          }
+        }
+
+        proxy.writeQuery({
+          query: FetchQuestionDocument,
+          variables: { quesId },
+          data: { viewQuestion: updatedData },
+        })
+        notify('Comment added!')
+      },
+    })
+  }, [])
+
+  const editComment = React.useCallback(
+    (editedCommentBody: string, commentId: string) => {
+      _editComment({
+        variables: { commentId, body: editedCommentBody },
+        update: () => {
+          notify('Comment edited!')
+        },
+      })
+    },
+    []
+  )
+
+  const deleteComment = React.useCallback((commentId: string) => {
+    _deleteComment({
+      variables: { commentId },
+      update: (proxy, { data }) => {
+        const dataInCache = proxy.readQuery<FetchQuestionQuery>({
+          query: FetchQuestionDocument,
+          // currently, we fetch question and related data(answers,comments) in one network call
+          // apollo cache is tightly linked to quesId
+          // TODO: fetch questions,answers,comments separately and change backend accrodingly
+          variables: { quesId },
+        })
+
+        let updatedData
+        if (parentType === CommentParentType.Question) {
+          const filteredComments = dataInCache?.viewQuestion?.comments.filter(
+            (comment) => comment?._id !== commentId
+          )
+          updatedData = {
+            ...dataInCache?.viewQuestion,
+            comments: filteredComments,
+          }
+        } else if (parentType === CommentParentType.Answer) {
+          const targetAnswer = dataInCache?.viewQuestion.answers.find(
+            (a) => a?._id === parentId
+          )
+          const updatedComments = targetAnswer?.comments.filter(
+            (c) => c?._id !== data?.deleteComment
+          )
+          const updatedAnswers = dataInCache?.viewQuestion.answers.map((a) =>
+            a?._id === parentId ? { ...a, comments: updatedComments } : a
+          )
+          updatedData = {
+            ...dataInCache?.viewQuestion,
+            answers: updatedAnswers,
+          }
+        }
+
+        proxy.writeQuery({
+          query: FetchQuestionDocument,
+          variables: { quesId },
+          data: { viewQuestion: updatedData },
+        })
+
+        notify('Comment deleted!')
+      },
+    })
+  }, [])
+  const handleAddComment = ({ commentBody }: { commentBody: string }) => {
+    addComment(commentBody)
+    // show all comments
     setIsCollapsed(false)
-  }
-
-  const handleCommentAdd = ({ commentBody }: { commentBody: string }) => {
-    addComment(commentBody, quesAnsId)
-    showComments()
-    closeInput()
+    // close form
+    setInputOpen(false)
+    // reset form values
     reset()
   }
 
+  // TODO: Haha, need to make an actual api call
   const visibleComments = isCollapsed ? comments.slice(0, 3) : comments
 
   return (
@@ -68,14 +195,13 @@ const CommentSection = ({
           <Comment
             comment={c!}
             user={user}
-            quesAnsId={quesAnsId}
-            editComment={editComment}
-            deleteComment={deleteComment}
+            onDelete={deleteComment}
+            onEdit={editComment}
           />
         </div>
       ))}
       {visibleComments.length !== comments.length ? (
-        <LightButton onClick={showComments}>
+        <LightButton onClick={() => setIsCollapsed(false)}>
           show {comments.length - visibleComments.length} more comments
         </LightButton>
       ) : (
@@ -87,7 +213,7 @@ const CommentSection = ({
         )
       )}
       {inputOpen && (
-        <form onSubmit={handleSubmit(handleCommentAdd)} tw="mt-1">
+        <form onSubmit={handleSubmit(handleAddComment)} tw="mt-1">
           <TextField
             tag="textarea"
             {...register('commentBody')}
