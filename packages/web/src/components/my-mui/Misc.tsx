@@ -20,7 +20,7 @@ inline-block transition-colors border-0 rounded-sm md:rounded-md  padding[.5em .
 `
 export const Button = styled.button(() => [
   baseButtonStyles,
-  tw` bg-blue-500 hover:bg-blue-700 active:bg-blue-700 text-white`,
+  tw` bg-blue-600 hover:bg-blue-700 active:bg-blue-700 text-white`,
   buttonDisableStyles,
 ])
 
