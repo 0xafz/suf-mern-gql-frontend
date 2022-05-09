@@ -21,7 +21,7 @@ export const PostedBy = ({
   updatedAt,
 }: PostedByProps) => {
   return (
-    <div tw="float-right max-w-[175px] md:max-w-[200px] ">
+    <div tw="float-right ml-auto max-w-[175px] md:max-w-[200px] ">
       <div tw="break-words text-gray-600 text-xs ">
         {`${postType} ${formatDateAgo(createdAt)} ago`}
       </div>
@@ -55,7 +55,7 @@ export const MiniPostedBy = ({
   createdAt,
 }: PostedByProps) => {
   return (
-    <div tw="float-right flex items-center text-sm">
+    <div tw="float-right ml-auto flex items-center text-sm">
       <Avatar
         src={`https://secure.gravatar.com/avatar/${userId}?s=164&d=identicon`}
         alt={username}
