@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useAppContext } from '../context/state'
 import ErrorMessage from '../components/AlertError'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { getErrorMsg } from '../utils/helperFuncs'
 
 import TextField from '~~/components/my-mui/TextField'
@@ -17,22 +15,12 @@ import {
   useUpdateQuestionMutation,
 } from '../generated/graphql'
 import { Container } from '~~/components/Layout'
+import { getValidation } from '~~/utils'
 
 interface BaseQuestionArgs {
   title: string
   body: string
 }
-const validationSchema = yup.object({
-  title: yup
-    .string()
-    .required('Required')
-    .min(50, 'Must be at least 50 characters'),
-  body: yup
-    .string()
-    .required('Required')
-    .min(100, 'Must be at least 100 characters'),
-})
-
 const AskQuestionPage = () => {
   const navigate = useNavigate()
   const { editingQuestion, clearEdit, notify } = useAppContext()
@@ -50,7 +38,6 @@ const AskQuestionPage = () => {
       body: editingQuestion ? editingQuestion.body : '',
     },
     mode: 'onChange',
-    resolver: yupResolver(validationSchema),
   })
 
   const [addQuestion, { loading: addQuesLoading }] = useAddQuestionMutation({
@@ -145,7 +132,7 @@ const AskQuestionPage = () => {
             tag="input"
             required
             fullWidth
-            {...register('title')}
+            {...register('title', getValidation({ name: 'title', min: 50 }))}
             placeholder="Enter atleast 50 characters"
             type="text"
             label="Title"
@@ -163,7 +150,7 @@ const AskQuestionPage = () => {
             required
             rows={5}
             fullWidth
-            {...register('body')}
+            {...register('body', getValidation({ name: 'body', min: 100 }))}
             placeholder="Enter atleast 100 characters"
             label="Body"
             error={'body' in errors}

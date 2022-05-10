@@ -1,4 +1,3 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsFillPersonFill as PersonIcon } from 'react-icons/bs'
@@ -8,7 +7,6 @@ import {
   MdVisibilityOff as VisibilityOffIcon,
 } from 'react-icons/md'
 import 'twin.macro'
-import * as yup from 'yup'
 import { useAuthContext } from '~~/context/auth'
 import { useAppContext } from '~~/context/state'
 import {
@@ -22,11 +20,7 @@ import IconButton from '../my-mui/IconButton'
 import TextField from '../my-mui/TextField'
 import InputAdornment from '../my-mui/InputAdornment'
 import ErrorMessage from '../AlertError'
-
-const validationSchema = yup.object({
-  username: yup.string().required('username is required'),
-  password: yup.string().required('password is required'),
-})
+import { getValidation } from '~~/utils'
 
 interface LoginFormProps {
   setAuthType: (...args: any) => void
@@ -45,7 +39,6 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
     formState: { errors },
   } = useForm<{ username: string; password: string }>({
     mode: 'onTouched',
-    resolver: yupResolver(validationSchema),
   })
 
   const [loginUser, { loading }] = useLoginUserMutation({
@@ -76,7 +69,7 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
             fullWidth
             placeholder="username"
             type="text"
-            {...register('username')}
+            {...register('username', getValidation({ name: 'username' }))}
             error={'username' in errors}
             helperText={'username' in errors ? errors?.username?.message : ''}
             InputProps={{
@@ -93,7 +86,7 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
             tag="input"
             required
             fullWidth
-            {...register('password')}
+            {...register('password', getValidation({ name: 'password' }))}
             placeholder="password"
             type={showPass ? 'text' : 'password'}
             error={'password' in errors}
