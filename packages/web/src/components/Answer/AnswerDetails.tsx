@@ -27,6 +27,7 @@ import DeleteDialog from '../Dialogs/DeleteDialog'
 import { LightButton } from '../my-mui/Misc'
 import TextField from '../my-mui/TextField'
 import { PostedBy } from '../PostedBy'
+import { calcPoints } from '~~/utils'
 
 const validationSchema = yup.object({
   editedAnswerBody: yup.string().min(30, 'Must be at least 30 characters'),
@@ -110,7 +111,7 @@ function AnswerDetails({
           __typename: 'Answer',
           _id: ansId,
           voted: voteType,
-          points: voteType === VoteType.Upvote ? points + 1 : points - 1,
+          points: calcPoints(voteType, points),
         },
       },
     })

@@ -10,6 +10,7 @@ import {
   useSubmitQuesVoteMutation,
   VoteType,
 } from '~~/generated/graphql'
+import { calcPoints } from '~~/utils'
 import { getErrorMsg } from '~~/utils/helperFuncs'
 import AuthFormOnButton from '../Auth/AuthFormOnButton'
 import { DownvoteButton, UpvoteButton } from '../Buttons/Vote'
@@ -60,7 +61,7 @@ function QuestionDetails({ data }: QuestionDetailsProps) {
         voteQuestion: {
           __typename: 'Question',
           _id: quesId,
-          points: voteType === VoteType.Upvote ? points + 1 : points - 1,
+          points: calcPoints(voteType, points),
           voted: voteType,
         },
       },

@@ -19,6 +19,9 @@ const TagContainer = styled.div(() => [
 const AllTagsPage = () => {
   const { notify } = useAppContext()
   const { data, loading } = useFetchAllTagsQuery({
+    variables: {
+      limit: 20,
+    },
     onError: (err) => {
       notify(getErrorMsg(err), 'error')
     },
@@ -52,20 +55,20 @@ const AllTagsPage = () => {
       />
       {!loading && data && (
         <Tags>
-          {data.getAllTags
+          {data.getAllTags.tags
             .filter((t) =>
-              t.tagName.toLowerCase().includes(filterInput.toLowerCase())
+              t.name.toLowerCase().includes(filterInput.toLowerCase())
             )
             .map((t) => (
-              <TagContainer key={t.tagName}>
+              <TagContainer key={t._id}>
                 <Tag
                   tag="a"
-                  label={t.tagName}
+                  label={t.name}
                   tw="mb-2"
-                  href={`/tags/${t.tagName}`}
+                  href={`/tags/${t.name}`}
                 />
                 <div tw="mt-2">
-                  <span tw="text-xs ">{t.count} question(s)</span>
+                  <span tw="text-xs ">{t.questionCount} question(s)</span>
                 </div>
               </TagContainer>
             ))}

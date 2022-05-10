@@ -56,6 +56,12 @@ export enum CommentParentType {
   Answer = 'Answer'
 }
 
+export type GetAllTagsResult = {
+  __typename?: 'GetAllTagsResult';
+  tags: Array<Tag>;
+  nextCursor: Scalars['String'];
+};
+
 export type LoggedUser = {
   __typename?: 'LoggedUser';
   _id: Scalars['ID'];
@@ -187,7 +193,7 @@ export type Query = {
   __typename?: 'Query';
   getQuestions: PaginatedQuesList;
   viewQuestion: Question;
-  getAllTags: Array<Tag>;
+  getAllTags: GetAllTagsResult;
   whoami: User;
   getUser: User;
   getAllUsers: Array<User>;
@@ -195,9 +201,9 @@ export type Query = {
 
 
 export type QueryGetQuestionsArgs = {
-  sortBy: SortByType;
   page: Scalars['Int'];
   limit: Scalars['Int'];
+  sortBy: QuestionSortBy;
   filterByTag?: InputMaybe<Scalars['String']>;
   filterBySearch?: InputMaybe<Scalars['String']>;
 };
@@ -205,6 +211,13 @@ export type QueryGetQuestionsArgs = {
 
 export type QueryViewQuestionArgs = {
   quesId: Scalars['ID'];
+};
+
+
+export type QueryGetAllTagsArgs = {
+  limit: Scalars['Int'];
+  cursor?: InputMaybe<Scalars['ID']>;
+  filterBySearch?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -231,6 +244,14 @@ export type Question = {
   updatedAt: Scalars['DateTime'];
 };
 
+export enum QuestionSortBy {
+  Hot = 'HOT',
+  Votes = 'VOTES',
+  Views = 'VIEWS',
+  Newest = 'NEWEST',
+  Oldest = 'OLDEST'
+}
+
 export type QuestionVotes = {
   __typename?: 'QuestionVotes';
   userId: Scalars['ID'];
@@ -251,18 +272,11 @@ export enum RoleType {
   Admin = 'ADMIN'
 }
 
-export enum SortByType {
-  Hot = 'HOT',
-  Votes = 'VOTES',
-  Views = 'VIEWS',
-  Newest = 'NEWEST',
-  Oldest = 'OLDEST'
-}
-
 export type Tag = {
   __typename?: 'Tag';
-  tagName: Scalars['String'];
-  count: Scalars['Float'];
+  _id: Scalars['ID'];
+  name: Scalars['String'];
+  questionCount: Scalars['Int'];
 };
 
 export type User = {
@@ -414,7 +428,7 @@ export type SubmitAcceptAnsMutationVariables = Exact<{
 export type SubmitAcceptAnsMutation = { __typename?: 'Mutation', acceptAnswer: { __typename?: 'Question', _id: string, acceptedAnswer?: string | null } };
 
 export type FetchQuestionsQueryVariables = Exact<{
-  sortBy: SortByType;
+  sortBy: QuestionSortBy;
   page: Scalars['Int'];
   limit: Scalars['Int'];
   filterByTag?: InputMaybe<Scalars['String']>;
@@ -438,10 +452,14 @@ export type FetchUserQueryVariables = Exact<{
 
 export type FetchUserQuery = { __typename?: 'Query', getUser: { __typename?: 'User', _id: string, username: string, role: RoleType, createdAt: any, rep: number, totalQuestions: number, totalAnswers: number, recentQuestions: Array<{ __typename?: 'RecentActivity', _id: string, title: string, points: number, createdAt: any }>, recentAnswers: Array<{ __typename?: 'RecentActivity', _id: string, title: string, points: number, createdAt: any }> } };
 
-export type FetchAllTagsQueryVariables = Exact<{ [key: string]: never; }>;
+export type FetchAllTagsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  cursor?: InputMaybe<Scalars['ID']>;
+  filterBySearch?: InputMaybe<Scalars['String']>;
+}>;
 
 
-export type FetchAllTagsQuery = { __typename?: 'Query', getAllTags: Array<{ __typename?: 'Tag', tagName: string, count: number }> };
+export type FetchAllTagsQuery = { __typename?: 'Query', getAllTags: { __typename?: 'GetAllTagsResult', nextCursor: string, tags: Array<{ __typename?: 'Tag', name: string, _id: string, questionCount: number }> } };
 
 export type FetchAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1011,7 +1029,7 @@ export type SubmitAcceptAnsMutationHookResult = ReturnType<typeof useSubmitAccep
 export type SubmitAcceptAnsMutationResult = Apollo.MutationResult<SubmitAcceptAnsMutation>;
 export type SubmitAcceptAnsMutationOptions = Apollo.BaseMutationOptions<SubmitAcceptAnsMutation, SubmitAcceptAnsMutationVariables>;
 export const FetchQuestionsDocument = gql`
-    query fetchQuestions($sortBy: SortByType!, $page: Int!, $limit: Int!, $filterByTag: String, $filterBySearch: String) {
+    query fetchQuestions($sortBy: QuestionSortBy!, $page: Int!, $limit: Int!, $filterByTag: String, $filterBySearch: String) {
   getQuestions(
     sortBy: $sortBy
     page: $page
@@ -1186,10 +1204,14 @@ export type FetchUserQueryHookResult = ReturnType<typeof useFetchUserQuery>;
 export type FetchUserLazyQueryHookResult = ReturnType<typeof useFetchUserLazyQuery>;
 export type FetchUserQueryResult = Apollo.QueryResult<FetchUserQuery, FetchUserQueryVariables>;
 export const FetchAllTagsDocument = gql`
-    query fetchAllTags {
-  getAllTags {
-    tagName
-    count
+    query fetchAllTags($limit: Int!, $cursor: ID, $filterBySearch: String) {
+  getAllTags(limit: $limit, cursor: $cursor, filterBySearch: $filterBySearch) {
+    tags {
+      name
+      _id
+      questionCount
+    }
+    nextCursor
   }
 }
     `;
@@ -1206,10 +1228,13 @@ export const FetchAllTagsDocument = gql`
  * @example
  * const { data, loading, error } = useFetchAllTagsQuery({
  *   variables: {
+ *      limit: // value for 'limit'
+ *      cursor: // value for 'cursor'
+ *      filterBySearch: // value for 'filterBySearch'
  *   },
  * });
  */
-export function useFetchAllTagsQuery(baseOptions?: Apollo.QueryHookOptions<FetchAllTagsQuery, FetchAllTagsQueryVariables>) {
+export function useFetchAllTagsQuery(baseOptions: Apollo.QueryHookOptions<FetchAllTagsQuery, FetchAllTagsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FetchAllTagsQuery, FetchAllTagsQueryVariables>(FetchAllTagsDocument, options);
       }

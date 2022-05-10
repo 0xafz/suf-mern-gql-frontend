@@ -61,9 +61,8 @@ const QuestionCard = ({ question }: QuesCardProps) => {
                 key={t}
                 href={`/tags/${t}`}
                 styles={{ link: tw`margin[0 .25em .25em]` }}
-              >
-                {t}
-              </Tag>
+                label={t}
+              />
             ))}
           </div>
           <div tw="ml-auto flex items-center justify-end text-sm">
