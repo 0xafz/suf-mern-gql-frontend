@@ -23,7 +23,7 @@
     "react-is": "^18.1.0",
     "react-router-dom": "6",
     "styled-components": "^5.3.5",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "2.1.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.21.8",
