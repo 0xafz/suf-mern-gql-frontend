@@ -41,7 +41,6 @@ pnpm run web dev
 - [React Router](https://reactrouter.com/) - For general routing & navigation
 - [React Hook Form](https://react-hook-form.com/) - For flexible forms
 - ~~[Material-UI w/ lots of CSS customisations](https://material-ui.com/)~~ now using [twin.macro](https://github.com/ben-rogerson/twin.macro)- CSS-in-JS library
-- [Yup](https://github.com/jquense/yup) - For form validation
 
 ## Features
 

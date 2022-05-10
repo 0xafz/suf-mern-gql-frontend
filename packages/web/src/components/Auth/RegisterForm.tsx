@@ -1,4 +1,3 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsFillPersonFill as PersonIcon } from 'react-icons/bs'
@@ -12,7 +11,6 @@ import {
   MdVisibilityOff as VisibilityOffIcon,
 } from 'react-icons/md'
 import 'twin.macro'
-import * as yup from 'yup'
 import { useAuthContext } from '~~/context/auth'
 import { useAppContext } from '~~/context/state'
 import {
@@ -26,26 +24,7 @@ import IconButton from '../my-mui/IconButton'
 import TextField from '../my-mui/TextField'
 import InputAdornment from '../my-mui/InputAdornment'
 import AlertError from '../AlertError'
-
-const validationSchema = yup.object({
-  username: yup
-    .string()
-    .required('username is required')
-    .max(20, 'Must be at most 20 characters')
-    .min(3, 'Must be at least 3 characters')
-    .matches(
-      /^[a-zA-Z0-9-_]*$/,
-      'Only alphanum, dash & underscore characters are allowed'
-    ),
-  password: yup
-    .string()
-    .required('password is required')
-    .min(6, 'Must be at least 6 characters'),
-  confirmPassword: yup
-    .string()
-    .required('password confirmation is required')
-    .min(6, 'Must be at least 6 characters'),
-})
+import { getValidation, usernameValidation } from '~~/utils'
 
 interface RegisterFormProps {
   setAuthType: (...args: any) => void
@@ -65,7 +44,6 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
     formState: { errors },
   } = useForm<RegisterUserMutationVariables & { confirmPassword: string }>({
     mode: 'onTouched',
-    resolver: yupResolver(validationSchema),
   })
 
   const [registerUser, { loading }] = useRegisterUserMutation({
@@ -98,7 +76,7 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
             tag="input"
             required
             fullWidth
-            {...register('username')}
+            {...register('username', usernameValidation)}
             placeholder="username"
             type="text"
             error={'username' in errors}
@@ -117,7 +95,10 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
             tag="input"
             required
             fullWidth
-            {...register('password')}
+            {...register(
+              'password',
+              getValidation({ name: 'password', min: 6 })
+            )}
             placeholder="password"
             type={showPass ? 'text' : 'password'}
             error={'password' in errors}
@@ -150,7 +131,10 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
             tag="input"
             required
             fullWidth
-            {...register('confirmPassword')}
+            {...register(
+              'confirmPassword',
+              getValidation({ name: 'confirm-password', min: 6 })
+            )}
             placeholder="confirmPassword"
             type={showConfPass ? 'text' : 'password'}
             error={'confirmPassword' in errors}

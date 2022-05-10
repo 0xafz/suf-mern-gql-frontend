@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import Comment from '.'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 
 import { LightButton } from '../my-mui/Misc'
 import 'twin.macro'
@@ -20,10 +18,7 @@ import TextField from '../my-mui/TextField'
 import Divider from '../my-mui/Divider'
 import { useAppContext } from '~~/context/state'
 import { getErrorMsg } from '~~/utils/helperFuncs'
-
-const validationSchema = yup.object({
-  commentBody: yup.string().min(15, 'Must be at least 15 characters'),
-})
+import { getValidation } from '~~/utils'
 
 interface CommentSectionProps {
   parentId: string
@@ -50,7 +45,6 @@ const CommentSection = ({
     formState: { errors },
   } = useForm<{ commentBody: string }>({
     mode: 'onChange',
-    resolver: yupResolver(validationSchema),
   })
 
   const [_addComment] = useAddCommentMutation({
@@ -216,7 +210,10 @@ const CommentSection = ({
         <form onSubmit={handleSubmit(handleAddComment)} tw="mt-1">
           <TextField
             tag="textarea"
-            {...register('commentBody')}
+            {...register(
+              'commentBody',
+              getValidation({ name: 'comment', min: 15 })
+            )}
             required
             placeholder="Enter at least 15 characters"
             rows={3}

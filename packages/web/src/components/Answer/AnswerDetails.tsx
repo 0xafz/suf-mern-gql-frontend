@@ -1,8 +1,6 @@
 import * as React from 'react'
 import 'twin.macro'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
 import { useAuthContext } from '~~/context/auth'
 import { useAppContext } from '~~/context/state'
 import {
@@ -27,11 +25,7 @@ import DeleteDialog from '../Dialogs/DeleteDialog'
 import { LightButton } from '../my-mui/Misc'
 import TextField from '../my-mui/TextField'
 import { PostedBy } from '../PostedBy'
-import { calcPoints } from '~~/utils'
-
-const validationSchema = yup.object({
-  editedAnswerBody: yup.string().min(30, 'Must be at least 30 characters'),
-})
+import { calcPoints, getValidation } from '~~/utils'
 
 interface AnswerDetailsProps {
   data: Answer
@@ -72,7 +66,6 @@ function AnswerDetails({
     editedAnswerBody: string
   }>({
     mode: 'onChange',
-    resolver: yupResolver(validationSchema),
     defaultValues: {
       editedAnswerBody: body,
     },
@@ -235,7 +228,10 @@ function AnswerDetails({
               required
               placeholder="Enter at least 30 characters"
               rows={4}
-              {...register('editedAnswerBody')}
+              {...register(
+                'editedAnswerBody',
+                getValidation({ name: 'answer', min: 50 })
+              )}
             />
             <div>
               <LightButton type="submit" tw="mr-4">

@@ -2,8 +2,6 @@ import { useForm } from 'react-hook-form'
 import { useAuthContext } from '~~/context/auth'
 import { useAppContext } from '~~/context/state'
 import AuthFormOnButton from '../Auth/AuthFormOnButton'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { getErrorMsg } from '~~/utils/helperFuncs'
 
 import 'twin.macro'
@@ -16,10 +14,7 @@ import {
   useAddAnswerMutation,
 } from '../../generated/graphql'
 import * as React from 'react'
-
-const validationSchema = yup.object({
-  answerBody: yup.string().min(30, 'Must be at least 30 characters'),
-})
+import { getValidation } from '~~/utils'
 
 interface Props {
   quesId: string
@@ -35,7 +30,6 @@ const AnswerForm = ({ quesId, tags }: Props) => {
     formState: { errors },
   } = useForm<{ answerBody: string }>({
     mode: 'onChange',
-    resolver: yupResolver(validationSchema),
   })
 
   const [addAnswer, { loading }] = useAddAnswerMutation({
@@ -82,7 +76,10 @@ const AnswerForm = ({ quesId, tags }: Props) => {
         <form onSubmit={handleSubmit(postAnswer)}>
           <TextField
             tag="textarea"
-            {...register('answerBody')}
+            {...register(
+              'answerBody',
+              getValidation({ name: 'answer', min: 50 })
+            )}
             name="answerBody"
             required
             rows={5}
