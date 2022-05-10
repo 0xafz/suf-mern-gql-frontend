@@ -12,7 +12,11 @@ interface LoadingSpinnerProps extends ComponentProps<'span'> {
   }
 }
 
-const LoadingSpinner = ({ size, styles, ...rest }: LoadingSpinnerProps) => {
+const LoadingSpinner = ({
+  size = 'medium',
+  styles,
+  ...rest
+}: LoadingSpinnerProps) => {
   let sizeStyles
   if (size === 'small') {
     sizeStyles = tw`w-4 h-4`
@@ -25,7 +29,10 @@ const LoadingSpinner = ({ size, styles, ...rest }: LoadingSpinnerProps) => {
   }
   return (
     <div
-      css={[tw`flex justify-center w-full h-full`, styles && styles.loaderRoot]}
+      css={[
+        tw`flex justify-center items-center min-height[inherit] w-full`,
+        styles && styles.loaderRoot,
+      ]}
     >
       <span
         css={[loaderStyles, sizeStyles, styles && styles.loaderIconWrapper]}

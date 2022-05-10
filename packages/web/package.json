@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:bm": "tsc && vite build  2>&1 | tee -a bundle-metrics.txt",
     "preview": "vite preview",
     "predeploy": "rm -rf build && npm run build",
     "generate": "graphql-codegen --config codegen.yml",

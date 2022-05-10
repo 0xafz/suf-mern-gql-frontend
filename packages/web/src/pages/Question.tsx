@@ -54,7 +54,7 @@ const QuestionPage = () => {
     <Container>
       <QuestionHeader>
         <div tw="flex sm:(justify-between items-center) flex-nowrap flex-col sm:flex-row ">
-          <h1 tw="m-0 mb-1 font-normal text-2xl word-wrap[break-word]">
+          <h1 tw="m-0 mb-1 font-normal text-[22px] md:text-2xl word-wrap[break-word]">
             {title}
           </h1>
           <div tw="p-0 m-0 ml-2 align-baseline  order[-1] self-end sm:(order-none self-auto) ">

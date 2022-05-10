@@ -71,11 +71,7 @@ const AllTagsPage = () => {
             ))}
         </Tags>
       )}
-      {loading && (
-        <div style={{ minWidth: '100%' }}>
-          <LoadingSpinner />
-        </div>
-      )}
+      {loading && <LoadingSpinner />}
     </Container>
   )
 }
