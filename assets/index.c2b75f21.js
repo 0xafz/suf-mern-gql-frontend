@@ -1,0 +1,1 @@
+import{_ as i}from"./vendor.d37175de.js";const t=i.div.withConfig({displayName:"Layout__Container",componentId:"sc-ag64mz-0"})({paddingLeft:"0.5rem",paddingRight:"0.5rem",paddingTop:"2rem",paddingBottom:"2rem",width:"100%",minHeight:"40vh","@media (min-width: 768px)":{paddingLeft:"1.5rem",paddingRight:"1.5rem"}});export{t as C};
