@@ -1,2 +1,1 @@
-// export const backendUrl = 'http://localhost:4000/'
-export const backendUrl = 'https://suf-mern-gql-backend.herokuapp.com/'
+export const backendUrl = import.meta.env.VITE_BACKEND_URL
