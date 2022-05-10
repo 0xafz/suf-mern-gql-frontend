@@ -13,7 +13,7 @@ const AlertError = ({ errorMsg, clearErrorMsg }: AlertErrorProps) => {
 
   return (
     <div>
-      <Alert severity="error" title="Error" onClose={clearErrorMsg}>
+      <Alert severity="error" onClose={clearErrorMsg}>
         {errorMsg}
       </Alert>
     </div>
