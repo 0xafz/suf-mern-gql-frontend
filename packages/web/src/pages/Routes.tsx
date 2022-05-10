@@ -5,6 +5,7 @@ import 'twin.macro'
 import { lazy, Suspense } from 'react'
 import MainLayout from '~~/components/Layout/MainLayout'
 import LoadingSpinner from '~~/components/LoadingSpinner'
+import useMediaQuery from '~~/hooks/useMediaQuery'
 
 const QuesList = lazy(() => import('./QuesList'))
 const AllTags = lazy(() => import('./AllTags'))
@@ -17,6 +18,7 @@ const NotFound = lazy(() => import('./NotFound'))
 
 const AppRoutes = () => {
   const { user } = useAuthContext()
+  const isMdScreen = useMediaQuery('(min-width: 768px)')
 
   return (
     <MainLayout>
@@ -27,7 +29,7 @@ const AppRoutes = () => {
             element={
               <>
                 <QuesList />
-                <RightSidePanel />
+                {isMdScreen && <RightSidePanel />}
               </>
             }
           />
@@ -37,7 +39,7 @@ const AppRoutes = () => {
               user ? (
                 <>
                   <AskQuestion />
-                  <RightSidePanel />
+                  {isMdScreen && <RightSidePanel />}
                 </>
               ) : (
                 <Navigate to="/" />
@@ -52,7 +54,7 @@ const AppRoutes = () => {
             element={
               <>
                 <Question />
-                <RightSidePanel />
+                {isMdScreen && <RightSidePanel />}
               </>
             }
           ></Route>
@@ -61,7 +63,7 @@ const AppRoutes = () => {
             element={
               <>
                 <QuesList tagFilterActive={true} />
-                <RightSidePanel />
+                {isMdScreen && <RightSidePanel />}
               </>
             }
           ></Route>
@@ -70,7 +72,7 @@ const AppRoutes = () => {
             element={
               <>
                 <QuesList searchFilterActive={true} />
-                <RightSidePanel />
+                {isMdScreen && <RightSidePanel />}
               </>
             }
           ></Route>
@@ -78,7 +80,7 @@ const AppRoutes = () => {
             element={
               <>
                 <NotFound />
-                <RightSidePanel />
+                {isMdScreen && <RightSidePanel />}
               </>
             }
           ></Route>

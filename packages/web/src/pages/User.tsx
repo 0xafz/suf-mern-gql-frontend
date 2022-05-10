@@ -47,11 +47,7 @@ const UserPage = () => {
   }, [data])
 
   if (loading || !fetchedUser) {
-    return (
-      <div style={{ minWidth: '100%', marginTop: '20%' }}>
-        <LoadingSpinner />
-      </div>
-    )
+    return <LoadingSpinner />
   }
 
   const {

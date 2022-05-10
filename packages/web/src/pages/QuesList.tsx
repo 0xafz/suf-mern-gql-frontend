@@ -28,7 +28,7 @@ const QuestionListHeader = styled.div`
   ${tw`flex justify-between items-center`}
 `
 
-const QuestionListBody = styled.div``
+const QuestionListBody = tw.div`min-height[80vh]`
 
 interface QuesListPageProps {
   tagFilterActive?: boolean
@@ -125,11 +125,7 @@ const QuesListPage = ({
       <SortQuesBar sortBy={sortBy} setSortBy={setSortBy} />
       <Divider />
       <QuestionListBody>
-        {loading && page === 1 && (
-          <div style={{ minWidth: '100%', marginTop: '1em' }}>
-            <LoadingSpinner size="large" />
-          </div>
-        )}
+        {loading && page === 1 && <LoadingSpinner />}
         {quesData &&
           (quesData.questions.length !== 0 ? (
             quesData.questions.map((q) => (

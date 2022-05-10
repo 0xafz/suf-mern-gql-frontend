@@ -53,23 +53,27 @@ const QuestionCard = ({ question }: QuesCardProps) => {
           </Link>
         </Question>
         <p tw="m-0 pb-1 text-sm">{body}</p>
-        <div tw="flex flex-wrap float-left">
-          {tags.map((t) => (
-            <Tag
-              tag="a"
-              key={t}
-              href={`/tags/${t}`}
-              styles={{ link: tw`margin[0 .25em .25em]` }}
-            >
-              {t}
-            </Tag>
-          ))}
+        <div tw="flex flex-wrap items-center justify-between">
+          <div tw="float-left flex flex-wrap items-center gap-2">
+            {tags.map((t) => (
+              <Tag
+                tag="a"
+                key={t}
+                href={`/tags/${t}`}
+                styles={{ link: tw`margin[0 .25em .25em]` }}
+              >
+                {t}
+              </Tag>
+            ))}
+          </div>
+          <div tw="ml-auto flex items-center justify-end text-sm">
+            <MiniPostedBy
+              username={author.username}
+              userId={author._id}
+              createdAt={createdAt}
+            />
+          </div>
         </div>
-        <MiniPostedBy
-          username={author.username}
-          userId={author._id}
-          createdAt={createdAt}
-        />
       </QuestionContainer>
     </Container>
   )

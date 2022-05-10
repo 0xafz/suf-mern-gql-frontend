@@ -55,7 +55,7 @@ export const MiniPostedBy = ({
   createdAt,
 }: PostedByProps) => {
   return (
-    <div tw="float-right ml-auto flex items-center text-sm">
+    <>
       <Avatar
         src={`https://secure.gravatar.com/avatar/${userId}?s=164&d=identicon`}
         alt={username}
@@ -66,9 +66,9 @@ export const MiniPostedBy = ({
         <span>{username}</span>
       </Link>
       &nbsp;
-      <span tw="text-gray-700">
+      <span tw="text-black-500">
         {`${postType} ${formatDateAgo(createdAt)} ago`}
       </span>
-    </div>
+    </>
   )
 }
