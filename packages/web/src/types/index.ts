@@ -1,5 +1,5 @@
-import { SortByType } from '../generated/graphql'
+import { QuestionSortBy } from '../generated/graphql'
 
 export type AnsSortBy = 'VOTES' | 'NEWEST' | 'OLDEST'
 
-export type QuesSortBy = SortByType
+export type QuesSortBy = QuestionSortBy

@@ -16,7 +16,7 @@ import {
   FetchQuestionsQuery,
   FetchQuestionsQueryVariables,
   Question,
-  SortByType,
+  QuestionSortBy,
   useFetchQuestionsLazyQuery,
 } from '../generated/graphql'
 
@@ -45,7 +45,7 @@ const QuesListPage = ({
   const [quesData, setQuesData] = useState<
     FetchQuestionsQuery['getQuestions'] | null
   >(null)
-  const [sortBy, setSortBy] = useState<SortByType>(SortByType.Hot)
+  const [sortBy, setSortBy] = useState<QuestionSortBy>(QuestionSortBy.Hot)
   const [page, setPage] = useState(1)
 
   const [fetchQuestions, { data, loading }] = useFetchQuestionsLazyQuery({

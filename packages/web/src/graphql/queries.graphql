@@ -1,5 +1,5 @@
 query fetchQuestions(
-  $sortBy: SortByType!
+  $sortBy: QuestionSortBy!
   $page: Int!
   $limit: Int!
   $filterByTag: String
@@ -83,10 +83,22 @@ query fetchUser($username: String!) {
     }
   }
 }
-query fetchAllTags {
-  getAllTags {
-    tagName
-    count
+query fetchAllTags(
+  $limit: Int!
+  $cursor: ID
+  $filterBySearch: String
+) {
+  getAllTags(
+    limit: $limit
+    cursor: $cursor
+    filterBySearch: $filterBySearch
+  ) {
+     tags {
+      name
+      _id
+      questionCount
+    }
+    nextCursor
   }
 }
 

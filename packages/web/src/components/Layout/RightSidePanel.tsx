@@ -13,6 +13,9 @@ const RightSidePanel = () => {
   const { notify } = useAppContext()
 
   const { data, loading } = useFetchAllTagsQuery({
+    variables: {
+      limit: 10,
+    },
     onError: (err) => {
       notify(getErrorMsg(err), 'error')
     },
@@ -25,16 +28,12 @@ const RightSidePanel = () => {
         {loading && <LoadingSpinner size="medium" />}
         {!loading && data && (
           <Tags col>
-            {data.getAllTags.slice(0, 10).map((t) => (
+            {data.getAllTags.tags.map((t) => (
               <TagWithCount
-                label={
-                  t.tagName.length > 13
-                    ? t.tagName.slice(0, 13) + '...'
-                    : t.tagName
-                }
-                key={t.tagName}
-                href={`/tags/${t.tagName}`}
-                count={t.count}
+                label={t.name}
+                key={t._id}
+                href={`/tags/${t.name}`}
+                count={t?.questionCount}
               />
             ))}
           </Tags>

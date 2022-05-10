@@ -1,28 +1,17 @@
 import tw, { styled } from 'twin.macro' //eslint-disable-line no-unused-vars
-import { ComponentProps } from 'react'
 import Tag from './my-mui/Tag'
 
 const Container = tw.span`inline-flex items-center h-auto `
 
-interface TagProps extends ComponentProps<'span'> {
+interface TagProps {
   href: string
   label?: string
-  count?: number
+  count: number
 }
-export const TagWithCount = ({
-  href,
-  children,
-  label,
-  count,
-  ...rest
-}: TagProps) => (
-  <Container {...rest}>
-    <Tag tag="a" href={href}>
-      {label}
-    </Tag>
-    {count && (
-      <span tw="text-sm text-gray-600 inline">&nbsp; {` × ${count}`}</span>
-    )}
+export const TagWithCount = ({ href, label, count }: TagProps) => (
+  <Container>
+    <Tag tag="a" href={href} label={label} />
+    <span tw="text-sm text-gray-600 inline">&nbsp; &#10799; {count}</span>
   </Container>
 )
 
