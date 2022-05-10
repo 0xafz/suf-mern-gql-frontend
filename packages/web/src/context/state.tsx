@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react'
+import * as React from 'react'
 import { MutationEditQuestionArgs } from '~~/generated/graphql'
 import createCtx from '../utils/createCtx'
 import storage from '../utils/localStorage'
@@ -55,13 +55,13 @@ const stateReducer = (state: any, action: any) => {
 }
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = useReducer(stateReducer, {
+  const [state, dispatch] = React.useReducer(stateReducer, {
     editingQuestion: null,
     notification: null,
     darkMode: false,
   })
 
-  useEffect(() => {
+  React.useEffect(() => {
     const loadedDarkMode = storage.loadDarkMode()
     if (loadedDarkMode === true) {
       dispatch({
@@ -71,68 +71,67 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const setEditingQuestion: IAppContext['setEditingQuestion'] = (valuesObj) => {
-    dispatch({
-      type: 'SET_EDIT',
-      payload: valuesObj,
-    })
-  }
+  const value = React.useMemo(() => {
+    const setEditingQuestion: IAppContext['setEditingQuestion'] = (
+      valuesObj
+    ) => {
+      dispatch({
+        type: 'SET_EDIT',
+        payload: valuesObj,
+      })
+    }
 
-  const clearEdit = () => {
-    dispatch({
-      type: 'CLEAR_EDIT',
-    })
-  }
+    const clearEdit = () => {
+      dispatch({
+        type: 'CLEAR_EDIT',
+      })
+    }
 
-  let timeoutID: any = null
+    let timeoutID: any = null
 
-  const notify: IAppContext['notify'] = (
-    message,
-    severity = 'success',
-    duration = 5
-  ) => {
-    clearTimeout(timeoutID)
+    const notify: IAppContext['notify'] = (
+      message,
+      severity = 'success',
+      duration = 5
+    ) => {
+      clearTimeout(timeoutID)
 
-    dispatch({
-      type: 'SET_NOTIFICATION',
-      payload: { message, severity, duration },
-    })
+      dispatch({
+        type: 'SET_NOTIFICATION',
+        payload: { message, severity, duration },
+      })
 
-    timeoutID = setTimeout(() => {
+      timeoutID = setTimeout(() => {
+        dispatch({
+          type: 'CLEAR_NOTIFICATION',
+        })
+      }, duration * 1000)
+    }
+
+    const clearNotif = () => {
       dispatch({
         type: 'CLEAR_NOTIFICATION',
       })
-    }, duration * 1000)
-  }
+    }
 
-  const clearNotif = () => {
-    dispatch({
-      type: 'CLEAR_NOTIFICATION',
-    })
-  }
+    const toggleDarkMode = () => {
+      dispatch({
+        type: 'TOGGLE_DARK_MODE',
+      })
 
-  const toggleDarkMode = () => {
-    dispatch({
-      type: 'TOGGLE_DARK_MODE',
-    })
+      storage.saveDarkMode(!state.darkMode)
+    }
+    return {
+      toggleDarkMode,
+      clearEdit,
+      clearNotif,
+      notify,
+      setEditingQuestion,
+      editingQuestion: state.editingQuestion,
+      notification: state.notification,
+      darkMode: state.darkMode,
+    }
+  }, [storage, dispatch, state])
 
-    storage.saveDarkMode(!state.darkMode)
-  }
-
-  return (
-    <AppCtxProvider
-      value={{
-        editingQuestion: state.editingQuestion,
-        notification: state.notification,
-        darkMode: state.darkMode,
-        setEditingQuestion,
-        clearEdit,
-        notify,
-        clearNotif,
-        toggleDarkMode,
-      }}
-    >
-      {children}
-    </AppCtxProvider>
-  )
+  return <AppCtxProvider value={value}>{children}</AppCtxProvider>
 }

@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useReducer } from 'react'
+import * as React from 'react'
 import createCtx from '../utils/createCtx'
 import storage from '../utils/localStorage'
 
@@ -26,10 +26,10 @@ const authReducer = (state: any, action: any) => {
   }
 }
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(authReducer, { user: null })
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [state, dispatch] = React.useReducer(authReducer, { user: null })
 
-  useEffect(() => {
+  React.useEffect(() => {
     const loggedUser = storage.loadUser()
 
     if (loggedUser) {
@@ -40,24 +40,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [])
 
-  const setUser: IAuthContext['setUser'] = (userData) => {
-    storage.saveUser(userData)
-    dispatch({
-      type: 'LOGIN',
-      payload: userData,
-    })
-  }
+  const value = React.useMemo(() => {
+    const setUser: IAuthContext['setUser'] = (userData) => {
+      storage.saveUser(userData)
+      dispatch({
+        type: 'LOGIN',
+        payload: userData,
+      })
+    }
 
-  const logoutUser = () => {
-    storage.removeUser()
-    dispatch({ type: 'LOGOUT' })
-  }
+    const logoutUser = () => {
+      storage.removeUser()
+      dispatch({ type: 'LOGOUT' })
+    }
+    return {
+      user: state.user,
+      setUser,
+      logoutUser,
+    }
+  }, [state, storage, dispatch])
 
-  return (
-    <AuthCtxProvider value={{ user: state.user, setUser, logoutUser }}>
-      {children}
-    </AuthCtxProvider>
-  )
+  return <AuthCtxProvider value={value}>{children}</AuthCtxProvider>
 }
 
 export const useAuthContext = useAuthCtx
