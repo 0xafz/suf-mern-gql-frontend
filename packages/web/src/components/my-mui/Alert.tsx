@@ -44,7 +44,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return (
     <div
       css={[
-        tw`text-xs sm:text-sm flex items-center justify-between min-width[240px] p-1 md:px-2 md:py-1 text-white bg-gray-900 bg-opacity-75 shadow-sm rounded-md  font-bold leading-5 tracking-wide `,
+        tw`text-xs sm:text-sm flex items-center justify-between w-full p-1 md:px-2 md:py-1 text-white bg-gray-900 bg-opacity-75 shadow-sm rounded-md  font-bold leading-5 tracking-wide `,
         bgStyles && bgStyles,
         styles && styles.alertRoot,
       ]}
