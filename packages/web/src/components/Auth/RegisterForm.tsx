@@ -84,7 +84,7 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment tw="font-size[1.5em] text-blue-600">
-                  <PersonIcon />
+                  <PersonIcon aria-hidden="true" />
                 </InputAdornment>
               ),
             }}
@@ -105,22 +105,20 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
             helperText={'password' in errors ? errors.password?.message : ''}
             InputProps={{
               endAdornment: (
-                <IconButton
-                  aria-label={showPass ? 'hide password' : 'show password'}
-                  tag="button"
+                <InputAdornment
                   onClick={() => setShowPass((prevState) => !prevState)}
-                  tw="p-0 font-size[1.5em] text-blue-600"
+                  tw="cursor-pointer p-0 font-size[1.5em] text-blue-600 "
                 >
                   {showPass ? (
-                    <VisibilityOffIcon color="primary" />
+                    <VisibilityOffIcon color="primary" aria-hidden="true" />
                   ) : (
-                    <VisibilityIcon color="primary" />
+                    <VisibilityIcon color="primary" aria-hidden="true" />
                   )}
-                </IconButton>
+                </InputAdornment>
               ),
               startAdornment: (
                 <InputAdornment tw="font-size[1.5em] text-blue-600">
-                  <LockIcon />
+                  <LockIcon aria-hidden="true" />
                 </InputAdornment>
               ),
             }}
@@ -143,22 +141,20 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
             }
             InputProps={{
               endAdornment: (
-                <IconButton
-                  aria-label={showConfPass ? 'hide password' : 'show password'}
+                <InputAdornment
                   onClick={() => setShowConfPass((prevState) => !prevState)}
-                  tag="button"
-                  tw="p-0 font-size[1.5em] text-blue-600"
+                  tw="cursor-pointer p-0 font-size[1.5em] text-blue-600 "
                 >
                   {showConfPass ? (
-                    <VisibilityOffIcon color="primary" />
+                    <VisibilityOffIcon color="primary" aria-hidden="true" />
                   ) : (
-                    <VisibilityIcon color="primary" />
+                    <VisibilityIcon color="primary" aria-hidden="true" />
                   )}
-                </IconButton>
+                </InputAdornment>
               ),
               startAdornment: (
                 <InputAdornment tw="font-size[1.5em] text-blue-600">
-                  <EnhancedEncryptionIcon color="primary" />
+                  <EnhancedEncryptionIcon color="primary" aria-hidden="true" />
                 </InputAdornment>
               ),
             }}

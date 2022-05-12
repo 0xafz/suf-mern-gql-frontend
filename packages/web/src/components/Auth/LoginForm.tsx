@@ -16,7 +16,6 @@ import {
 import SofLogo from '~~/svg/stack-overflow.svg'
 import { getErrorMsg } from '~~/utils/helperFuncs'
 import { Button, EmptyLink, SvgIcon } from '../my-mui/Misc'
-import IconButton from '../my-mui/IconButton'
 import TextField from '../my-mui/TextField'
 import InputAdornment from '../my-mui/InputAdornment'
 import ErrorMessage from '../AlertError'
@@ -75,7 +74,7 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment tw="font-size[1.5em] text-blue-600">
-                  <PersonIcon color="primary" />
+                  <PersonIcon color="primary" aria-hidden="true" />
                 </InputAdornment>
               ),
             }}
@@ -93,22 +92,20 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
             helperText={'password' in errors ? errors.password?.message : ''}
             InputProps={{
               endAdornment: (
-                <IconButton
-                  aria-label={showPass ? 'hide password' : 'show password'}
-                  tag="button"
+                <InputAdornment
                   onClick={() => setShowPass((prevState) => !prevState)}
-                  tw="p-0 font-size[1.5em] text-blue-600"
+                  tw="cursor-pointer p-0 font-size[1.5em] text-blue-600 "
                 >
                   {showPass ? (
-                    <VisibilityOffIcon color="primary" />
+                    <VisibilityOffIcon color="primary" aria-hidden="true" />
                   ) : (
-                    <VisibilityIcon color="primary" />
+                    <VisibilityIcon color="primary" aria-hidden="true" />
                   )}
-                </IconButton>
+                </InputAdornment>
               ),
               startAdornment: (
                 <InputAdornment tw="font-size[1.5em] text-blue-600">
-                  <LockIcon />
+                  <LockIcon aria-hidden="true" />
                 </InputAdornment>
               ),
             }}
