@@ -14,7 +14,7 @@ const ToastNotification = () => {
   return (
     <Snackbar
       open={!!notification}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
     >
       <Alert onClose={() => clearNotif()} severity={severity}>
         {message}

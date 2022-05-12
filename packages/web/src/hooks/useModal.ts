@@ -38,7 +38,7 @@ const useModal = <RefType extends HTMLElement>({
   let _focusFirst = focusFirst ? getDOMRef(focusFirst) : null
   let _focusAfterClosed = focusAfterClosed ? getDOMRef(focusAfterClosed) : null
 
-  // attach necessary click and key event handlers
+  // handle escape, outside clicks
   useEffect(() => {
     function handleOutsideClick(e: MouseEvent) {
       if (!ref.current) {
@@ -69,7 +69,7 @@ const useModal = <RefType extends HTMLElement>({
     }
   }, [onClose, _focusAfterClosed])
 
-  // attach focus event handlers to handle tabbing and what to focus on open/close modal
+  // handle close/open, focus change
   useEffect(() => {
     const isFocusable = (element: HTMLElement): element is HTMLElement => {
       return typeof element.focus === 'function'
@@ -125,7 +125,7 @@ const useModal = <RefType extends HTMLElement>({
       }
     }
 
-    let lastFocus: any
+    let lastFocused: any
     const trapFocus = (e: FocusEvent) => {
       if (ignoreUntilFocusChanges) {
         return
@@ -136,17 +136,18 @@ const useModal = <RefType extends HTMLElement>({
         return
       }
       if (ref.current.contains(e.target as HTMLElement)) {
-        lastFocus = e.target
+        lastFocused = e.target
       } else {
         focusFirstDescendant(ref.current)
 
-        // user clicks Shift + Tab when activeElement is first focusable descendant inside dialog,in this case `focusFirstDescendant` won't change lastFocus
-        // then focus last descendant, it goes round and round
-        if (lastFocus === document.activeElement) {
+        // case: user clicks Shift + Tab when activeElement is first focusable descendant inside dialog,
+        //       `focusFirstDescendant` will focus again first focusable element and cycle goes on as user repeats Shift+ Tab
+        //        To avoid that, if `lastFocused` is current `activeElement`, we will try focusing last focusable descendants
+        if (lastFocused === document.activeElement) {
           focusLastDescendant(ref.current)
         }
 
-        lastFocus = document.activeElement
+        lastFocused = document.activeElement
       }
     }
 
