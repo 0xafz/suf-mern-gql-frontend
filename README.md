@@ -1,6 +1,10 @@
-# Stack Underflow | SOF Clone | Frontend
+# Stack Underflow | Frontend
 
-> Here's [backend repo](https://github.com/zkindest/suf-mern-gql-backend)
+**TODO:**
+
+1. Move to [Server side rendering](https://www.patterns.dev/posts/server-side-rendering/) for Performance,SEO, social sharing.
+2. Add Dark Mode.
+   > Here's [backend repo](https://github.com/zkindest/suf-mern-gql-backend)
 
 **Update 1:** This project is a fork from [amand33p](https://github.com/amand33p). I have been making some efforts to replace `material-ui` with `twin.macro` just to learn react, CSS and make reusable components. It's hard to get it all correct (flexibility,ease of use, performance)
 
@@ -12,14 +16,7 @@
 
 **Update 5: (29/10/2021)** Replaced constant growing arrays with mongoose virtuals.
 
-**Update 6: 03/05/2022** Make code clean and refactors, and use Poly repos.
-
-## Future
-
-1. <strike>Automate Graphql Testing</strike> ✔️
-2. <strike>Replace constant growing arrays in schema as mongoose document sizelimit is **16MB** </strike>. ✔️
-3. Use transactions in mutation resolvers which involves multiple mutating db requests.
-4. Add Dark Mode.
+**Update 6: (03/05/2022)** Make code clean, and use Poly repo structure (not using Nx,Turborepo, Bazel).
 
 ## Usage
 
