@@ -35,10 +35,7 @@ interface QuesListPageProps {
   searchFilterActive?: boolean
 }
 
-const QuesListPage = ({
-  tagFilterActive,
-  searchFilterActive,
-}: QuesListPageProps) => {
+const Home = ({ tagFilterActive, searchFilterActive }: QuesListPageProps) => {
   const { tagName, query } = useParams<{ tagName: string; query: string }>()
   const { clearEdit, notify } = useAppContext()
   const { user } = useAuthContext()
@@ -151,4 +148,4 @@ const QuesListPage = ({
   )
 }
 
-export default QuesListPage
+export default Home

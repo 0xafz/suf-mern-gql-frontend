@@ -9,19 +9,22 @@ import { AuthProvider } from './context/auth'
 import { AppProvider } from './context/state'
 import GlobalStyles from './styles/GlobalStyles'
 import ToastNotification from './components/ToastNotification'
+import ErrorBoundary from './components/ErrorBoundary'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ApolloProvider client={apolloClient}>
-      <Router basename="/suf-mern-gql-frontend/">
-        <AuthProvider>
-          <AppProvider>
-            <GlobalStyles />
-            <ToastNotification />
-            <App />
-          </AppProvider>
-        </AuthProvider>
-      </Router>
-    </ApolloProvider>
+    <ErrorBoundary>
+      <ApolloProvider client={apolloClient}>
+        <Router basename="/suf-mern-gql-frontend/">
+          <AuthProvider>
+            <AppProvider>
+              <GlobalStyles />
+              <ToastNotification />
+              <App />
+            </AppProvider>
+          </AuthProvider>
+        </Router>
+      </ApolloProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 )
