@@ -1,0 +1,655 @@
+[
+  {
+    "name": "@suf-frontend/web",
+    "version": "0.0.0",
+    "path": "/media/data/fullStackReact/suf-mern-gql/frontend/packages/web",
+    "private": true,
+    "dependencies": {
+      "@apollo/client": {
+        "from": "@apollo/client",
+        "version": "3.6.1",
+        "resolved": "https://registry.npmjs.org/@apollo/client/-/client-3.6.1.tgz"
+      },
+      "date-fns": {
+        "from": "date-fns",
+        "version": "2.28.0",
+        "resolved": "https://registry.npmjs.org/date-fns/-/date-fns-2.28.0.tgz"
+      },
+      "graphql": {
+        "from": "graphql",
+        "version": "15.8.0",
+        "resolved": "https://registry.npmjs.org/graphql/-/graphql-15.8.0.tgz"
+      },
+      "react": {
+        "from": "react",
+        "version": "18.1.0",
+        "resolved": "https://registry.npmjs.org/react/-/react-18.1.0.tgz"
+      },
+      "react-dom": {
+        "from": "react-dom",
+        "version": "18.1.0",
+        "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-18.1.0.tgz"
+      },
+      "react-hook-form": {
+        "from": "react-hook-form",
+        "version": "7.30.0",
+        "resolved": "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.30.0.tgz"
+      },
+      "react-icons": {
+        "from": "react-icons",
+        "version": "4.3.1",
+        "resolved": "https://registry.npmjs.org/react-icons/-/react-icons-4.3.1.tgz"
+      },
+      "react-is": {
+        "from": "react-is",
+        "version": "18.1.0",
+        "resolved": "https://registry.npmjs.org/react-is/-/react-is-18.1.0.tgz"
+      },
+      "react-router-dom": {
+        "from": "react-router-dom",
+        "version": "6.3.0",
+        "resolved": "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.3.0.tgz"
+      },
+      "styled-components": {
+        "from": "styled-components",
+        "version": "5.3.5",
+        "resolved": "https://registry.npmjs.org/styled-components/-/styled-components-5.3.5.tgz"
+      },
+      "web-vitals": {
+        "from": "web-vitals",
+        "version": "2.1.4",
+        "resolved": "https://registry.npmjs.org/web-vitals/-/web-vitals-2.1.4.tgz"
+      }
+    },
+    "devDependencies": {
+      "@graphql-codegen/cli": {
+        "from": "@graphql-codegen/cli",
+        "version": "1.21.8",
+        "resolved": "https://registry.npmjs.org/@graphql-codegen/cli/-/cli-1.21.8.tgz"
+      },
+      "@graphql-codegen/typescript": {
+        "from": "@graphql-codegen/typescript",
+        "version": "2.4.8",
+        "resolved": "https://registry.npmjs.org/@graphql-codegen/typescript/-/typescript-2.4.8.tgz"
+      },
+      "@graphql-codegen/typescript-operations": {
+        "from": "@graphql-codegen/typescript-operations",
+        "version": "2.3.5",
+        "resolved": "https://registry.npmjs.org/@graphql-codegen/typescript-operations/-/typescript-operations-2.3.5.tgz"
+      },
+      "@graphql-codegen/typescript-react-apollo": {
+        "from": "@graphql-codegen/typescript-react-apollo",
+        "version": "3.2.11",
+        "resolved": "https://registry.npmjs.org/@graphql-codegen/typescript-react-apollo/-/typescript-react-apollo-3.2.11.tgz"
+      },
+      "@honkhonk/vite-plugin-svgr": {
+        "from": "@honkhonk/vite-plugin-svgr",
+        "version": "1.1.0",
+        "resolved": "https://registry.npmjs.org/@honkhonk/vite-plugin-svgr/-/vite-plugin-svgr-1.1.0.tgz"
+      },
+      "@tailwindcss/typography": {
+        "from": "@tailwindcss/typography",
+        "version": "0.4.1",
+        "resolved": "https://registry.npmjs.org/@tailwindcss/typography/-/typography-0.4.1.tgz"
+      },
+      "@testing-library/jest-dom": {
+        "from": "@testing-library/jest-dom",
+        "version": "5.16.4",
+        "resolved": "https://registry.npmjs.org/@testing-library/jest-dom/-/jest-dom-5.16.4.tgz"
+      },
+      "@testing-library/react": {
+        "from": "@testing-library/react",
+        "version": "11.2.7",
+        "resolved": "https://registry.npmjs.org/@testing-library/react/-/react-11.2.7.tgz"
+      },
+      "@types/jest": {
+        "from": "@types/jest",
+        "version": "27.4.1",
+        "resolved": "https://registry.npmjs.org/@types/jest/-/jest-27.4.1.tgz"
+      },
+      "@types/node": {
+        "from": "@types/node",
+        "version": "16.11.32",
+        "resolved": "https://registry.npmjs.org/@types/node/-/node-16.11.32.tgz"
+      },
+      "@types/react": {
+        "from": "@types/react",
+        "version": "18.0.8",
+        "resolved": "https://registry.npmjs.org/@types/react/-/react-18.0.8.tgz"
+      },
+      "@types/react-dom": {
+        "from": "@types/react-dom",
+        "version": "18.0.3",
+        "resolved": "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.0.3.tgz"
+      },
+      "@types/styled-components": {
+        "from": "@types/styled-components",
+        "version": "5.1.25",
+        "resolved": "https://registry.npmjs.org/@types/styled-components/-/styled-components-5.1.25.tgz"
+      },
+      "@vitejs/plugin-react": {
+        "from": "@vitejs/plugin-react",
+        "version": "1.3.1",
+        "resolved": "https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-1.3.1.tgz"
+      },
+      "babel-plugin-macros": {
+        "from": "babel-plugin-macros",
+        "version": "3.1.0",
+        "resolved": "https://registry.npmjs.org/babel-plugin-macros/-/babel-plugin-macros-3.1.0.tgz"
+      },
+      "babel-plugin-styled-components": {
+        "from": "babel-plugin-styled-components",
+        "version": "2.0.7",
+        "resolved": "https://registry.npmjs.org/babel-plugin-styled-components/-/babel-plugin-styled-components-2.0.7.tgz"
+      },
+      "graphql-tag": {
+        "from": "graphql-tag",
+        "version": "2.12.6",
+        "resolved": "https://registry.npmjs.org/graphql-tag/-/graphql-tag-2.12.6.tgz"
+      },
+      "rollup-plugin-analyzer": {
+        "from": "rollup-plugin-analyzer",
+        "version": "4.0.0",
+        "resolved": "https://registry.npmjs.org/rollup-plugin-analyzer/-/rollup-plugin-analyzer-4.0.0.tgz"
+      },
+      "tailwindcss": {
+        "from": "tailwindcss",
+        "version": "2.2.19",
+        "resolved": "https://registry.npmjs.org/tailwindcss/-/tailwindcss-2.2.19.tgz"
+      },
+      "twin.macro": {
+        "from": "twin.macro",
+        "version": "2.8.2",
+        "resolved": "https://registry.npmjs.org/twin.macro/-/twin.macro-2.8.2.tgz"
+      },
+      "typescript": {
+        "from": "typescript",
+        "version": "4.6.4",
+        "resolved": "https://registry.npmjs.org/typescript/-/typescript-4.6.4.tgz"
+      },
+      "vite": {
+        "from": "vite",
+        "version": "2.9.6",
+        "resolved": "https://registry.npmjs.org/vite/-/vite-2.9.6.tgz"
+      }
+    },
+    "unsavedDependencies": {
+      "@types/estree": {
+        "from": "@types/estree",
+        "version": "0.0.51"
+      },
+      "@types/eslint": {
+        "from": "@types/eslint",
+        "version": "8.4.2"
+      },
+      "@types/json-schema": {
+        "from": "@types/json-schema",
+        "version": "7.0.11"
+      },
+      "@discoveryjs/json-ext": {
+        "from": "@discoveryjs/json-ext",
+        "version": "0.5.7"
+      },
+      "@types/eslint-scope": {
+        "from": "@types/eslint-scope",
+        "version": "3.7.3"
+      },
+      "@webassemblyjs/ast": {
+        "from": "@webassemblyjs/ast",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/floating-point-hex-parser": {
+        "from": "@webassemblyjs/floating-point-hex-parser",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/helper-api-error": {
+        "from": "@webassemblyjs/helper-api-error",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/helper-buffer": {
+        "from": "@webassemblyjs/helper-buffer",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/helper-wasm-bytecode": {
+        "from": "@webassemblyjs/helper-wasm-bytecode",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/helper-numbers": {
+        "from": "@webassemblyjs/helper-numbers",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/helper-wasm-section": {
+        "from": "@webassemblyjs/helper-wasm-section",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/ieee754": {
+        "from": "@webassemblyjs/ieee754",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/leb128": {
+        "from": "@webassemblyjs/leb128",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/utf8": {
+        "from": "@webassemblyjs/utf8",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/wasm-edit": {
+        "from": "@webassemblyjs/wasm-edit",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/wasm-gen": {
+        "from": "@webassemblyjs/wasm-gen",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/wasm-parser": {
+        "from": "@webassemblyjs/wasm-parser",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/wasm-opt": {
+        "from": "@webassemblyjs/wasm-opt",
+        "version": "1.11.1"
+      },
+      "@webassemblyjs/wast-printer": {
+        "from": "@webassemblyjs/wast-printer",
+        "version": "1.11.1"
+      },
+      "@webpack-cli/configtest": {
+        "from": "@webpack-cli/configtest",
+        "version": "1.1.1"
+      },
+      "@webpack-cli/info": {
+        "from": "@webpack-cli/info",
+        "version": "1.4.1"
+      },
+      "@xtuc/ieee754": {
+        "from": "@xtuc/ieee754",
+        "version": "1.2.0"
+      },
+      "@webpack-cli/serve": {
+        "from": "@webpack-cli/serve",
+        "version": "1.6.1"
+      },
+      "@xtuc/long": {
+        "from": "@xtuc/long",
+        "version": "4.2.2"
+      },
+      "acorn": {
+        "from": "acorn",
+        "version": "8.7.1"
+      },
+      "acorn-import-assertions": {
+        "from": "acorn-import-assertions",
+        "version": "1.8.0"
+      },
+      "ajv-keywords": {
+        "from": "ajv-keywords",
+        "version": "3.5.2"
+      },
+      "ajv": {
+        "from": "ajv",
+        "version": "6.12.6"
+      },
+      "browserslist": {
+        "from": "browserslist",
+        "version": "4.20.3"
+      },
+      "buffer-from": {
+        "from": "buffer-from",
+        "version": "1.1.2"
+      },
+      "chrome-trace-event": {
+        "from": "chrome-trace-event",
+        "version": "1.0.3"
+      },
+      "caniuse-lite": {
+        "from": "caniuse-lite",
+        "version": "1.0.30001338"
+      },
+      "clone-deep": {
+        "from": "clone-deep",
+        "version": "4.0.1"
+      },
+      "colorette": {
+        "from": "colorette",
+        "version": "2.0.16"
+      },
+      "cross-spawn": {
+        "from": "cross-spawn",
+        "version": "7.0.3"
+      },
+      "commander": {
+        "from": "commander",
+        "version": "2.20.3"
+      },
+      "enhanced-resolve": {
+        "from": "enhanced-resolve",
+        "version": "5.9.3"
+      },
+      "electron-to-chromium": {
+        "from": "electron-to-chromium",
+        "version": "1.4.137"
+      },
+      "envinfo": {
+        "from": "envinfo",
+        "version": "7.8.1"
+      },
+      "es-module-lexer": {
+        "from": "es-module-lexer",
+        "version": "0.9.3"
+      },
+      "escalade": {
+        "from": "escalade",
+        "version": "3.1.1"
+      },
+      "esrecurse": {
+        "from": "esrecurse",
+        "version": "4.3.0"
+      },
+      "eslint-scope": {
+        "from": "eslint-scope",
+        "version": "5.1.1"
+      },
+      "estraverse": {
+        "from": "estraverse",
+        "version": "4.3.0"
+      },
+      "execa": {
+        "from": "execa",
+        "version": "5.1.1"
+      },
+      "events": {
+        "from": "events",
+        "version": "3.3.0"
+      },
+      "fast-deep-equal": {
+        "from": "fast-deep-equal",
+        "version": "3.1.3"
+      },
+      "fast-json-stable-stringify": {
+        "from": "fast-json-stable-stringify",
+        "version": "2.1.0"
+      },
+      "fastest-levenshtein": {
+        "from": "fastest-levenshtein",
+        "version": "1.0.12"
+      },
+      "find-up": {
+        "from": "find-up",
+        "version": "4.1.0"
+      },
+      "function-bind": {
+        "from": "function-bind",
+        "version": "1.1.1"
+      },
+      "get-stream": {
+        "from": "get-stream",
+        "version": "6.0.1"
+      },
+      "glob-to-regexp": {
+        "from": "glob-to-regexp",
+        "version": "0.4.1"
+      },
+      "has": {
+        "from": "has",
+        "version": "1.0.3"
+      },
+      "has-flag": {
+        "from": "has-flag",
+        "version": "4.0.0"
+      },
+      "graceful-fs": {
+        "from": "graceful-fs",
+        "version": "4.2.10"
+      },
+      "human-signals": {
+        "from": "human-signals",
+        "version": "2.1.0"
+      },
+      "import-local": {
+        "from": "import-local",
+        "version": "3.1.0"
+      },
+      "interpret": {
+        "from": "interpret",
+        "version": "2.2.0"
+      },
+      "is-core-module": {
+        "from": "is-core-module",
+        "version": "2.9.0"
+      },
+      "is-plain-object": {
+        "from": "is-plain-object",
+        "version": "2.0.4"
+      },
+      "isexe": {
+        "from": "isexe",
+        "version": "2.0.0"
+      },
+      "is-stream": {
+        "from": "is-stream",
+        "version": "2.0.1"
+      },
+      "jest-worker": {
+        "from": "jest-worker",
+        "version": "27.5.1"
+      },
+      "isobject": {
+        "from": "isobject",
+        "version": "3.0.1"
+      },
+      "json-parse-better-errors": {
+        "from": "json-parse-better-errors",
+        "version": "1.0.2"
+      },
+      "json-schema-traverse": {
+        "from": "json-schema-traverse",
+        "version": "0.4.1"
+      },
+      "kind-of": {
+        "from": "kind-of",
+        "version": "6.0.3"
+      },
+      "loader-runner": {
+        "from": "loader-runner",
+        "version": "4.3.0"
+      },
+      "locate-path": {
+        "from": "locate-path",
+        "version": "5.0.0"
+      },
+      "lodash.sortby": {
+        "from": "lodash.sortby",
+        "version": "4.7.0"
+      },
+      "mime-db": {
+        "from": "mime-db",
+        "version": "1.52.0"
+      },
+      "merge-stream": {
+        "from": "merge-stream",
+        "version": "2.0.0"
+      },
+      "mimic-fn": {
+        "from": "mimic-fn",
+        "version": "2.1.0"
+      },
+      "mime-types": {
+        "from": "mime-types",
+        "version": "2.1.35"
+      },
+      "neo-async": {
+        "from": "neo-async",
+        "version": "2.6.2"
+      },
+      "node-releases": {
+        "from": "node-releases",
+        "version": "2.0.4"
+      },
+      "npm-run-path": {
+        "from": "npm-run-path",
+        "version": "4.0.1"
+      },
+      "onetime": {
+        "from": "onetime",
+        "version": "5.1.2"
+      },
+      "p-limit": {
+        "from": "p-limit",
+        "version": "2.3.0"
+      },
+      "path-parse": {
+        "from": "path-parse",
+        "version": "1.0.7"
+      },
+      "p-locate": {
+        "from": "p-locate",
+        "version": "4.1.0"
+      },
+      "p-try": {
+        "from": "p-try",
+        "version": "2.2.0"
+      },
+      "path-exists": {
+        "from": "path-exists",
+        "version": "4.0.0"
+      },
+      "picocolors": {
+        "from": "picocolors",
+        "version": "1.0.0"
+      },
+      "path-key": {
+        "from": "path-key",
+        "version": "3.1.1"
+      },
+      "pkg-dir": {
+        "from": "pkg-dir",
+        "version": "4.2.0"
+      },
+      "randombytes": {
+        "from": "randombytes",
+        "version": "2.1.0"
+      },
+      "rechoir": {
+        "from": "rechoir",
+        "version": "0.7.1"
+      },
+      "punycode": {
+        "from": "punycode",
+        "version": "2.1.1"
+      },
+      "resolve": {
+        "from": "resolve",
+        "version": "1.22.0"
+      },
+      "resolve-cwd": {
+        "from": "resolve-cwd",
+        "version": "3.0.0"
+      },
+      "resolve-from": {
+        "from": "resolve-from",
+        "version": "5.0.0"
+      },
+      "schema-utils": {
+        "from": "schema-utils",
+        "version": "3.1.1"
+      },
+      "safe-buffer": {
+        "from": "safe-buffer",
+        "version": "5.2.1"
+      },
+      "serialize-javascript": {
+        "from": "serialize-javascript",
+        "version": "6.0.0"
+      },
+      "shallow-clone": {
+        "from": "shallow-clone",
+        "version": "3.0.1"
+      },
+      "shebang-command": {
+        "from": "shebang-command",
+        "version": "2.0.0"
+      },
+      "shebang-regex": {
+        "from": "shebang-regex",
+        "version": "3.0.0"
+      },
+      "signal-exit": {
+        "from": "signal-exit",
+        "version": "3.0.7"
+      },
+      "source-map": {
+        "from": "source-map",
+        "version": "0.6.1"
+      },
+      "strip-final-newline": {
+        "from": "strip-final-newline",
+        "version": "2.0.0"
+      },
+      "source-map-support": {
+        "from": "source-map-support",
+        "version": "0.5.21"
+      },
+      "supports-color": {
+        "from": "supports-color",
+        "version": "8.1.1"
+      },
+      "tapable": {
+        "from": "tapable",
+        "version": "2.2.1"
+      },
+      "supports-preserve-symlinks-flag": {
+        "from": "supports-preserve-symlinks-flag",
+        "version": "1.0.0"
+      },
+      "terser": {
+        "from": "terser",
+        "version": "5.13.1"
+      },
+      "terser-webpack-plugin": {
+        "from": "terser-webpack-plugin",
+        "version": "5.3.1"
+      },
+      "tr46": {
+        "from": "tr46",
+        "version": "1.0.1"
+      },
+      "uri-js": {
+        "from": "uri-js",
+        "version": "4.4.1"
+      },
+      "watchpack": {
+        "from": "watchpack",
+        "version": "2.3.1"
+      },
+      "webidl-conversions": {
+        "from": "webidl-conversions",
+        "version": "4.0.2"
+      },
+      "webpack": {
+        "from": "webpack",
+        "version": "5.72.0"
+      },
+      "webpack-merge": {
+        "from": "webpack-merge",
+        "version": "5.8.0"
+      },
+      "webpack-sources": {
+        "from": "webpack-sources",
+        "version": "3.2.3"
+      },
+      "whatwg-url": {
+        "from": "whatwg-url",
+        "version": "7.1.0"
+      },
+      "which": {
+        "from": "which",
+        "version": "2.0.2"
+      },
+      "wildcard": {
+        "from": "wildcard",
+        "version": "2.0.0"
+      }
+    }
+  }
+]

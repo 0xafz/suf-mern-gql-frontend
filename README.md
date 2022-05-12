@@ -1,12 +1,13 @@
 # Stack Underflow | Frontend
 
+> Here's [backend repo](https://github.com/zkindest/suf-mern-gql-backend)
+
 **TODO:**
 
 1. Move to [Server side rendering](https://www.patterns.dev/posts/server-side-rendering/) for Performance,SEO, social sharing.
 2. Add Dark Mode.
-   > Here's [backend repo](https://github.com/zkindest/suf-mern-gql-backend)
 
-**Update 1:** This project is a fork from [amand33p](https://github.com/amand33p). I have been making some efforts to replace `material-ui` with `twin.macro` just to learn react, CSS and make reusable components. It's hard to get it all correct (flexibility,ease of use, performance)
+**Update 1:** Replace `material-ui` with `twin.macro` just to practice react, CSS and make reusable components. It's hard to get it all correct (flexibility, performance etc)
 
 **Update 2:** Migrated Server codebase to **Typescript** using `type-graphql`, `typegoose`.
 
@@ -31,28 +32,24 @@ pnpm run web dev
 
 ## Built using
 
-- [ReactJS](https://reactjs.org/) - Frontend framework
-- [date-fns](https://date-fns.org/) - For manipulating & formatting of dates
-- [Apollo Client](https://www.apollographql.com/docs/react/) - State management library to manage both local and remote data with GraphQL
-- [Context API w/ hooks](https://reactjs.org/docs/context.html) - For state of user, toast notifs, theme etc.
-- [React Router](https://reactrouter.com/) - For general routing & navigation
-- [React Hook Form](https://react-hook-form.com/) - For flexible forms
-- ~~[Material-UI w/ lots of CSS customisations](https://material-ui.com/)~~ now using [twin.macro](https://github.com/ben-rogerson/twin.macro)- CSS-in-JS library
+```sh
+Legend: production dependency, optional only, dev only
 
-## Features
+@suf-frontend/web@0.0.0 /media/data/fullStackReact/suf-mern-gql/frontend/packages/web (PRIVATE)
 
-- Authentication (login/register with username-password)
-- CRUD questions, answers & comments
-- Upvote/downvote questions & answers
-- Tags for organising questions
-- Page views - A view is registered whenever the question page is opened
-- Pages for added tags, registered users & more
-- Sorting of questions on basis of hot, votes, views, newest & oldest
-- Search questions over the server on basis of question title & body
-- Pagination of posts in the form of "Load More" button
-- Error management to prevent app crashes
-- Toast notifications for actions: adding questions, deleting comments etc.
-- Loading spinners for relevant fetching processes
-- Formatted dates for adding/updating questions/answers/comments
-- <strike>Dark mode toggle w/ local storage save</strike>
-- Proper responsive UI for all screens
+dependencies:
+@apollo/client 3.6.1     graphql 15.8.0           react-dom 18.1.0         react-icons 4.3.1        react-router-dom 6.3.0   web-vitals 2.1.4
+date-fns 2.28.0          react 18.1.0             react-hook-form 7.30.0   react-is 18.1.0          styled-components 5.3.5
+
+devDependencies:
+@graphql-codegen/cli 1.21.8                      @types/jest 27.4.1                               graphql-tag 2.12.6
+@graphql-codegen/typescript 2.4.8                @types/node 16.11.32                             rollup-plugin-analyzer 4.0.0
+@graphql-codegen/typescript-operations 2.3.5     @types/react 18.0.8                              tailwindcss 2.2.19
+@graphql-codegen/typescript-react-apollo 3.2.11  @types/react-dom 18.0.3                          twin.macro 2.8.2
+@honkhonk/vite-plugin-svgr 1.1.0                 @types/styled-components 5.1.25                  typescript 4.6.4
+@tailwindcss/typography 0.4.1                    @vitejs/plugin-react 1.3.1                       vite 2.9.6
+@testing-library/jest-dom 5.16.4                 babel-plugin-macros 3.1.0
+@testing-library/react 11.2.7                    babel-plugin-styled-components 2.0.7
+```
+
+For more information check this [file](./open-source.json).
