@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import AuthFormOnButton from '../Auth/AuthFormOnButton'
 
-import Menu from '../my-mui/Menu'
+import dynamic from 'next/dynamic'
 import MenuItem from '../my-mui/Menu/Item'
 import Avatar from '../my-mui/Avatar'
 import { EmptyLink, SvgIcon } from '../my-mui/Misc'
@@ -11,6 +11,11 @@ import { MdKeyboardArrowDown as ArrowDownIcon } from 'react-icons/md'
 
 import tw from 'twin.macro' // eslint-disable-line no-unused-vars
 import { Author } from '../../generated/graphql'
+import LoadingSpinner from '../LoadingSpinner'
+
+const Menu = dynamic(() => import('../my-mui/Menu'), {
+  suspense: true,
+})
 
 interface UserMenuDesktopProps {
   user?: Author
@@ -53,36 +58,38 @@ const UserMenuDesktop = ({ user, logoutUser }: UserMenuDesktopProps) => {
               <ArrowDownIcon />
             </SvgIcon>
           </EmptyLink>
-          <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleCloseMenu}
-          >
-            <MenuItem
-              tag="a"
-              href={`/user/${user.username}`}
-              onClick={handleCloseMenu}
+          <Suspense fallback={<LoadingSpinner />}>
+            <Menu
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleCloseMenu}
             >
-              <SvgIcon tw="mr-2" aria-hidden="true">
-                <AccountCircleIcon />
-              </SvgIcon>
-              My Profile
-            </MenuItem>
-            <MenuItem tag="div" onClick={handleLogoutClick}>
-              <SvgIcon tw="mr-2" aria-hidden="true">
-                <PowerIcon />
-              </SvgIcon>
-              Logout
-            </MenuItem>
-          </Menu>
+              <MenuItem
+                tag="a"
+                href={`/user/${user.username}`}
+                onClick={handleCloseMenu}
+              >
+                <SvgIcon tw="mr-2" aria-hidden="true">
+                  <AccountCircleIcon />
+                </SvgIcon>
+                My Profile
+              </MenuItem>
+              <MenuItem tag="div" onClick={handleLogoutClick}>
+                <SvgIcon tw="mr-2" aria-hidden="true">
+                  <PowerIcon />
+                </SvgIcon>
+                Logout
+              </MenuItem>
+            </Menu>
+          </Suspense>
         </div>
       ) : (
         <AuthFormOnButton />

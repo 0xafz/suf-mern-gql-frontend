@@ -26,7 +26,11 @@ const useModal = <RefType extends HTMLElement>({
   autoFocus,
   overlayModal = true,
 }: UseModalProps) => {
+  if (typeof window === 'undefined') {
+    return {}
+  }
   let modalRoot = document.getElementById('modal-root')
+
   if (!modalRoot) {
     modalRoot = document.createElement('div')
     modalRoot.setAttribute('id', 'modal-root')
