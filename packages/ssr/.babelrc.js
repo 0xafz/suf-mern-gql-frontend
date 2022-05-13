@@ -3,5 +3,6 @@ module.exports = {
   plugins: [
     'babel-plugin-macros',
     ['babel-plugin-styled-components', { ssr: true }],
+    'inline-react-svg',
   ],
 }
