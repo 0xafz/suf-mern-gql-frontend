@@ -9,10 +9,13 @@ const DynamicRightSidePanel = dynamic(() => import('.'), {
 
 const RightSidePanel = () => {
   const isMdScreen = useMediaQuery('(min-width: 768px)')
-  return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <DynamicRightSidePanel />
-    </Suspense>
-  )
+  if (isMdScreen) {
+    return (
+      <Suspense fallback={<LoadingSpinner />}>
+        <DynamicRightSidePanel />
+      </Suspense>
+    )
+  }
+  return null
 }
 export default RightSidePanel
