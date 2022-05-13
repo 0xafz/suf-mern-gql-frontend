@@ -17,13 +17,13 @@
 
 **Update 5: (29/10/2021)** Replaced constant growing arrays with mongoose virtuals.
 
-**Update 6: (03/05/2022)** Make code clean, and use Poly repo structure (not using Nx,Turborepo, Bazel).
+**Update 6: (03/05/2022)** Make code clean, and move to Poly repo structure (Monorepo is so good,but it need a good build system, I'm not using Nx,Turborepo, Bazel).
 
 ## Usage
 
 #### web:
 
-Open `.packages/web/src/constants` & change `backendUrl` variable to `"http://localhost:4000"`
+Be sure to check `.packages/web/env.example` & add variables to `.env` file.
 
 ```
 pnpm install
