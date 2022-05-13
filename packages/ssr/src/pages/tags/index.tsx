@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { useState } from 'react'
 import { MdSearch as SearchIcon } from 'react-icons/md'
 import tw, { styled } from 'twin.macro'
 import { Container } from '~~/components/Layout'
@@ -9,8 +9,7 @@ import LoadingSpinner from '~~/components/LoadingSpinner'
 import { useAppContext } from '~~/context/state'
 import { useFetchAllTagsQuery } from '~~/generated/graphql'
 import { getErrorMsg } from '~~/utils/helperFuncs'
-import MainLayout from '~~/components/Layout/MainLayout'
-import ErrorBoundary from '~~/components/ErrorBoundary'
+import getMainLayout from '~~/components/Layout/getMainLayout'
 
 const Tags = styled.div(() => [tw`flex mt-4 flex-wrap`])
 
@@ -88,10 +87,4 @@ export default function AllTagsPage() {
     </>
   )
 }
-AllTagsPage.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <ErrorBoundary>
-      <MainLayout>{page}</MainLayout>
-    </ErrorBoundary>
-  )
-}
+AllTagsPage.getLayout = getMainLayout

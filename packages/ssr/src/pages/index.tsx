@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactElement } from 'react'
+import { useState, useEffect } from 'react'
 import { useAppContext } from '../context/state'
 import { useAuthContext } from '../context/auth'
 import SortQuesBar from '../components/Buttons/SortQuesButtonGroup'
@@ -20,9 +20,8 @@ import {
 } from '../generated/graphql'
 import Link from 'next/link'
 import RightSidePanel from '~~/components/Layout/RightSidePanel/dynamic'
-import ErrorBoundary from '~~/components/ErrorBoundary'
-import MainLayout from '~~/components/Layout/MainLayout'
 import { useRouter } from 'next/router'
+import getMainLayout from '~~/components/Layout/getMainLayout'
 
 const QuestionListContainer = styled.div`
   ${tw`relative w-full mx-1 mt-6 sm:mx-3 `}
@@ -158,10 +157,4 @@ export default function Home() {
     </>
   )
 }
-Home.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <ErrorBoundary>
-      <MainLayout>{page}</MainLayout>
-    </ErrorBoundary>
-  )
-}
+Home.getLayout = getMainLayout
