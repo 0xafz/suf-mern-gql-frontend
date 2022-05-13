@@ -20,6 +20,7 @@ import TextField from '../my-mui/TextField'
 import InputAdornment from '../my-mui/InputAdornment'
 import ErrorMessage from '../AlertError'
 import { getValidation } from '~~/utils'
+import Image from 'next/image'
 
 interface LoginFormProps {
   setAuthType: (...args: any) => void
@@ -59,7 +60,13 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
 
   return (
     <div tw="px-3 py-2">
-      <img src={SofLogo} alt="sof-logo" tw="width[5em] mx-auto my-4" />
+      <Image
+        src={SofLogo}
+        alt="sof-logo"
+        tw="width[5em] mx-auto my-4"
+        width={60}
+        height={60}
+      />
       <form onSubmit={handleSubmit(onLogin)}>
         <div tw="mb-6">
           <TextField

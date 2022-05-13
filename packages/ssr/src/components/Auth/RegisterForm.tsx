@@ -20,11 +20,11 @@ import {
 import SofLogo from '~~/svg/stack-overflow.svg'
 import { getErrorMsg } from '~~/utils/helperFuncs'
 import { Button, EmptyLink, SvgIcon } from '../my-mui/Misc'
-import IconButton from '../my-mui/IconButton'
 import TextField from '../my-mui/TextField'
 import InputAdornment from '../my-mui/InputAdornment'
 import AlertError from '../AlertError'
 import { getValidation, usernameValidation } from '~~/utils'
+import Image from 'next/image'
 
 interface RegisterFormProps {
   setAuthType: (...args: any) => void
@@ -69,7 +69,13 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
 
   return (
     <div tw="px-3 py-2">
-      <img src={SofLogo} alt="sof-logo" tw="width[5em] mx-auto my-4" />
+      <Image
+        src={SofLogo}
+        alt="sof-logo"
+        tw="width[5em] mx-auto my-4"
+        width={60}
+        height={60}
+      />
       <form onSubmit={onSubmit}>
         <div tw="mb-6">
           <TextField

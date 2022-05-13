@@ -63,51 +63,55 @@ const CommentSection = ({
       notify(getErrorMsg(err), 'error')
     },
   })
-  const addComment = React.useCallback((commentBody: string) => {
-    _addComment({
-      variables: { parentId, parentType, body: commentBody },
-      update: (proxy, { data }) => {
-        const dataInCache = proxy.readQuery<FetchQuestionQuery>({
-          query: FetchQuestionDocument,
-          variables: { quesId },
-        })
+  const addComment = React.useCallback(
+    (commentBody: string) => {
+      _addComment({
+        variables: { parentId, parentType, body: commentBody },
+        update: (proxy, { data }) => {
+          const dataInCache = proxy.readQuery<FetchQuestionQuery>({
+            query: FetchQuestionDocument,
+            variables: { quesId },
+          })
 
-        let updatedData
-        if (parentType === CommentParentType.Question) {
-          updatedData = {
-            ...dataInCache?.viewQuestion,
-            comments: [
-              ...(dataInCache?.viewQuestion?.comments ?? []),
+          let updatedData
+          if (parentType === CommentParentType.Question) {
+            updatedData = {
+              ...dataInCache?.viewQuestion,
+              comments: [
+                ...(dataInCache?.viewQuestion?.comments ?? []),
+                data?.addComment,
+              ],
+            }
+          } else if (parentType === CommentParentType.Answer) {
+            const targetAnswer = dataInCache?.viewQuestion.answers.find(
+              (a) => a?._id === parentId
+            )
+            const updatedComments = [
+              ...(targetAnswer?.comments ?? []),
               data?.addComment,
-            ],
-          }
-        } else if (parentType === CommentParentType.Answer) {
-          const targetAnswer = dataInCache?.viewQuestion.answers.find(
-            (a) => a?._id === parentId
-          )
-          const updatedComments = [
-            ...(targetAnswer?.comments ?? []),
-            data?.addComment,
-          ]
+            ]
 
-          const updatedAnswers = dataInCache?.viewQuestion.answers.map((a) =>
-            a?._id === parentId ? { ...a, comments: updatedComments } : a
-          )
-          updatedData = {
-            ...dataInCache?.viewQuestion,
-            answers: updatedAnswers,
+            const updatedAnswers = dataInCache?.viewQuestion.answers.map((a) =>
+              a?._id === parentId ? { ...a, comments: updatedComments } : a
+            )
+            updatedData = {
+              ...dataInCache?.viewQuestion,
+              answers: updatedAnswers,
+            }
           }
-        }
 
-        proxy.writeQuery({
-          query: FetchQuestionDocument,
-          variables: { quesId },
-          data: { viewQuestion: updatedData },
-        })
-        notify('Comment added!')
-      },
-    })
-  }, [])
+          proxy.writeQuery({
+            query: FetchQuestionDocument,
+            variables: { quesId },
+            data: { viewQuestion: updatedData },
+          })
+          notify('Comment added!')
+        },
+      })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [notify, parentId, quesId, parentType]
+  )
 
   const editComment = React.useCallback(
     (editedCommentBody: string, commentId: string) => {
@@ -118,56 +122,61 @@ const CommentSection = ({
         },
       })
     },
-    []
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [, notify]
   )
 
-  const deleteComment = React.useCallback((commentId: string) => {
-    _deleteComment({
-      variables: { commentId },
-      update: (proxy, { data }) => {
-        const dataInCache = proxy.readQuery<FetchQuestionQuery>({
-          query: FetchQuestionDocument,
-          // currently, we fetch question and related data(answers,comments) in one network call
-          // apollo cache is tightly linked to quesId
-          // TODO: fetch questions,answers,comments separately and change backend accrodingly
-          variables: { quesId },
-        })
+  const deleteComment = React.useCallback(
+    (commentId: string) => {
+      _deleteComment({
+        variables: { commentId },
+        update: (proxy, { data }) => {
+          const dataInCache = proxy.readQuery<FetchQuestionQuery>({
+            query: FetchQuestionDocument,
+            // currently, we fetch question and related data(answers,comments) in one network call
+            // apollo cache is tightly linked to quesId
+            // TODO: fetch questions,answers,comments separately and change backend accrodingly
+            variables: { quesId },
+          })
 
-        let updatedData
-        if (parentType === CommentParentType.Question) {
-          const filteredComments = dataInCache?.viewQuestion?.comments.filter(
-            (comment) => comment?._id !== commentId
-          )
-          updatedData = {
-            ...dataInCache?.viewQuestion,
-            comments: filteredComments,
+          let updatedData
+          if (parentType === CommentParentType.Question) {
+            const filteredComments = dataInCache?.viewQuestion?.comments.filter(
+              (comment) => comment?._id !== commentId
+            )
+            updatedData = {
+              ...dataInCache?.viewQuestion,
+              comments: filteredComments,
+            }
+          } else if (parentType === CommentParentType.Answer) {
+            const targetAnswer = dataInCache?.viewQuestion.answers.find(
+              (a) => a?._id === parentId
+            )
+            const updatedComments = targetAnswer?.comments.filter(
+              (c) => c?._id !== data?.deleteComment
+            )
+            const updatedAnswers = dataInCache?.viewQuestion.answers.map((a) =>
+              a?._id === parentId ? { ...a, comments: updatedComments } : a
+            )
+            updatedData = {
+              ...dataInCache?.viewQuestion,
+              answers: updatedAnswers,
+            }
           }
-        } else if (parentType === CommentParentType.Answer) {
-          const targetAnswer = dataInCache?.viewQuestion.answers.find(
-            (a) => a?._id === parentId
-          )
-          const updatedComments = targetAnswer?.comments.filter(
-            (c) => c?._id !== data?.deleteComment
-          )
-          const updatedAnswers = dataInCache?.viewQuestion.answers.map((a) =>
-            a?._id === parentId ? { ...a, comments: updatedComments } : a
-          )
-          updatedData = {
-            ...dataInCache?.viewQuestion,
-            answers: updatedAnswers,
-          }
-        }
 
-        proxy.writeQuery({
-          query: FetchQuestionDocument,
-          variables: { quesId },
-          data: { viewQuestion: updatedData },
-        })
+          proxy.writeQuery({
+            query: FetchQuestionDocument,
+            variables: { quesId },
+            data: { viewQuestion: updatedData },
+          })
 
-        notify('Comment deleted!')
-      },
-    })
-  }, [])
+          notify('Comment deleted!')
+        },
+      })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [notify, parentId, parentType, quesId]
+  )
   const handleAddComment = ({ commentBody }: { commentBody: string }) => {
     addComment(commentBody)
     // show all comments

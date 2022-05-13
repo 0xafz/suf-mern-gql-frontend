@@ -66,7 +66,8 @@ const AnswerForm = ({ quesId, tags }: Props) => {
         },
       })
     },
-    []
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [quesId, notify, reset]
   )
 
   return (

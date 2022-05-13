@@ -26,11 +26,6 @@ interface BaseQuestionArgs {
 }
 const AskQuestionMain = () => {
   const { user } = useAuthContext()
-  useEffect(() => {
-    if (!user) {
-      router.push('/')
-    }
-  }, [user])
   const router = useRouter()
   const { editingQuestion, clearEdit, notify } = useAppContext()
   const [tagInput, setTagInput] = useState('')
@@ -116,6 +111,11 @@ const AskQuestionMain = () => {
     }
     setTags(value)
   }
+  useEffect(() => {
+    if (!user) {
+      router.push('/')
+    }
+  }, [user, router])
   return (
     <Container>
       <Link to={editQuesLoading ? `/questions/${editingQuestion.quesId}` : '/'}>
@@ -190,6 +190,7 @@ const AskQuestionMain = () => {
             renderTags={(_, getTagProps) =>
               tags.map((option: string, index: number) => (
                 <ChipWithClose
+                  key={option}
                   label={option}
                   color="primary"
                   size="small"

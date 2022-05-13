@@ -10,6 +10,7 @@ import { useFetchUserLazyQuery, User } from '../../generated/graphql'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import getMainLayout from '~~/components/Layout/getMainLayout'
+import Image from 'next/image'
 
 const UserInfo = styled.div`
   ${tw`flex gap-10 color[inherit] items-center`}
@@ -68,9 +69,10 @@ const UserPageMain = () => {
     <UserCard>
       <UserAvatar>
         <Link href={`/user/${fetchedUserName}`}>
-          <img
+          <Image
             src={`https://secure.gravatar.com/avatar/${_id}?s=164&d=identicon`}
             alt={fetchedUserName}
+            layout="fill"
           />
         </Link>
         <p tw=" text-xl my-2">
