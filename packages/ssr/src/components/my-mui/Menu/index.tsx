@@ -94,7 +94,10 @@ const Menu = ({
       <div tabIndex={0}></div>
     </MenuContainer>
   )
-  return ReactDOM.createPortal(menu, modalRoot)
+  if (modalRoot) {
+    return ReactDOM.createPortal(menu, modalRoot)
+  }
+  return null
 }
 
 export default Menu
