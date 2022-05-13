@@ -1,4 +1,10 @@
-import Document, { DocumentContext, Head, Html } from 'next/document'
+import Document, {
+  DocumentContext,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from 'next/document'
 import { Fragment } from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
@@ -39,6 +45,10 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content="#90cdf4" />
           <meta name="apple-mobile-web-app-status-bar" content="#90cdf4" />
         </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
       </Html>
     )
   }
