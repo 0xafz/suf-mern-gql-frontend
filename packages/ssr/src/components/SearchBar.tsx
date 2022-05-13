@@ -1,5 +1,4 @@
 import React, { ComponentProps, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { MdSearch as SearchIcon } from 'react-icons/md'
 import { IoMdArrowBack as ArrowBackIcon } from 'react-icons/io'
@@ -8,6 +7,7 @@ import tw from 'twin.macro' // eslint-disable-line no-unused-vars
 import IconButton from './my-mui/IconButton'
 import InputAdornment from './my-mui/InputAdornment'
 import TextField from './my-mui/TextField'
+import { useRouter } from 'next/router'
 
 interface SearchBarProps extends ComponentProps<'div'> {
   setSearchOpen?: (...args: any) => void
@@ -15,12 +15,12 @@ interface SearchBarProps extends ComponentProps<'div'> {
 
 const SearchBar = ({ setSearchOpen, ...rest }: SearchBarProps) => {
   const [searchInput, setSearchInput] = useState('')
-  const navigate = useNavigate()
+  const router = useRouter()
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchInput === '') return
-    navigate(`/search/${searchInput}`)
+    router.push(`/search/${searchInput}`)
   }
 
   const clearSearch = () => {

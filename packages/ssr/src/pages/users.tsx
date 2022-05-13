@@ -5,7 +5,7 @@ import { formatDateAgo, getErrorMsg } from '../utils/helperFuncs'
 
 import { MdSearch as SearchIcon } from 'react-icons/md'
 import tw from 'twin.macro'
-import { Link } from '../components/my-mui/Misc'
+import { StyledLink } from '../components/my-mui/Misc'
 import InputAdornment from '~~/components/my-mui/InputAdornment'
 import Avatar from '~~/components/my-mui/Avatar'
 import TextField from '~~/components/my-mui/TextField'
@@ -57,9 +57,9 @@ const UsersPageMain = () => {
                   tw="w-10 h-10"
                 />
                 <div>
-                  <Link to={`/user/${u.username}`}>
+                  <StyledLink href={`/user/${u.username}`}>
                     <span tw="text-sm">{u.username}</span>
-                  </Link>
+                  </StyledLink>
                   <p tw="text-xs my-0">
                     created {formatDateAgo(u.createdAt)} ago
                   </p>

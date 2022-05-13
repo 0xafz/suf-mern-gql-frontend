@@ -8,7 +8,7 @@ import { getErrorMsg } from '../utils/helperFuncs'
 import TextField from '~~/components/my-mui/TextField'
 import { ChipWithClose } from '~~/components/my-mui/Chips'
 import Autocomplete from '~~/components/my-mui/AutoComplete'
-import { Button, Link } from '../components/my-mui/Misc'
+import { Button, StyledLink } from '../components/my-mui/Misc'
 import {
   useAddQuestionMutation,
   useUpdateQuestionMutation,
@@ -118,10 +118,12 @@ const AskQuestionMain = () => {
   }, [user, router])
   return (
     <Container>
-      <Link to={editQuesLoading ? `/questions/${editingQuestion.quesId}` : '/'}>
+      <StyledLink
+        href={editQuesLoading ? `/questions/${editingQuestion.quesId}` : '/'}
+      >
         {' '}
         &lt; Back
-      </Link>
+      </StyledLink>
       <h1 tw="text-xl">
         {editingQuestion ? 'Edit Your Question' : 'Ask a public question'}
       </h1>

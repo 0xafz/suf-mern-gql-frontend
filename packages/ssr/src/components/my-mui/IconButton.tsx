@@ -1,7 +1,7 @@
 import React, { RefObject, ComponentProps } from 'react'
 import tw, { css } from 'twin.macro' // eslint-disable-line no-unused-vars
-import { Link } from 'react-router-dom'
 import { TCustomStyleClasses } from './types'
+import Link from 'next/link'
 
 const iconButtonStyles = css`
   ${tw`flex items-center justify-center vertical-align[middle] bg-transparent user-select[none] cursor-pointer transition-colors  border-none  border-radius[50%] padding[9px]  text-decoration[none] outline-offset[4px] hover:bg-[lightcoral] focus:bg-black-75`}
@@ -23,7 +23,7 @@ const IconButton = React.forwardRef<HTMLElement, IconButtonProps<any>>(
     if (tag === 'a') {
       iconButton = (
         <Link
-          to={href}
+          href={href}
           css={[iconButtonStyles, styles && styles.iconButton]}
           {...rest}
           ref={ref as RefObject<HTMLAnchorElement>}

@@ -5,7 +5,7 @@ import AuthFormOnButton from '../Auth/AuthFormOnButton'
 import { getErrorMsg } from '~~/utils/helperFuncs'
 
 import 'twin.macro'
-import { Button, Link } from '../my-mui/Misc'
+import { Button, StyledLink } from '../my-mui/Misc'
 import TextField from '../my-mui/TextField'
 import Tag from '../my-mui/Tag'
 import {
@@ -104,9 +104,9 @@ const AnswerForm = ({ quesId, tags }: Props) => {
         &nbsp; or &nbsp;
         {user ? (
           <>
-            <Link to="/ask" onClick={() => clearEdit()}>
+            <StyledLink href="/ask" onClick={() => clearEdit()}>
               ask your own question.
-            </Link>
+            </StyledLink>
           </>
         ) : (
           <AuthFormOnButton />

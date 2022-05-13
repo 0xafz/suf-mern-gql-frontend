@@ -1,4 +1,4 @@
-import { Link as RouterLink } from 'react-router-dom'
+import Link from 'next/link'
 import tw, { css, styled } from 'twin.macro' // eslint-disable-line no-unused-vars
 
 export const SvgIcon = tw.div`fill-current min-width[1em] min-height[1em] inline-block transition-colors flex-shrink-0 user-select[none] font-size[1.5em]`
@@ -24,7 +24,7 @@ export const Button = styled.button(() => [
   buttonDisableStyles,
 ])
 
-export const ButtonLikeLink = styled(RouterLink)(() => [
+export const ButtonLikeLink = styled(Link)(() => [
   baseButtonStyles,
   tw` bg-blue-500 hover:bg-blue-700 active:bg-blue-700 text-white`,
 ])
@@ -63,7 +63,7 @@ export const ButtonGroup = styled.div(() => [
   tw`text-sm md:text-base w-full sm:w-auto`,
 ])
 
-export const Link = styled(RouterLink)`
+export const StyledLink = styled(Link)`
   text-decoration: none;
   ${tw`text-blue-600 hover:text-blue-800`}
 `

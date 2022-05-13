@@ -1,5 +1,3 @@
-import { useLocation } from 'react-router-dom'
-
 import { GoGlobe as PublicIcon } from 'react-icons/go'
 import { MdLocalOffer as LocalOfferIcon } from 'react-icons/md'
 import { MdPeopleAlt as PeopleIcon } from 'react-icons/md'
@@ -7,9 +5,10 @@ import { MdPeopleAlt as PeopleIcon } from 'react-icons/md'
 import tw, { css } from 'twin.macro' // eslint-disable-line no-unused-vars
 import MenuItem from '../my-mui/Menu/Item'
 import Divider from '../my-mui/Divider'
+import { useRouter } from 'next/router'
 
 const DesktopNavMenu = () => {
-  const { pathname } = useLocation()
+  const { pathname } = useRouter()
   const iconStyles = css`
     ${tw`width[.8em] height[.8em] mr-2 font-size[1.5em]`}
   `

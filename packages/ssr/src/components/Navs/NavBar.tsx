@@ -5,14 +5,13 @@ import UserMenuMobile from '../Menus/UserMenuMobile'
 import UserMenuDesktop from '../Menus/UserMenuDesktop'
 import SearchBar from '../SearchBar'
 import { useAuthContext } from '~~/context/auth'
-import SofLogo from '~~/svg/stack-overflow.svg'
+import SofLogo from '../../svg/stack-overflow.svg'
 
 import { MdSearch as SearchIcon } from 'react-icons/md'
 
 import tw, { styled } from 'twin.macro' // eslint-disable-line no-unused-vars
 import IconButton from '../my-mui/IconButton'
 import Link from 'next/link'
-import Image from 'next/image'
 
 const AppBar = styled.div(() => [
   tw`w-full flex flex-col flex-shrink-0 z-index[1100] box-border sticky top-0 left-auto right-0 color[inherit] border-solid border-t-4 border-t-pink-500 shadow-sm border-b-[1px] border-b-gray-500 bg-white`,
@@ -58,7 +57,7 @@ const NavBar = () => {
               <SmScreenTopLeft>
                 <NavMenuMobile />
                 <Link href="/" tw="px-2 mb-1">
-                  <Image
+                  <img
                     src={SofLogo}
                     width="25px"
                     height="25px"
@@ -67,15 +66,17 @@ const NavBar = () => {
                 </Link>
               </SmScreenTopLeft>
               <MdScreenTopLeft>
-                <Link href="/" tw="mr-1 flex items-center">
-                  <Image
-                    src={SofLogo}
-                    width="28px"
-                    height="28px"
-                    alt="sof-logo"
-                    style={{ marginRight: '5px' }}
-                  />
-                  stack<strong>underflow</strong>
+                <Link href="/" tw="mr-1 flex items-center" passHref>
+                  <a>
+                    <img
+                      src={SofLogo}
+                      width="28px"
+                      height="28px"
+                      alt="sof-logo"
+                      style={{ marginRight: '5px' }}
+                    />
+                    stack<strong>underflow</strong>
+                  </a>
                 </Link>
               </MdScreenTopLeft>
               <SearchBar tw="hidden sm:block" />

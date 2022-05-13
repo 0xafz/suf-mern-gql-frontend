@@ -2,7 +2,7 @@ import tw from 'twin.macro' //eslint-disable-line no-unused-vars
 import { Scalars } from '../generated/graphql'
 import { formatDateAgo } from '../utils/helperFuncs'
 import Avatar from './my-mui/Avatar'
-import { Link } from './my-mui/Misc'
+import { StyledLink } from './my-mui/Misc'
 
 const Details = tw.div`text-xs md:text-sm flex-grow-[0] break-all`
 
@@ -39,9 +39,9 @@ export const PostedBy = ({
           tw="w-10 "
         />
         <Details>
-          <Link to={`/user/${username}`}>
+          <StyledLink href={`/user/${username}`}>
             <span>{username}</span>
-          </Link>
+          </StyledLink>
         </Details>
       </div>
     </div>
@@ -62,9 +62,9 @@ export const MiniPostedBy = ({
         to={`/user/${username}`}
         tw="w-4"
       />
-      <Link to={`/user/${username}`}>
+      <StyledLink href={`/user/${username}`}>
         <span>{username}</span>
-      </Link>
+      </StyledLink>
       &nbsp;
       <span tw="text-black-500">
         {`${postType} ${formatDateAgo(createdAt)} ago`}

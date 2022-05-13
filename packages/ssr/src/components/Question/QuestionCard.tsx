@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { MiniPostedBy } from '../PostedBy'
 import tw from 'twin.macro' //eslint-disable-line no-unused-vars
 import { Question as IQuestion } from '../../generated/graphql'
@@ -47,7 +47,7 @@ const QuestionCard = ({ question }: QuesCardProps) => {
         <Question>
           <Link
             tw="no-underline text-blue-600 font-normal hover:text-blue-800 text-lg"
-            to={`/questions/${_id}`}
+            href={`/questions/${_id}`}
           >
             {title}
           </Link>

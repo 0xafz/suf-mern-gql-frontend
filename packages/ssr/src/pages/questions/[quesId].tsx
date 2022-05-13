@@ -62,7 +62,7 @@ const QuestionPageMain = () => {
           </h1>
           <div tw="p-0 m-0 ml-2 align-baseline  order[-1] self-end sm:(order-none self-auto) ">
             {user ? (
-              <ButtonLikeLink to="/ask" onClick={() => clearEdit()}>
+              <ButtonLikeLink href="/ask" onClick={() => clearEdit()}>
                 Ask Question
               </ButtonLikeLink>
             ) : (

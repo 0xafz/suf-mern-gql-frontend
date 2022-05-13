@@ -17,7 +17,7 @@ import {
   RegisterUserMutationVariables,
   useRegisterUserMutation,
 } from '../../generated/graphql'
-import SofLogo from '~~/svg/stack-overflow.svg'
+import SofLogo from '../../svg/stack-overflow.svg'
 import { getErrorMsg } from '~~/utils/helperFuncs'
 import { Button, EmptyLink, SvgIcon } from '../my-mui/Misc'
 import TextField from '../my-mui/TextField'

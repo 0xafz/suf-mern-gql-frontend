@@ -1,4 +1,4 @@
-import Error404 from '../svg/404-error.svg?component'
+import Error404 from '../svg/404-error.svg'
 
 import 'twin.macro'
 import { SvgIcon } from '../components/my-mui/Misc'

@@ -1,7 +1,7 @@
 import { formatDateAgo } from '../../utils/helperFuncs'
 
 import tw, { styled } from 'twin.macro' // eslint-disable-line no-unused-vars
-import { Link } from '../my-mui/Misc'
+import { StyledLink } from '../my-mui/Misc'
 import { RecentActivity } from '../../generated/graphql'
 
 const PointsBox = styled.div(() => [
@@ -13,9 +13,9 @@ const RecentQuestions = ({ creedo }: { creedo: RecentActivity }) => {
     <div tw="flex justify-between  px-1 py-3 items-center">
       <div tw="flex items-center flex-basis[80%] flex-grow-0 flex-shrink-0">
         <PointsBox>{creedo.points}</PointsBox>
-        <Link to={`/questions/${creedo._id}`} tw="font-normal ml-2">
+        <StyledLink href={`/questions/${creedo._id}`} tw="font-normal ml-2">
           {creedo.title}
-        </Link>
+        </StyledLink>
       </div>
       <span tw="text-xs md:text-sm">{formatDateAgo(creedo.createdAt)} ago</span>
     </div>

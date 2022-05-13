@@ -1,6 +1,6 @@
 import tw from 'twin.macro'
 import React, { ComponentProps } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 interface OwnTagProps<T> {
   tag: T
@@ -26,7 +26,7 @@ const Tag = React.forwardRef<HTMLElement, TagProps<any>>(function Tag(
   if (href) {
     tag = (
       <Link
-        to={href}
+        href={href}
         ref={ref}
         css={[tw`no-underline`, styles && styles.link]}
         {...rest}

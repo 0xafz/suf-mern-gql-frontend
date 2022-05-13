@@ -1,6 +1,6 @@
 import tw, { styled, css } from 'twin.macro'
 import React, { ComponentProps } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 type MenuItemStyledProps = {
   selected?: boolean
@@ -27,7 +27,7 @@ const MenuItem = React.forwardRef<HTMLElement, MenuItemProps<any>>(
     const { tag, href, selected, children, ...rest } = props
     if (tag === 'a') {
       return (
-        <Link to={href} ref={ref} {...rest}>
+        <Link href={href} ref={ref} {...rest}>
           <MenuItemStyled selected={selected}>{children}</MenuItemStyled>
         </Link>
       )
