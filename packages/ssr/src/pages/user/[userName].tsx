@@ -20,7 +20,7 @@ const UserActivity = styled.div`
 `
 
 const UserAvatar = styled.div`
-  ${tw`bg-blue-200 bg-opacity-50 h-56 w-48 flex flex-col justify-center items-center rounded-md mx-auto`}
+  ${tw`relative bg-blue-200 bg-opacity-50 h-56 w-48 flex flex-col justify-center items-center rounded-md mx-auto`}
 `
 const UserCard = styled.div`
   ${tw`w-full my-4 ml-2 mx-1 sm:ml-2 text-sm md:text-base`}
@@ -68,17 +68,16 @@ const UserPageMain = () => {
   return (
     <UserCard>
       <UserAvatar>
-        <Link href={`/user/${fetchedUserName}`}>
-          <Image
-            src={`https://secure.gravatar.com/avatar/${_id}?s=164&d=identicon`}
-            alt={fetchedUserName}
-            layout="fill"
-          />
-        </Link>
-        <p tw=" text-xl my-2">
-          {rep} <span tw="text-sm">REPUTATION</span>
-        </p>
+        <Image
+          src={`https://secure.gravatar.com/avatar/${_id}?s=164&d=identicon`}
+          alt={fetchedUserName}
+          layout="fill"
+          tw="rounded-md"
+        />
       </UserAvatar>
+      <p tw=" text-xl my-2 text-center">
+        {rep} <span tw="text-sm">REPUTATION</span>
+      </p>
       <div tw=" flex-1 p-2 md:p-4">
         <UserInfo>
           <div>

@@ -4,7 +4,7 @@ import { TCustomStyleClasses } from './types'
 import Link from 'next/link'
 
 const iconButtonStyles = css`
-  ${tw`flex items-center justify-center vertical-align[middle] bg-transparent user-select[none] cursor-pointer transition-colors  border-none  border-radius[50%] padding[9px]  text-decoration[none] outline-offset[4px] hover:bg-[lightcoral] focus:bg-black-75`}
+  ${tw`flex items-center justify-center vertical-align[middle] bg-transparent user-select[none] cursor-pointer transition-colors  border-none  border-radius[50%] padding[9px]  text-decoration[none] outline-offset[4px] hover:bg-black-25 focus:bg-black-75`}
 `
 type IconButtonProps<T extends 'button' | 'a'> = {
   tag: T
@@ -22,13 +22,14 @@ const IconButton = React.forwardRef<HTMLElement, IconButtonProps<any>>(
     let iconButton
     if (tag === 'a') {
       iconButton = (
-        <Link
-          href={href}
-          css={[iconButtonStyles, styles && styles.iconButton]}
-          {...rest}
-          ref={ref as RefObject<HTMLAnchorElement>}
-        >
-          {children}
+        <Link href={href} passHref>
+          <a
+            css={[iconButtonStyles, styles && styles.iconButton]}
+            {...rest}
+            ref={ref as RefObject<HTMLAnchorElement>}
+          >
+            {children}
+          </a>
         </Link>
       )
     } else {

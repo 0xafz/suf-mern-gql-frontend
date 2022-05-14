@@ -14,23 +14,24 @@ interface AvatarProps {
 const Avatar = (props: AvatarProps) => {
   const { src, alt, to, styles, ...rest } = props
   return (
-    <Link
-      href={to}
-      css={[
-        tw`min-w-[1rem] min-h-[1rem] rounded-md mr-2`,
-        styles && styles.avatarRoot,
-      ]}
-      {...rest}
-    >
-      <Image
-        src={src}
-        alt={alt}
+    <Link href={to} passHref>
+      <a
         css={[
-          tw`text-transparent w-full h-full object-cover text-center rounded-[inherit]`,
-          styles && styles.img,
+          tw`relative min-w-[1rem] min-h-[1rem] rounded-md mr-2`,
+          styles && styles.avatarRoot,
         ]}
-        layout="fill"
-      />
+        {...rest}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          css={[
+            tw`text-transparent w-full h-full object-cover text-center rounded-md`,
+            styles && styles.img,
+          ]}
+          layout="fill"
+        />
+      </a>
     </Link>
   )
 }

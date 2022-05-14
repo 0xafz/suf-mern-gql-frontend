@@ -7,18 +7,19 @@ import { formatDateAgo, getErrorMsg } from '../../utils/helperFuncs'
 
 import tw from 'twin.macro'
 import { Question, useFetchQuestionLazyQuery } from '../../generated/graphql'
-import { ButtonLikeLink } from '~~/components/my-mui/Misc'
+import { ButtonLikeAnchor } from '~~/components/my-mui/Misc'
 import Divider from '~~/components/my-mui/Divider'
 import { Container } from '~~/components/Layout'
 import QuestionPageContent from '../../components/Question/QuestionPageContent'
 import RightSidePanel from '~~/components/Layout/RightSidePanel/dynamic'
 import { useRouter } from 'next/router'
 import getMainLayout from '~~/components/Layout/getMainLayout'
+import Link from 'next/link'
 
 const QuestionHeader = tw.div``
 
 const QuestionPageMain = () => {
-  const { clearEdit, notify } = useAppContext()
+  const { notify } = useAppContext()
   const { user } = useAuthContext()
   const { query } = useRouter()
   const quesId = query.quesId ? String(query.quesId) : undefined
@@ -62,9 +63,9 @@ const QuestionPageMain = () => {
           </h1>
           <div tw="p-0 m-0 ml-2 align-baseline  order[-1] self-end sm:(order-none self-auto) ">
             {user ? (
-              <ButtonLikeLink href="/ask" onClick={() => clearEdit()}>
-                Ask Question
-              </ButtonLikeLink>
+              <Link href="/ask" passHref>
+                <ButtonLikeAnchor>Ask Question</ButtonLikeAnchor>
+              </Link>
             ) : (
               <AuthFormOnButton buttonType="ask" />
             )}

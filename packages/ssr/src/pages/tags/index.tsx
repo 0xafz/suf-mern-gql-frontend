@@ -66,7 +66,8 @@ const AllTagsMain = () => {
                   tag="a"
                   label={t.name}
                   tw="mb-2"
-                  href={`/tags/${t.name}`}
+                  // `/` is needed because only `pages/index` handles these query param changes
+                  href={`/?tag=${t.name}`}
                 />
                 <div tw="mt-2">
                   <span tw="text-xs ">{t.questionCount} question(s)</span>

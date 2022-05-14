@@ -4,7 +4,7 @@ import AuthFormOnButton from '../Auth/AuthFormOnButton'
 import dynamic from 'next/dynamic'
 import MenuItem from '../my-mui/Menu/Item'
 import Avatar from '../my-mui/Avatar'
-import { EmptyLink, SvgIcon } from '../my-mui/Misc'
+import { AnchorLikeButton, SvgIcon } from '../my-mui/Misc'
 import { MdAccountCircle as AccountCircleIcon } from 'react-icons/md'
 import { IoMdPower as PowerIcon } from 'react-icons/io'
 import { MdKeyboardArrowDown as ArrowDownIcon } from 'react-icons/md'
@@ -41,7 +41,7 @@ const UserMenuDesktop = ({ user, logoutUser }: UserMenuDesktopProps) => {
     <div>
       {user ? (
         <div style={{ display: 'inline' }}>
-          <EmptyLink
+          <AnchorLikeButton
             tw="text-sm flex items-center justify-center"
             onClick={handleOpenMenu}
           >
@@ -57,7 +57,7 @@ const UserMenuDesktop = ({ user, logoutUser }: UserMenuDesktopProps) => {
             <SvgIcon aria-hidden="true">
               <ArrowDownIcon />
             </SvgIcon>
-          </EmptyLink>
+          </AnchorLikeButton>
           <Suspense fallback={<LoadingSpinner />}>
             <Menu
               anchorEl={anchorEl}

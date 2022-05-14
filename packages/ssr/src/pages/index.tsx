@@ -33,6 +33,15 @@ const QuestionListHeader = styled.div`
 
 const QuestionListBody = tw.div`min-height[80vh]`
 
+const getNotFoundString = (search: string, tag: string) => {
+  if (search && tag) {
+    return `No matches found in "${tag}" for search term: "${search}".`
+  } else if (search) {
+    return 'No questions found.'
+  } else if (tag) {
+    return `There are no questions tagged "${tag}".`
+  } else return 'No questions found.'
+}
 interface QuesListPageProps {}
 
 const HomeMain = () => {
@@ -113,7 +122,7 @@ const HomeMain = () => {
             : 'All Questions'}
         </h2>
         {user ? (
-          <Link href="/ask" onClick={() => clearEdit()}>
+          <Link href="/ask">
             <Button>Ask Question</Button>
           </Link>
         ) : (
@@ -131,11 +140,7 @@ const HomeMain = () => {
             ))
           ) : (
             <h3 tw="text-center  mt-10">
-              {tag
-                ? `There are no questions tagged "${tag}".`
-                : search
-                ? `No matches found for your search "${search}".`
-                : 'No questions found.'}
+              {getNotFoundString(search as string, tag as string)}
             </h3>
           ))}
       </QuestionListBody>

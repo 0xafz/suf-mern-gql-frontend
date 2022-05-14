@@ -32,7 +32,8 @@ const __RightSidePanel = () => {
               <TagWithCount
                 label={t.name}
                 key={t._id}
-                href={`/tags/${t.name}`}
+                // `/` is needed because only `pages/index` handles these query param changes
+                href={`/?tag=${t.name}`}
                 count={t?.questionCount}
               />
             ))}

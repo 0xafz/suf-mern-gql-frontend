@@ -18,7 +18,7 @@ import {
   useRegisterUserMutation,
 } from '../../generated/graphql'
 import { getErrorMsg } from '~~/utils/helperFuncs'
-import { Button, EmptyLink, SvgIcon } from '../my-mui/Misc'
+import { Button, AnchorLikeButton, SvgIcon } from '../my-mui/Misc'
 import TextField from '../my-mui/TextField'
 import InputAdornment from '../my-mui/InputAdornment'
 import AlertError from '../AlertError'
@@ -178,7 +178,9 @@ const RegisterForm = ({ setAuthType, closeModal }: RegisterFormProps) => {
       </form>
       <p tw="text-center my-3">
         Already have an account?{' '}
-        <EmptyLink onClick={() => setAuthType('login')}>Log In</EmptyLink>
+        <AnchorLikeButton onClick={() => setAuthType('login')}>
+          Log In
+        </AnchorLikeButton>
       </p>
       <AlertError errorMsg={errorMsg} clearErrorMsg={() => setErrorMsg('')} />
     </div>

@@ -1,5 +1,5 @@
-import UpvoteIcon from '../../svg/upvote.svg?component'
-import DownvoteIcon from '../../svg/downvote.svg?component'
+import UpvoteIcon from '../../svg/upvote.svg'
+import DownvoteIcon from '../../svg/downvote.svg'
 
 import { SvgIcon } from '../my-mui/Misc'
 import Checkbox from '../my-mui/Checkbox'

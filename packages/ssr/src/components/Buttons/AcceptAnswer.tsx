@@ -1,4 +1,4 @@
-import AcceptedIcon from '~~/svg/accepted.svg?component'
+import AcceptedIcon from '../../svg/accepted.svg'
 
 import Checkbox from '../my-mui/Checkbox'
 import 'twin.macro'

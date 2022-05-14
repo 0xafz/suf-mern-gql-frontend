@@ -24,11 +24,6 @@ export const Button = styled.button(() => [
   buttonDisableStyles,
 ])
 
-export const ButtonLikeLink = styled(Link)(() => [
-  baseButtonStyles,
-  tw` bg-blue-500 hover:bg-blue-700 active:bg-blue-700 text-white`,
-])
-
 export const ButtonGroupItem = styled.button(
   ({ active }: { active: boolean }) => [
     baseButtonStyles,
@@ -63,12 +58,16 @@ export const ButtonGroup = styled.div(() => [
   tw`text-sm md:text-base w-full sm:w-auto`,
 ])
 
-export const StyledLink = styled(Link)`
+export const StyledAnchor = styled.a`
   text-decoration: none;
   ${tw`text-blue-600 hover:text-blue-800`}
 `
+export const ButtonLikeAnchor = styled.a(() => [
+  baseButtonStyles,
+  tw` bg-blue-500 hover:bg-blue-700 active:bg-blue-700 text-white`,
+])
 
-export const EmptyLink = styled.button`
+export const AnchorLikeButton = styled.button`
   text-decoration: none;
   ${tw`bg-transparent border-0 text-blue-600 hover:text-blue-800`}
 `

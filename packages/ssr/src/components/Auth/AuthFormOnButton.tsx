@@ -7,11 +7,12 @@ import DownvoteIcon from '../../svg/downvote.svg'
 import { BsFillPersonFill as PersonAddIcon } from 'react-icons/bs'
 import { IoMdExit as ExitToAppIcon } from 'react-icons/io'
 
-import { SvgIcon, Button, StyledLink } from '../my-mui/Misc'
+import { SvgIcon, Button, StyledAnchor } from '../my-mui/Misc'
 import IconButton from '../my-mui/IconButton'
 import MenuItem from '../my-mui/Menu/Item'
 import { Dialog, DialogTitle, DialogContent } from '../Dialogs/Dialog'
 import 'twin.macro'
+import Link from 'next/link'
 
 type AuthFormOnButtonProps = {
   buttonType?: 'ask' | 'link' | 'upvote' | 'downvote' | 'mobile'
@@ -64,13 +65,13 @@ const AuthFormOnButton = ({ closeMenu, buttonType }: AuthFormOnButtonProps) => {
       )
     } else if (buttonType === 'link') {
       return (
-        <StyledLink
+        <StyledAnchor
           href="#"
           onClick={handleLoginModal}
           style={{ cursor: 'pointer' }}
         >
           ask your own question.
-        </StyledLink>
+        </StyledAnchor>
       )
     } else if (buttonType === 'upvote') {
       return (

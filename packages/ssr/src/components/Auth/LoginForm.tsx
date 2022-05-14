@@ -14,7 +14,7 @@ import {
   useLoginUserMutation,
 } from '~~/generated/graphql'
 import { getErrorMsg } from '~~/utils/helperFuncs'
-import { Button, EmptyLink, SvgIcon } from '../my-mui/Misc'
+import { Button, AnchorLikeButton, SvgIcon } from '../my-mui/Misc'
 import TextField from '../my-mui/TextField'
 import InputAdornment from '../my-mui/InputAdornment'
 import ErrorMessage from '../AlertError'
@@ -130,7 +130,9 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
       </form>
       <p tw="text-center my-3">
         Don’t have an account?{' '}
-        <EmptyLink onClick={() => setAuthType('signup')}>Sign Up</EmptyLink>
+        <AnchorLikeButton onClick={() => setAuthType('signup')}>
+          Sign Up
+        </AnchorLikeButton>
       </p>
       <ErrorMessage
         errorMsg={errorMsg}

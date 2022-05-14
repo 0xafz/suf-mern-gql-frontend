@@ -19,14 +19,22 @@ const SearchBar = ({ setSearchOpen, ...rest }: SearchBarProps) => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    if (searchInput === '') return
-    router.push(`/search/${searchInput}`)
+    if (!searchInput) router.push('/')
+    // `/` is needed because only `pages/index` handles these query param changes
+    router.push(
+      `/?search=${searchInput}${
+        router.query?.tag ? `&tag=${router.query.tag}` : ''
+      }`,
+      undefined,
+      { shallow: true }
+    )
   }
 
   const clearSearch = () => {
     if (setSearchOpen) {
       setSearchOpen(false)
     }
+    router.push('/', undefined, { shallow: true })
     setSearchInput('')
   }
 
