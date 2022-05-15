@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/router'
 import tw from 'twin.macro' // eslint-disable-line no-unused-vars
 import { useAuthContext } from '~~/context/auth'
 import { useAppContext } from '~~/context/state'
@@ -40,7 +40,7 @@ function QuestionDetails({ data }: QuestionDetailsProps) {
 
   const { user } = useAuthContext()
   const [deleteModalOpen, setDeleteModalOpen] = React.useState(false)
-  const navigate = useNavigate()
+  const router = useRouter()
   const { setEditingQuestion, notify, editingQuestion } = useAppContext()
 
   const [submitVote] = useSubmitQuesVoteMutation({
@@ -70,14 +70,14 @@ function QuestionDetails({ data }: QuestionDetailsProps) {
 
   const editQuestion = () => {
     setEditingQuestion({ quesId, title, body, tags })
-    navigate('/ask')
+    router.push('/ask')
   }
 
   const deleteQuestion = () => {
     removeQuestion({
       variables: { quesId },
       onCompleted: () => {
-        navigate('/')
+        router.push('/')
         notify('Question deleted!')
       },
     })

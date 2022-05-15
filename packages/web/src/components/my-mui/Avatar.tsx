@@ -1,8 +1,8 @@
 import tw from 'twin.macro'
-import { ComponentProps } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
+import Image from 'next/image'
 
-interface AvatarProps extends ComponentProps<typeof Link> {
+interface AvatarProps {
   to: string
   src: string
   alt: string
@@ -14,22 +14,24 @@ interface AvatarProps extends ComponentProps<typeof Link> {
 const Avatar = (props: AvatarProps) => {
   const { src, alt, to, styles, ...rest } = props
   return (
-    <Link
-      to={to}
-      css={[
-        tw`min-w-[1rem] min-h-[1rem] rounded-md mr-2`,
-        styles && styles.avatarRoot,
-      ]}
-      {...rest}
-    >
-      <img
-        src={src}
-        alt={alt}
+    <Link href={to} passHref>
+      <a
         css={[
-          tw`text-transparent w-full h-full object-cover text-center rounded-[inherit]`,
-          styles && styles.img,
+          tw`relative min-w-[1rem] min-h-[1rem] rounded-md mr-2`,
+          styles && styles.avatarRoot,
         ]}
-      ></img>
+        {...rest}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          css={[
+            tw`text-transparent w-full h-full object-cover text-center rounded-md`,
+            styles && styles.img,
+          ]}
+          layout="fill"
+        />
+      </a>
     </Link>
   )
 }

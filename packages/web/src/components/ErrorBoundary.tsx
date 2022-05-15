@@ -1,14 +1,15 @@
 import * as React from 'react'
 import { ErrorInfo, ReactNode } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const DefaultErrorFallback = ({ errorInfo }: { errorInfo: ErrorInfo }) => {
-  const { pathname } = useLocation()
+  const { pathname } = useRouter()
   return (
     <div className="wrapper">
       <p>There was an error in loading this page. </p>
       {pathname !== '/' && (
-        <Link to={'/'}>
+        <Link href={'/'}>
           <a className="link">Back Home</a>
         </Link>
       )}

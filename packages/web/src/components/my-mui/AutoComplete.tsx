@@ -160,6 +160,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutoCompleteProps>(
             label={option}
             {...getTagProps({ index })}
             {...ChipProps}
+            key={option}
           />
         ))
       }

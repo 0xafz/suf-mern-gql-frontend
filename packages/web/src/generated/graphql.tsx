@@ -185,8 +185,9 @@ export type NextPrevPage = {
 export type PaginatedQuesList = {
   __typename?: 'PaginatedQuesList';
   questions: Array<Maybe<Question>>;
-  next?: Maybe<NextPrevPage>;
-  previous?: Maybe<NextPrevPage>;
+  totalCount: Scalars['Float'];
+  currentPage: Scalars['Float'];
+  pageSize: Scalars['Float'];
 };
 
 export type Query = {
@@ -203,7 +204,7 @@ export type Query = {
 export type QueryGetQuestionsArgs = {
   page: Scalars['Int'];
   limit: Scalars['Int'];
-  sortBy: QuestionSortBy;
+  sortBy?: InputMaybe<QuestionSortBy>;
   filterByTag?: InputMaybe<Scalars['String']>;
   filterBySearch?: InputMaybe<Scalars['String']>;
 };
@@ -215,7 +216,7 @@ export type QueryViewQuestionArgs = {
 
 
 export type QueryGetAllTagsArgs = {
-  limit: Scalars['Int'];
+  limit?: InputMaybe<Scalars['Int']>;
   cursor?: InputMaybe<Scalars['ID']>;
   filterBySearch?: InputMaybe<Scalars['String']>;
 };
@@ -436,7 +437,7 @@ export type FetchQuestionsQueryVariables = Exact<{
 }>;
 
 
-export type FetchQuestionsQuery = { __typename?: 'Query', getQuestions: { __typename?: 'PaginatedQuesList', next?: { __typename?: 'NextPrevPage', page: number } | null, previous?: { __typename?: 'NextPrevPage', page: number } | null, questions: Array<{ __typename?: 'Question', _id: string, title: string, body: string, tags: Array<string>, points: number, views: number, createdAt: any, updatedAt: any, answerCount: number, author: { __typename?: 'Author', _id: string, username: string } } | null> } };
+export type FetchQuestionsQuery = { __typename?: 'Query', getQuestions: { __typename?: 'PaginatedQuesList', totalCount: number, currentPage: number, pageSize: number, questions: Array<{ __typename?: 'Question', _id: string, title: string, body: string, tags: Array<string>, points: number, views: number, createdAt: any, updatedAt: any, answerCount: number, author: { __typename?: 'Author', _id: string, username: string } } | null> } };
 
 export type FetchQuestionQueryVariables = Exact<{
   quesId: Scalars['ID'];
@@ -1037,12 +1038,9 @@ export const FetchQuestionsDocument = gql`
     filterByTag: $filterByTag
     filterBySearch: $filterBySearch
   ) {
-    next {
-      page
-    }
-    previous {
-      page
-    }
+    totalCount
+    currentPage
+    pageSize
     questions {
       _id
       author {

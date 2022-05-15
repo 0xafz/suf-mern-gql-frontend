@@ -1,6 +1,6 @@
 import tw from 'twin.macro'
 import React, { ComponentProps } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 interface OwnTagProps<T> {
   tag: T
@@ -25,15 +25,12 @@ const Tag = React.forwardRef<HTMLElement, TagProps<any>>(function Tag(
   let tag
   if (href) {
     tag = (
-      <Link
-        to={href}
-        ref={ref}
-        css={[tw`no-underline`, styles && styles.link]}
-        {...rest}
-      >
-        <span css={[tagStyles, styles && styles.tag]}>
-          <span tw="block max-width[15ch] truncate">{label}</span>
-        </span>
+      <Link href={href} passHref>
+        <a {...rest} ref={ref} css={[tw`no-underline`, styles && styles.link]}>
+          <span css={[tagStyles, styles && styles.tag]}>
+            <span tw="block max-width[15ch] truncate">{label}</span>
+          </span>
+        </a>
       </Link>
     )
   } else {

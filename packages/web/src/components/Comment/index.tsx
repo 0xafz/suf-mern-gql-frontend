@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import DeleteDialog from '../Dialogs/DeleteDialog'
 import { formatDayTime } from '~~/utils/helperFuncs'
-import { Link, LightButton } from '../my-mui/Misc'
+import { StyledAnchor, LightButton } from '../my-mui/Misc'
 import TextField from '../my-mui/TextField'
 
 import 'twin.macro'
 import { Author, Comment as IComment } from '~~/generated/graphql'
+import Link from 'next/link'
 
 interface CommentProps {
   comment: IComment
@@ -42,8 +43,8 @@ const Comment = ({ comment, user, onDelete, onEdit }: CommentProps) => {
         <div>
           <p tw="text-xs md:text-xsm break-all inline mr-2">
             {comment.body} –{' '}
-            <Link to={`/user/${comment.author.username}`}>
-              {comment.author.username}
+            <Link href={`/user/${comment.author.username}`} passHref>
+              <StyledAnchor>{comment.author.username}</StyledAnchor>
             </Link>
             <span>{` ${formatDayTime(comment.createdAt)} `}</span>
             <span tw="font-size[.8em]">

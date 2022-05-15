@@ -1,1 +1,1 @@
-export const backendUrl = import.meta.env.VITE_BACKEND_URL
+export const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL

@@ -5,7 +5,7 @@ import AuthFormOnButton from '../Auth/AuthFormOnButton'
 import { getErrorMsg } from '~~/utils/helperFuncs'
 
 import 'twin.macro'
-import { Button, Link } from '../my-mui/Misc'
+import { Button, StyledAnchor } from '../my-mui/Misc'
 import TextField from '../my-mui/TextField'
 import Tag from '../my-mui/Tag'
 import {
@@ -15,6 +15,7 @@ import {
 } from '../../generated/graphql'
 import * as React from 'react'
 import { getValidation } from '~~/utils'
+import Link from 'next/link'
 
 interface Props {
   quesId: string
@@ -22,7 +23,7 @@ interface Props {
 }
 const AnswerForm = ({ quesId, tags }: Props) => {
   const { user } = useAuthContext()
-  const { notify, clearEdit } = useAppContext()
+  const { notify } = useAppContext()
   const {
     register,
     handleSubmit,
@@ -66,7 +67,8 @@ const AnswerForm = ({ quesId, tags }: Props) => {
         },
       })
     },
-    []
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [quesId, notify, reset]
   )
 
   return (
@@ -98,13 +100,14 @@ const AnswerForm = ({ quesId, tags }: Props) => {
       <div tw="mt-8 text-sm sm:text-base leading-6">
         Browse other questions tagged &nbsp;
         {tags.map((t) => (
-          <Tag tag="a" key={t} label={t} href={`/tags/${t}`} tw="mr-1" />
+          // `/` is needed because only `pages/index` handles these query param changes
+          <Tag tag="a" key={t} label={t} href={`/?tag=${t}`} tw="mr-1" />
         ))}
         &nbsp; or &nbsp;
         {user ? (
           <>
-            <Link to="/ask" onClick={() => clearEdit()}>
-              ask your own question.
+            <Link href="/ask" passHref>
+              <StyledAnchor>ask your own question.</StyledAnchor>
             </Link>
           </>
         ) : (

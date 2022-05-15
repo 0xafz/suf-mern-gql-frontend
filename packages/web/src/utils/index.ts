@@ -44,3 +44,9 @@ export const usernameValidation = {
     message: 'Only alphanum, dash & underscore characters are allowed',
   },
 } as RegisterOptions
+
+export const range = (start: number, end: number) => {
+  return Array(end - start)
+    .fill(null)
+    .map((_, i) => start + i)
+}

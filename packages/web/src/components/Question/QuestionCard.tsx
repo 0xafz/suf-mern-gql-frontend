@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { MiniPostedBy } from '../PostedBy'
 import tw from 'twin.macro' //eslint-disable-line no-unused-vars
 import { Question as IQuestion } from '../../generated/graphql'
@@ -45,11 +45,10 @@ const QuestionCard = ({ question }: QuesCardProps) => {
       </StatsContainer>
       <QuestionContainer>
         <Question>
-          <Link
-            tw="no-underline text-blue-600 font-normal hover:text-blue-800 text-lg"
-            to={`/questions/${_id}`}
-          >
-            {title}
+          <Link href={`/questions/${_id}`} passHref>
+            <a tw="no-underline text-blue-600 font-normal hover:text-blue-800 text-lg">
+              {title}
+            </a>
           </Link>
         </Question>
         <p tw="m-0 pb-1 text-sm">{body}</p>
@@ -59,7 +58,8 @@ const QuestionCard = ({ question }: QuesCardProps) => {
               <Tag
                 tag="a"
                 key={t}
-                href={`/tags/${t}`}
+                // `/` is needed because only `pages/index` handles these query param changes
+                href={`/?tag=${t}`}
                 styles={{ link: tw`margin[0 .25em .25em]` }}
                 label={t}
               />

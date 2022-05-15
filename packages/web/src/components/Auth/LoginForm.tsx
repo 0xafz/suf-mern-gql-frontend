@@ -13,9 +13,8 @@ import {
   LoginUserMutationVariables,
   useLoginUserMutation,
 } from '~~/generated/graphql'
-import SofLogo from '~~/svg/stack-overflow.svg'
 import { getErrorMsg } from '~~/utils/helperFuncs'
-import { Button, EmptyLink, SvgIcon } from '../my-mui/Misc'
+import { Button, AnchorLikeButton, SvgIcon } from '../my-mui/Misc'
 import TextField from '../my-mui/TextField'
 import InputAdornment from '../my-mui/InputAdornment'
 import ErrorMessage from '../AlertError'
@@ -59,7 +58,13 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
 
   return (
     <div tw="px-3 py-2">
-      <img src={SofLogo} alt="sof-logo" tw="width[5em] mx-auto my-4" />
+      <img
+        src={'/stack-overflow.svg'}
+        alt="sof-logo"
+        tw="width[5em] mx-auto my-4"
+        width={60}
+        height={60}
+      />
       <form onSubmit={handleSubmit(onLogin)}>
         <div tw="mb-6">
           <TextField
@@ -125,7 +130,9 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
       </form>
       <p tw="text-center my-3">
         Don’t have an account?{' '}
-        <EmptyLink onClick={() => setAuthType('signup')}>Sign Up</EmptyLink>
+        <AnchorLikeButton onClick={() => setAuthType('signup')}>
+          Sign Up
+        </AnchorLikeButton>
       </p>
       <ErrorMessage
         errorMsg={errorMsg}
