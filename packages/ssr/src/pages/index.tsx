@@ -1,27 +1,25 @@
-import { useState, useEffect } from 'react'
-import { useAppContext } from '../context/state'
 import { useAuthContext } from '../context/auth'
-import SortQuesBar from '../components/Buttons/SortQuesButtonGroup'
+import SortQuesBar from '../components/Buttons/SortQuesTabGroup'
 import QuestionCard from '../components/Question/QuestionCard'
 import AuthFormOnButton from '../components/Auth/AuthFormOnButton'
-import LoadMoreButton from '../components/Buttons/LoadMore'
-import LoadingSpinner from '../components/LoadingSpinner'
-import { filterDuplicates, getErrorMsg } from '../utils/helperFuncs'
 
 import tw, { styled } from 'twin.macro'
 import { Button } from '../components/my-mui/Misc'
 import Divider from '~~/components/my-mui/Divider'
 import {
+  FetchQuestionsDocument,
   FetchQuestionsQuery,
   FetchQuestionsQueryVariables,
   Question,
   QuestionSortBy,
-  useFetchQuestionsLazyQuery,
 } from '../generated/graphql'
 import Link from 'next/link'
 import RightSidePanel from '~~/components/Layout/RightSidePanel/dynamic'
-import { useRouter } from 'next/router'
 import getMainLayout from '~~/components/Layout/getMainLayout'
+import { GetServerSidePropsContext } from 'next'
+import { fetchGraphql } from '~~/lib/server/fetch'
+import { getGqlString } from '~~/utils/graphql'
+import Pagination from '~~/components/Pagination'
 
 const QuestionListContainer = styled.div`
   ${tw`relative w-full mx-1 mt-6 sm:mx-3 `}
@@ -42,85 +40,19 @@ const getNotFoundString = (search: string, tag: string) => {
     return `There are no questions tagged "${tag}".`
   } else return 'No questions found.'
 }
-interface QuesListPageProps {}
 
-const HomeMain = () => {
-  const router = useRouter()
-  const { tag, search } = router.query || {}
-  const { clearEdit, notify } = useAppContext()
+interface HomeMainProps {
+  data: FetchQuestionsQuery['getQuestions']
+  sortBy: QuestionSortBy
+}
+export const HomeMain = ({ data, sortBy }: HomeMainProps) => {
   const { user } = useAuthContext()
-  const [quesData, setQuesData] = useState<
-    FetchQuestionsQuery['getQuestions'] | null
-  >(null)
-  const [sortBy, setSortBy] = useState<QuestionSortBy>(QuestionSortBy.Hot)
-  const [page, setPage] = useState(1)
-
-  const [fetchQuestions, { data, loading }] = useFetchQuestionsLazyQuery({
-    fetchPolicy: 'network-only',
-    onError: (err) => {
-      notify(getErrorMsg(err), 'error')
-    },
-  })
-
-  const getQues = (args: FetchQuestionsQueryVariables) => {
-    fetchQuestions({
-      variables: { ...args },
-    })
-  }
-
-  useEffect(() => {
-    getQues({
-      sortBy,
-      page: 1,
-      limit: 12,
-      filterByTag: tag as string,
-      filterBySearch: search as string,
-    })
-    setPage(1)
-    if (window) window.scrollTo(0, 0)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortBy, router.query.tag, router.query.search])
-
-  useEffect(() => {
-    if (data && page === 1) {
-      setQuesData(data.getQuestions)
-    }
-
-    if (data && page !== 1) {
-      setQuesData((prevState) => ({
-        ...data.getQuestions,
-        questions: prevState!.questions.concat(
-          filterDuplicates<Question>(
-            prevState!.questions as Question[],
-            data.getQuestions.questions as Question[]
-          )
-        ),
-      }))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
-
-  const handleLoadPosts = () => {
-    getQues({
-      sortBy,
-      page: page + 1,
-      limit: 12,
-      filterByTag: tag as string,
-      filterBySearch: search as string,
-    })
-    setPage(page + 1)
-  }
+  const { totalCount, currentPage, pageSize } = data
 
   return (
     <QuestionListContainer>
       <QuestionListHeader>
-        <h2 tw="text-lg sm:text-xl font-normal  m-0">
-          {tag
-            ? `Questions tagged [${tag}]`
-            : search
-            ? `Search results for "${search}"`
-            : 'All Questions'}
-        </h2>
+        <h2 tw="text-lg sm:text-xl font-normal  m-0">All Questions</h2>
         {user ? (
           <Link href="/ask">
             <Button>Ask Question</Button>
@@ -129,37 +61,83 @@ const HomeMain = () => {
           <AuthFormOnButton buttonType="ask" />
         )}
       </QuestionListHeader>
-      <SortQuesBar sortBy={sortBy} setSortBy={setSortBy} />
+      <SortQuesBar sortBy={sortBy} />
       <Divider />
       <QuestionListBody>
-        {loading && page === 1 && <LoadingSpinner />}
-        {quesData &&
-          (quesData.questions.length !== 0 ? (
-            quesData.questions.map((q) => (
-              <QuestionCard key={q?._id} question={q as Question} />
-            ))
-          ) : (
-            <h3 tw="text-center  mt-10">
-              {getNotFoundString(search as string, tag as string)}
-            </h3>
+        {data &&
+          data.questions.length !== 0 &&
+          data.questions.map((q) => (
+            <QuestionCard key={q?._id} question={q as Question} />
           ))}
       </QuestionListBody>
-      {quesData && quesData.next && (
-        <LoadMoreButton
-          loading={page !== 1 && loading}
-          handleLoadPosts={handleLoadPosts}
-        />
-      )}
+      <Pagination
+        totalCount={totalCount}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        tab={sortBy}
+      />
     </QuestionListContainer>
   )
 }
+interface HomeProps {
+  data: FetchQuestionsQuery['getQuestions']
+  sortBy: QuestionSortBy
+}
 
-export default function Home() {
+export default function Home({ data, sortBy }: HomeProps) {
   return (
     <>
-      <HomeMain />
+      <HomeMain data={data} sortBy={sortBy} />
       <RightSidePanel />
     </>
   )
 }
 Home.getLayout = getMainLayout
+
+const validTabs = [
+  QuestionSortBy.Newest,
+  QuestionSortBy.Oldest,
+  QuestionSortBy.Votes,
+  QuestionSortBy.Views,
+  QuestionSortBy.Hot,
+] as string[]
+const isValidTab = (tab: string) => {
+  return validTabs.includes(tab)
+}
+export async function getServerSideProps({ query }: GetServerSidePropsContext) {
+  const queryString = getGqlString(FetchQuestionsDocument)
+  if (!queryString) {
+    return {
+      props: {},
+    }
+  }
+  const sortBy = (
+    isValidTab(query.tab as string) ? query.tab : validTabs[0]
+  ) as QuestionSortBy
+  const page = Number(query.page) || 1
+  try {
+    const data = await fetchGraphql<
+      FetchQuestionsQuery,
+      FetchQuestionsQueryVariables
+    >(queryString, {
+      sortBy,
+      page,
+      limit: 12,
+    })
+
+    return {
+      props: {
+        data: data.getQuestions,
+        sortBy,
+      }, // will be passed to the page component as props
+    }
+  } catch (err) {
+    return {
+      props: {
+        data: {
+          sortBy,
+        },
+      },
+    }
+  }
+}

@@ -12,12 +12,9 @@ query fetchQuestions(
     filterByTag: $filterByTag
     filterBySearch: $filterBySearch
   ) {
-    next {
-      page
-    }
-    previous {
-      page
-    }
+    totalCount
+    currentPage
+    pageSize
     questions {
       _id
       author {
@@ -34,7 +31,7 @@ query fetchQuestions(
     }
   }
 }
- query fetchQuestion($quesId: ID!) {
+query fetchQuestion($quesId: ID!) {
   viewQuestion(quesId: $quesId) {
     _id
     author {
@@ -59,7 +56,7 @@ query fetchQuestions(
     acceptedAnswer
     voted
   }
-} 
+}
 query fetchUser($username: String!) {
   getUser(username: $username) {
     _id
@@ -83,17 +80,9 @@ query fetchUser($username: String!) {
     }
   }
 }
-query fetchAllTags(
-  $limit: Int!
-  $cursor: ID
-  $filterBySearch: String
-) {
-  getAllTags(
-    limit: $limit
-    cursor: $cursor
-    filterBySearch: $filterBySearch
-  ) {
-     tags {
+query fetchAllTags($limit: Int!, $cursor: ID, $filterBySearch: String) {
+  getAllTags(limit: $limit, cursor: $cursor, filterBySearch: $filterBySearch) {
+    tags {
       name
       _id
       questionCount
@@ -102,7 +91,7 @@ query fetchAllTags(
   }
 }
 
-query fetchAllUsers{
+query fetchAllUsers {
   getAllUsers {
     _id
     username

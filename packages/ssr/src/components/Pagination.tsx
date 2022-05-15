@@ -101,7 +101,7 @@ const Pagination = (props: PaginationProps) => {
         className={currentPage === 1 ? 'disabled' : ''}
         // onClick={onPrevious}
       >
-        <Link href={`tab=${tab}?page=${1}`}>1</Link>
+        <Link href={`/?tab=${tab}?page=${1}`}>1</Link>
       </PaginationListItem>
       {paginationRange.map((pageNumber) => {
         // If the pageItem is a DOT, render the DOTS unicode character
@@ -119,7 +119,7 @@ const Pagination = (props: PaginationProps) => {
             className={pageNumber === currentPage ? 'selected' : ''}
             // onClick={() => onPageChange(pageNumber)}
           >
-            <Link href={`tab=${tab}?page=${pageNumber}`}>{pageNumber}</Link>
+            <Link href={`/?tab=${tab}?page=${pageNumber}`}>{pageNumber}</Link>
           </PaginationListItem>
         )
       })}
@@ -128,7 +128,7 @@ const Pagination = (props: PaginationProps) => {
         className={currentPage === lastPage ? 'disabled' : ''}
         // onClick={onNext}
       >
-        <Link href={`tab=${tab}?page=${lastPage}`}>{lastPage}</Link>
+        <Link href={`/?tab=${tab}?page=${lastPage}`}>{lastPage}</Link>
         <div className="arrow right" />
       </PaginationListItem>
     </PaginationList>
