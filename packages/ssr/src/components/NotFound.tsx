@@ -1,9 +1,9 @@
 import Error404 from '../svg/404-error.svg'
 
 import 'twin.macro'
-import { SvgIcon } from '../components/my-mui/Misc'
+import { SvgIcon } from './my-mui/Misc'
 
-const NotFoundPage = () => {
+const NotFound = () => {
   return (
     <div tw="w-full mt-4 ">
       <div tw="text-center margin-top[15%]">
@@ -17,4 +17,4 @@ const NotFoundPage = () => {
   )
 }
 
-export default NotFoundPage
+export default NotFound
