@@ -17,6 +17,10 @@ importers:
   packages/ssr:
     specifiers:
       '@apollo/client': ^3.6.2
+      '@graphql-codegen/cli': ^1.21.8
+      '@graphql-codegen/typescript': ^2.4.8
+      '@graphql-codegen/typescript-operations': ^2.3.5
+      '@graphql-codegen/typescript-react-apollo': ^3.2.11
       '@tailwindcss/typography': ^0.4.1
       '@types/node': ^16.10.3
       '@types/react': ^18.0.0
@@ -54,6 +58,10 @@ importers:
       styled-components: 5.3.5_4klixn56hmiqf6hh5nx3jyckvq
       web-vitals: 2.1.4
     devDependencies:
+      '@graphql-codegen/cli': 1.21.8_krbjqak3u3yroblwt6q5q6olta
+      '@graphql-codegen/typescript': 2.4.8_graphql@15.8.0
+      '@graphql-codegen/typescript-operations': 2.3.5_graphql@15.8.0
+      '@graphql-codegen/typescript-react-apollo': 3.2.11_graphql@15.8.0
       '@tailwindcss/typography': 0.4.1_tailwindcss@2.2.19
       '@types/node': 16.11.32
       '@types/react': 18.0.8
@@ -1025,6 +1033,23 @@ packages:
       change-case-all: 1.0.14
       graphql: 15.8.0
       graphql-tag: 2.12.6_graphql@15.8.0
+      tslib: 2.3.1
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: true
+
+  /@graphql-codegen/typescript-react-apollo/3.2.11_graphql@15.8.0:
+    resolution: {integrity: sha512-Bfo7/OprnWk/srhA/3I0cKySg/SyVPX3ZoxzTk6ChYVBsy69jKDkdPWwlmE7Fjfv7+5G+xXb99OoqUUgBLma3w==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql-tag: ^2.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 2.4.2_graphql@15.8.0
+      '@graphql-codegen/visitor-plugin-common': 2.7.4_graphql@15.8.0
+      auto-bind: 4.0.0
+      change-case-all: 1.0.14
+      graphql: 15.8.0
       tslib: 2.3.1
     transitivePeerDependencies:
       - encoding
