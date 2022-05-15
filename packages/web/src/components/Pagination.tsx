@@ -107,7 +107,10 @@ const Pagination = (props: PaginationProps) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
           return (
-            <PaginationListItem className="pagination-item dots">
+            <PaginationListItem
+              className="pagination-item dots"
+              key={pageNumber}
+            >
               &#8230;
             </PaginationListItem>
           )

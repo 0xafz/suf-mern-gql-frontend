@@ -58,6 +58,7 @@ export const Dialog = ({
     overlayModal: true,
   })
 
+  if (!modalRoot) return null
   const modal = (
     <div role="presentation" tw="fixed z-index[1300] inset-0">
       <DialogBackDrop isMounted={isMounted}>
