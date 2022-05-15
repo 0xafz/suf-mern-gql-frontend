@@ -24,40 +24,6 @@ export const Button = styled.button(() => [
   buttonDisableStyles,
 ])
 
-export const ButtonGroupItem = styled.button(
-  ({ active }: { active: boolean }) => [
-    baseButtonStyles,
-    tw`rounded-none`,
-    active
-      ? tw`bg-black-75 text-gray-800 z-40`
-      : tw`bg-white hover:bg-black-25 text-gray-700 `,
-  ]
-)
-
-export const ButtonGroup = styled.div(() => [
-  css`
-    border-width: 1px;
-    ${tw`rounded-sm md:rounded-md border-solid border-gray-600 sm:flex-none flex flex-auto`}
-    button {
-      flex: inherit;
-      border-radius: unset;
-    }
-    > button + button {
-      border-left-width: 1px;
-      ${tw` border-l-gray-600`}
-    }
-    button:last-child {
-      border-top-right-radius: inherit;
-      border-bottom-right-radius: inherit;
-    }
-    button:first-child {
-      border-top-left-radius: inherit;
-      border-bottom-left-radius: inherit;
-    }
-  `,
-  tw`text-sm md:text-base w-full sm:w-auto`,
-])
-
 export const StyledAnchor = styled.a`
   text-decoration: none;
   ${tw`text-blue-600 hover:text-blue-800`}
@@ -71,3 +37,34 @@ export const AnchorLikeButton = styled.button`
   text-decoration: none;
   ${tw`bg-transparent border-0 text-blue-600 hover:text-blue-800`}
 `
+
+export const TabGroup = styled.div(() => [
+  css`
+    border-width: 1px;
+    ${tw`rounded-sm md:rounded-md border-solid border-gray-600 sm:flex-none flex flex-auto`}
+    a {
+      flex: inherit;
+      border-radius: unset;
+    }
+    > a + a {
+      border-left-width: 1px;
+      ${tw` border-l-gray-600`}
+    }
+    a:last-child {
+      border-top-right-radius: inherit;
+      border-bottom-right-radius: inherit;
+    }
+    a:first-child {
+      border-top-left-radius: inherit;
+      border-bottom-left-radius: inherit;
+    }
+  `,
+  tw`text-sm md:text-base w-full sm:w-auto`,
+])
+export const TabGroupItem = styled.a(({ active }: { active?: boolean }) => [
+  baseButtonStyles,
+  tw`rounded-none`,
+  active
+    ? tw`bg-black-75 text-gray-800 z-40`
+    : tw`bg-white hover:bg-black-25 text-gray-700 `,
+])
