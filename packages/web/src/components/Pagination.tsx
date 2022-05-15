@@ -120,6 +120,7 @@ const Pagination = (props: PaginationProps) => {
         return (
           <PaginationListItem
             className={pageNumber === currentPage ? 'selected' : ''}
+            key={pageNumber}
             // onClick={() => onPageChange(pageNumber)}
           >
             <Link href={`/?tab=${tab}?page=${pageNumber}`}>{pageNumber}</Link>
