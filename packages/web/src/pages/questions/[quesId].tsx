@@ -15,6 +15,7 @@ import RightSidePanel from '~~/components/Layout/RightSidePanel/dynamic'
 import { useRouter } from 'next/router'
 import getMainLayout from '~~/components/Layout/getMainLayout'
 import Link from 'next/link'
+import SEO from '~~/components/SEO'
 
 const QuestionHeader = tw.div``
 
@@ -56,6 +57,7 @@ const QuestionPageMain = () => {
 
   return (
     <Container>
+      <SEO title={title} description={question.body.slice(100)} />
       <QuestionHeader>
         <div tw="flex sm:(justify-between items-center) flex-nowrap flex-col sm:flex-row ">
           <h1 tw="m-0 mb-1 font-normal text-[22px] md:text-2xl word-wrap[break-word]">

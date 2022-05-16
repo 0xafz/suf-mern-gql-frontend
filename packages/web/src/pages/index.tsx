@@ -20,6 +20,9 @@ import { GetServerSidePropsContext } from 'next'
 import { fetchGraphql } from '~~/lib/server/fetch'
 import { getGqlString } from '~~/utils/graphql'
 import Pagination from '~~/components/Pagination'
+import SEO from '~~/components/SEO'
+import { backendUrl } from '~~/constants'
+import { getPageTitleBasedOnSortBy, isValidTab } from '~~/utils'
 
 const QuestionListContainer = styled.div`
   ${tw`relative w-full mx-1 mt-6 sm:mx-3 `}
@@ -31,23 +34,12 @@ const QuestionListHeader = styled.div`
 
 const QuestionListBody = tw.div`min-height[80vh]`
 
-const getNotFoundString = (search: string, tag: string) => {
-  if (search && tag) {
-    return `No matches found in "${tag}" for search term: "${search}".`
-  } else if (search) {
-    return 'No questions found.'
-  } else if (tag) {
-    return `There are no questions tagged "${tag}".`
-  } else return 'No questions found.'
-}
-
 interface HomeMainProps {
   data: FetchQuestionsQuery['getQuestions']
-  sortBy: QuestionSortBy
 }
-export const HomeMain = ({ data, sortBy }: HomeMainProps) => {
+export const HomeMain = ({ data }: HomeMainProps) => {
   const { user } = useAuthContext()
-  const { totalCount, currentPage, pageSize } = data
+  const { totalCount, currentPage, pageSize, sortBy } = data
 
   return (
     <QuestionListContainer>
@@ -64,8 +56,7 @@ export const HomeMain = ({ data, sortBy }: HomeMainProps) => {
       <SortQuesBar sortBy={sortBy} />
       <Divider />
       <QuestionListBody>
-        {data &&
-          data.questions.length !== 0 &&
+        {data?.questions &&
           data.questions.map((q) => (
             <QuestionCard key={q?._id} question={q as Question} />
           ))}
@@ -81,38 +72,34 @@ export const HomeMain = ({ data, sortBy }: HomeMainProps) => {
 }
 interface HomeProps {
   data: FetchQuestionsQuery['getQuestions']
-  sortBy: QuestionSortBy
 }
 
-export default function Home({ data, sortBy }: HomeProps) {
+export default function Home({ data }: HomeProps) {
+  const { sortBy } = data
   return (
     <>
-      <HomeMain data={data} sortBy={sortBy} />
+      <SEO
+        title={getPageTitleBasedOnSortBy(sortBy)}
+        path={`${backendUrl}/${sortBy ? `?tab=${sortBy}` : ''}`}
+      />
+      <HomeMain data={data} />
       <RightSidePanel />
     </>
   )
 }
 Home.getLayout = getMainLayout
 
-const validTabs = [
-  QuestionSortBy.Newest,
-  QuestionSortBy.Oldest,
-  QuestionSortBy.Votes,
-  QuestionSortBy.Views,
-  QuestionSortBy.Hot,
-] as string[]
-const isValidTab = (tab: string) => {
-  return validTabs.includes(tab)
-}
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const queryString = getGqlString(FetchQuestionsDocument)
   if (!queryString) {
     return {
-      props: {},
+      props: {
+        data: {},
+      },
     }
   }
   const sortBy = (
-    isValidTab(query.tab as string) ? query.tab : validTabs[0]
+    isValidTab(query.tab as string) ? query.tab : QuestionSortBy.Newest
   ) as QuestionSortBy
   const page = Number(query.page) || 1
   try {
@@ -128,15 +115,12 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
     return {
       props: {
         data: data.getQuestions,
-        sortBy,
       }, // will be passed to the page component as props
     }
   } catch (err) {
     return {
       props: {
-        data: {
-          sortBy,
-        },
+        data: {},
       },
     }
   }

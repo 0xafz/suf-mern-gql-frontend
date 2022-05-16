@@ -20,6 +20,9 @@ import { GetServerSidePropsContext } from 'next'
 import { fetchGraphql } from '~~/lib/server/fetch'
 import { getGqlString } from '~~/utils/graphql'
 import Pagination from '~~/components/Pagination'
+import SEO from '~~/components/SEO'
+import { getPageTitleBasedOnSortBy } from '~~/utils'
+import { backendUrl } from '~~/constants'
 
 const QuestionListContainer = styled.div`
   ${tw`relative w-full mx-1 mt-6 sm:mx-3 `}
@@ -92,6 +95,10 @@ interface HomeProps {
 export default function Home({ data }: HomeProps) {
   return (
     <>
+      <SEO
+        title={getPageTitleBasedOnSortBy(data.sortBy)}
+        path={`${backendUrl}/questions/tagged/${data.tag}`}
+      />
       <HomeMain data={data} />
       <RightSidePanel />
     </>

@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import getMainLayout from '~~/components/Layout/getMainLayout'
 import Image from 'next/image'
+import SEO from '~~/components/SEO'
 
 const UserInfo = styled.div`
   ${tw`flex gap-10 color[inherit] items-center`}
@@ -67,6 +68,7 @@ const UserPageMain = () => {
 
   return (
     <UserCard>
+      <SEO title={`User ${userName} - Stack Underflow`} />
       <UserAvatar>
         <Image
           src={`https://secure.gravatar.com/avatar/${_id}?s=164&d=identicon`}

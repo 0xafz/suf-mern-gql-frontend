@@ -1,8 +1,8 @@
 export default {
-  title: `QAns App`,
+  title: `Stack Underflow`,
   shortName: `Afroz`,
   subtitle: `Web Developer`,
-  description: `This is demo app which demostrates stackoverflow like SSR website.`,
+  description: `Stack Underflow | An Online Community for Developers`,
   author: `Afroz Mohammad`,
   userName: `afroz_0000`, //default for all
   twitterUserName: `afroz_0000`,

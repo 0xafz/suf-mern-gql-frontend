@@ -20,6 +20,7 @@ import getMainLayout from '~~/components/Layout/getMainLayout'
 import { useRouter } from 'next/router'
 import { useAuthContext } from '~~/context/auth'
 import Link from 'next/link'
+import SEO from '~~/components/SEO'
 
 interface BaseQuestionArgs {
   title: string
@@ -119,6 +120,7 @@ const AskQuestionMain = () => {
   }, [user, router])
   return (
     <Container>
+      <SEO title="Ask Question - Stack Underflow" />
       <Link
         href={
           editingQuestion?.quesId ? `/questions/${editingQuestion.quesId}` : '/'

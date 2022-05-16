@@ -10,6 +10,7 @@ import { useAppContext } from '~~/context/state'
 import { useFetchAllTagsQuery } from '~~/generated/graphql'
 import { getErrorMsg } from '~~/utils/helperFuncs'
 import getMainLayout from '~~/components/Layout/getMainLayout'
+import SEO from '~~/components/SEO'
 
 const Tags = styled.div(() => [tw`flex mt-4 flex-wrap`])
 
@@ -32,6 +33,7 @@ const AllTagsMain = () => {
 
   return (
     <Container>
+      <SEO title="All Tags - Stack Underflow" />
       <h2 tw="text-xl   font-normal my-2">Tags</h2>
       <p tw="leading-5 text-gray-700 mb-4">
         A tag is a keyword or label that categorizes your question with other,

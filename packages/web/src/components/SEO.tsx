@@ -6,7 +6,6 @@ type SEOProps = {
   description?: string
   path?: string
   image?: string
-  preconnectGitApi?: boolean
   imageOwnerProfile?: string
 }
 
@@ -30,9 +29,6 @@ const SEO: React.FC<SEOProps> = (props) => {
     <Head>
       <title>{title}</title>
       <link rel="canonical" href={url} />
-      {props.preconnectGitApi && (
-        <link rel="preconnect" href="https://api.github.com"></link>
-      )}
       <meta name="description" content={description} />
       {image && <meta name="image" content={image} />}
 

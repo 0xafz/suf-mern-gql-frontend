@@ -13,6 +13,7 @@ import { useFetchAllUsersQuery } from '../generated/graphql'
 import { Container } from '~~/components/Layout'
 import getMainLayout from '~~/components/Layout/getMainLayout'
 import Link from 'next/link'
+import SEO from '~~/components/SEO'
 
 const UsersPageMain = () => {
   const { notify } = useAppContext()
@@ -26,6 +27,7 @@ const UsersPageMain = () => {
 
   return (
     <Container>
+      <SEO title="All Users - Stack Underflow" />
       <h2 tw="text-xl my-2  font-normal">Users</h2>
       <TextField
         tag="input"
