@@ -74,7 +74,7 @@ export const getPageTitleBasedOnSortBy = (sortBy: QuestionSortBy) => {
       title += 'All'
       break
   }
-  return title + 'Questions'
+  return title + ' Questions'
 }
 
 const validTabs = [
