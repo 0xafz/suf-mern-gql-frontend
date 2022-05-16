@@ -58,6 +58,7 @@ const LoginForm = ({ setAuthType, closeModal }: LoginFormProps) => {
 
   return (
     <div tw="px-3 py-2">
+      {/* eslint-disable-next-line  @next/next/no-img-element */}
       <img
         src={'/stack-overflow.svg'}
         alt="sof-logo"

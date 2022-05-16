@@ -64,6 +64,7 @@ const NavBar = () => {
               <SmScreenTopLeft>
                 {isMobile && <NavMenuMobile />}
                 <Link href="/" tw="px-2 mb-1">
+                  {/* eslint-disable-next-line  @next/next/no-img-element */}
                   <img
                     src={'/stack-overflow.svg'}
                     width="25px"
@@ -75,6 +76,7 @@ const NavBar = () => {
               <MdScreenTopLeft>
                 <Link href="/" passHref>
                   <a tw="mr-1 flex items-center">
+                    {/* eslint-disable-next-line  @next/next/no-img-element */}
                     <img
                       src={'/stack-overflow.svg'}
                       width="28px"
