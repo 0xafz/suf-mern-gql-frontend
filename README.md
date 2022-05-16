@@ -7,7 +7,7 @@
 1. Move to [Server side rendering](https://www.patterns.dev/posts/server-side-rendering/) for Performance,SEO, social sharing.
 2. Add Dark Mode.
 
-**Update 1:** Replace `material-ui` with `twin.macro` just to practice react, CSS and make reusable components. It's hard to get it all correct (flexibility, performance etc)
+**Update 1:** Replace `material-ui` with `twin.macro` just to practice react, CSS and make reusable components. It's hard to get it all(flexibility, performance) correct. 
 
 **Update 2:** Migrated Server codebase to **Typescript** using `type-graphql`, `typegoose`.
 
@@ -17,13 +17,16 @@
 
 **Update 5: (29/10/2021)** Replaced constant growing arrays with mongoose virtuals.
 
-**Update 6: (03/05/2022)** Make code clean, and move to Poly repo structure (Monorepo is so good,but it need a good build system, I'm not using Nx,Turborepo, Bazel).
+**Update 6: (03/05/2022)** Make code clean, and move to Poly repo structure (Monorepo is *Awesome*,but it needs a good build system, I'm not using Nx,Turborepo, Bazel).
+
+**Update 7: (15/05/2022)** Moved to Server side rendering, improved SEO.
+
 
 ## Usage
 
 #### web:
 
-Be sure to check `.packages/web/env.example` & add variables to `.env` file.
+Be sure to check `.packages/web/env.example` & add necessary variables to `.env` file.
 
 ```
 pnpm install
