@@ -46,7 +46,8 @@ export const usernameValidation = {
 } as RegisterOptions
 
 export const range = (start: number, end: number) => {
-  return Array(end - start)
+  const len = Math.max(end - start, 0)
+  return Array(len)
     .fill(null)
     .map((_, i) => start + i)
 }

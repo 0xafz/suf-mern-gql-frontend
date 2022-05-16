@@ -59,7 +59,7 @@ const QuestionCard = ({ question }: QuesCardProps) => {
                 tag="a"
                 key={t}
                 // `/` is needed because only `pages/index` handles these query param changes
-                href={`/?tag=${t}`}
+                href={`/questions/tagged/${t}`}
                 styles={{ link: tw`margin[0 .25em .25em]` }}
                 label={t}
               />

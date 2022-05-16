@@ -33,7 +33,7 @@ const __RightSidePanel = () => {
                 label={t.name}
                 key={t._id}
                 // `/` is needed because only `pages/index` handles these query param changes
-                href={`/?tag=${t.name}`}
+                href={`/questions/tagged/${t.name}`}
                 count={t?.questionCount}
               />
             ))}

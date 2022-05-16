@@ -188,6 +188,9 @@ export type PaginatedQuesList = {
   totalCount: Scalars['Float'];
   currentPage: Scalars['Float'];
   pageSize: Scalars['Float'];
+  tag?: Maybe<Scalars['String']>;
+  sortBy: QuestionSortBy;
+  search?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -437,7 +440,7 @@ export type FetchQuestionsQueryVariables = Exact<{
 }>;
 
 
-export type FetchQuestionsQuery = { __typename?: 'Query', getQuestions: { __typename?: 'PaginatedQuesList', totalCount: number, currentPage: number, pageSize: number, questions: Array<{ __typename?: 'Question', _id: string, title: string, body: string, tags: Array<string>, points: number, views: number, createdAt: any, updatedAt: any, answerCount: number, author: { __typename?: 'Author', _id: string, username: string } } | null> } };
+export type FetchQuestionsQuery = { __typename?: 'Query', getQuestions: { __typename?: 'PaginatedQuesList', totalCount: number, currentPage: number, pageSize: number, search?: string | null, tag?: string | null, sortBy: QuestionSortBy, questions: Array<{ __typename?: 'Question', _id: string, title: string, body: string, tags: Array<string>, points: number, views: number, createdAt: any, updatedAt: any, answerCount: number, author: { __typename?: 'Author', _id: string, username: string } } | null> } };
 
 export type FetchQuestionQueryVariables = Exact<{
   quesId: Scalars['ID'];
@@ -1041,6 +1044,9 @@ export const FetchQuestionsDocument = gql`
     totalCount
     currentPage
     pageSize
+    search
+    tag
+    sortBy
     questions {
       _id
       author {

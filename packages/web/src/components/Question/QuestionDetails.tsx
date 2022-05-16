@@ -123,7 +123,7 @@ function QuestionDetails({ data }: QuestionDetailsProps) {
                 <Tag
                   tag="a"
                   label={t}
-                  href={`/tags/${t}`}
+                  href={`/questions/tagged/${t}`}
                   styles={{ link: tw`margin[0 .25em .25em]` }}
                 />
               </li>

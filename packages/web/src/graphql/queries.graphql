@@ -15,6 +15,9 @@ query fetchQuestions(
     totalCount
     currentPage
     pageSize
+    search
+    tag
+    sortBy
     questions {
       _id
       author {
