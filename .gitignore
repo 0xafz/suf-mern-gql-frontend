@@ -28,3 +28,4 @@ dist/
 npm-debug.log*
 
 .vscode
+.vercel
