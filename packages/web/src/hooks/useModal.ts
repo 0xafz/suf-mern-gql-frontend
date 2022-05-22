@@ -42,9 +42,17 @@ const useModal = <RefType extends HTMLElement>({
   let _focusFirst = focusFirst ? getDOMRef(focusFirst) : null
   let _focusAfterClosed = focusAfterClosed ? getDOMRef(focusAfterClosed) : null
 
-  // handle escape, outside clicks
+  /**
+   * click = mousedown + mouseup, focus fires on successful mousedown(verify this), 
+   * set this true to prevent `focus` is getting fired on mousedown
+   */
+  let avoidFocusOnMouseDown = false
   useEffect(() => {
-    function handleOutsideClick(e: MouseEvent) {
+    function handleMouseDown(e: MouseEvent) {
+
+      avoidFocusOnMouseDown = true
+
+      // handle outside clicks
       if (!ref.current) {
         return
       }
@@ -54,35 +62,41 @@ const useModal = <RefType extends HTMLElement>({
       }
     }
 
-    function handleKeyPress(e: KeyboardEvent) {
+    function handleKeyUp(e: KeyboardEvent) {
+      //  handle `Escape` keypress
       if (e.key === 'Escape') {
         onClose()
         if (_focusAfterClosed) _focusAfterClosed.focus()
       }
     }
-    document.body.addEventListener('keyup', handleKeyPress)
-    document.body.addEventListener('click', handleOutsideClick, {
-      capture: true,
-    })
-
+    function handleMouseUp(e: MouseEvent) {
+      // reset variable setup during `mousedown`
+      avoidFocusOnMouseDown = false
+    }
+    document.body.addEventListener('keyup', handleKeyUp)
+    document.body.addEventListener('mousedown', handleMouseDown)
+    document.body.addEventListener('mouseup', handleMouseUp)
+    
     return () => {
-      document.body.removeEventListener('click', handleOutsideClick, {
-        capture: true,
-      })
-      document.body.removeEventListener('keyup', handleKeyPress)
+      document.body.removeEventListener('mousedown', handleMouseDown)
+      document.body.addEventListener('mouseup', handleMouseUp)
+      document.body.removeEventListener('keyup', handleKeyUp)
     }
   }, [onClose, _focusAfterClosed])
 
-  // handle close/open, focus change
   useEffect(() => {
     const isFocusable = (element: HTMLElement): element is HTMLElement => {
       return typeof element.focus === 'function'
     }
 
-    // `focus` event can be triggered by keyboard(user input),javascript
-    // we want to run some operations only when focus is triggered by keyboard
+    /**
+     * When `attempFocus` moves focus around, set this true so the focus listener can ignore the events.
+     */
     let ignoreUntilFocusChanges = false
     const attempFocus = (element: HTMLElement) => {
+      /**
+       * Manually focus the given element using `HTMLElement.focus` method while avoiding invoking `focus` listeners again.
+       */
       if (!isFocusable(element)) {
         return false
       }
@@ -97,6 +111,10 @@ const useModal = <RefType extends HTMLElement>({
       return document.activeElement === element
     }
     const focusFirstDescendant = (element: HTMLElement) => {
+      /**
+       * Iterate over an element's children recursively and focus the first `focusable` element and
+       * return true if focused otherwise false.
+       */
       for (var i = 0; i < element.childNodes.length; i++) {
         var child = element.childNodes[i]
 
@@ -110,6 +128,10 @@ const useModal = <RefType extends HTMLElement>({
       return false
     }
     const focusLastDescendant = (element: HTMLElement) => {
+      /**
+       * Iterate over an element's children recursively and focus the last `focusable` element and
+       * return true if focused otherwise false.
+       */
       for (var i = element.childNodes.length - 1; i >= 0; i--) {
         var child = element.childNodes[i]
         if (
@@ -131,6 +153,7 @@ const useModal = <RefType extends HTMLElement>({
 
     let lastFocused: any
     const trapFocus = (e: FocusEvent) => {
+      if (avoidFocusOnMouseDown) return
       if (ignoreUntilFocusChanges) {
         return
       }
@@ -144,9 +167,11 @@ const useModal = <RefType extends HTMLElement>({
       } else {
         focusFirstDescendant(ref.current)
 
-        // case: user clicks Shift + Tab when activeElement is first focusable descendant inside dialog,
-        //       `focusFirstDescendant` will focus again first focusable element and cycle goes on as user repeats Shift+ Tab
-        //        To avoid that, if `lastFocused` is current `activeElement`, we will try focusing last focusable descendants
+        /**
+         * EdgeCase: user clicks Shift + Tab when activeElement is first focusable descendant inside dialog,
+         * `focusFirstDescendant` will focus again first focusable element and cycle goes on as user repeats Shift+ Tab
+         * To avoid that, if `lastFocused` is current `activeElement`(focused element after `focusFirstDescendant`), we will try focusing last focusable descendants
+         */
         if (lastFocused === document.activeElement) {
           focusLastDescendant(ref.current)
         }
