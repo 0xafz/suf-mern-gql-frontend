@@ -3,9 +3,7 @@
 > Here's [backend repo](https://github.com/zkindest/suf-mern-gql-backend)
 
 **TODO:**
-
-1. Move to [Server side rendering](https://www.patterns.dev/posts/server-side-rendering/) for Performance,SEO, social sharing.
-2. Add Dark Mode.
+1. Add Dark Mode.
 
 **Update 1:** Replace `material-ui` with `twin.macro` just to practice react, CSS and make reusable components. It's hard to get it all(flexibility, performance) correct. 
 
