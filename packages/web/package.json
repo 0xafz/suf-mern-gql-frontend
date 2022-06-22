@@ -10,7 +10,7 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.2",
+    "@apollo/client": "3.6.9",
     "date-fns": "^2.16.1",
     "graphql": "^15",
     "next": "12.1.6",
