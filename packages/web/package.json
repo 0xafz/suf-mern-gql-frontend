@@ -28,7 +28,7 @@
     "@graphql-codegen/typescript-operations": "^2.3.5",
     "@graphql-codegen/typescript-react-apollo": "^3.2.11",
     "@tailwindcss/typography": "^0.4.1",
-    "@types/node": "^16.10.3",
+    "@types/node": "^18.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/styled-components": "^5.1.15",
