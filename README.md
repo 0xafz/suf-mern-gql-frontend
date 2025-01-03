@@ -15,9 +15,17 @@
 
 **Update 5: (29/10/2021)** Replaced constant growing arrays with mongoose virtuals.
 
-**Update 6: (03/05/2022)** Make code clean, and move to Poly repo structure (Monorepo is *Awesome*,but it needs a good build system, I'm not using Nx,Turborepo, Bazel).
+**Update 6: (03/05/2022)** 
+- Replace `npm` with `pnpm`
+- Replace `create-react-app` with `vite`  
+- Improve code, and move to Poly repo structure (Monorepo is *Awesome*,but it needs a good build system, I'm not using Nx,Turborepo, Bazel).
 
-**Update 7: (15/05/2022)** Moved to Server side rendering, improved SEO.
+**Update 7: (10/05/2022-15/05/2022)** 
+- Improve code
+- Used Graphl code generation
+- Upgraded to `apollo-client@3.6` for react 18 compatibility
+- Moved to Server side rendering, improved SEO.
+- Removed `yup` and used `react-hook-form` built-in validators
 
 
 ## Usage
