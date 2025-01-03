@@ -1,5 +1,5 @@
 {
-  "name": "ssr",
+  "name": "@suf-frontend/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
