@@ -1,31 +1,8 @@
 # Stack Underflow | Frontend
 
-> Here's [backend repo](https://github.com/af4oz/suf-mern-gql-backend)
+This repository contains front-end(next@12,@apollo/client, etc) code, Here's the [backend repo](https://github.com/af4oz/suf-mern-gql-backend).
 
-**TODO:**
-
-1. Add Dark Mode.
-
-**Update 1:** Replace `material-ui` with `twin.macro` just to practice react, CSS and make reusable components. It's hard to get it all(flexibility, performance) correct.
-
-**Update 2:** Migrated Client codebase to **Typescript** using `graphql`, `@graphql-codegen` 💚 ,`definitelyTyped` libs.
-
-**Update 3: (03/05/2022)**
-
-- Replace `npm` with `pnpm`
-- Replace `create-react-app` with `vite`
-- Improve code, and move to Poly repo structure (Monorepo is _Awesome_,but it needs a good build system, I'm not using Nx,Turborepo, Bazel).
-
-**Update 4: (10/05/2022-15/05/2022)**
-
-- Improve code
-- Used Graphl code generation
-- Upgraded to `apollo-client@3.6` for react 18 compatibility
-- Moved to Server side rendering, improved SEO.
-- Removed `yup` and used `react-hook-form` built-in validators
-- Replace `vite` with `next.js`
-
-## Usage
+## How to run this program?
 
 #### web:
 
@@ -56,5 +33,28 @@ devDependencies:
 @tailwindcss/typography 0.4.1                    babel-plugin-inline-react-svg 2.0.1              twin.macro 2.8.2
 @types/node 16.10.3                              babel-plugin-macros 3.1.0                        typescript 4.7.3
 ```
+
+**TODO:**
+
+1. Add Dark Mode.
+
+**Update 1:** Replace `material-ui` with `twin.macro` just to practice react, CSS and make reusable components. It's hard to get it all(flexibility, performance) correct.
+
+**Update 2:** Migrated Client codebase to **Typescript** using `graphql`, `@graphql-codegen` 💚 ,`definitelyTyped` libs.
+
+**Update 3: (03/05/2022)**
+
+- Replace `npm` with `pnpm`
+- Replace `create-react-app` with `vite`
+- Improve code, and move to Poly repo structure (Monorepo is _Awesome_,but it needs a good build system, I'm not using Nx,Turborepo, Bazel).
+
+**Update 4: (10/05/2022-15/05/2022)**
+
+- Improve code
+- Used Graphl code generation
+- Upgraded to `apollo-client@3.6` for react 18 compatibility
+- Moved to Server side rendering, improved SEO.
+- Removed `yup` and used `react-hook-form` built-in validators
+- Replace `vite` with `next.js`
 
 For more information check this [file](./open-source.json).
